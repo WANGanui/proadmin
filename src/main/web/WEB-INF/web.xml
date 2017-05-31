@@ -13,7 +13,6 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <!--
     <context-param>
         <param-name>log4jConfigLocation</param-name>
         <param-value>classpath:log4j/dev/log4j.properties</param-value>
@@ -21,7 +20,6 @@
     <listener>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
-     -->
 
     <servlet>
         <servlet-name>SpringMVC</servlet-name>
@@ -67,7 +65,7 @@
 
     <filter>
         <filter-name>EscapeFilter</filter-name>
-        <filter-class>com.qpm.filter.RequestEscapeFilter</filter-class>
+        <filter-class>com.hrg.filter.RequestEscapeFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>EscapeFilter</filter-name>
