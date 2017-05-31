@@ -18,8 +18,7 @@
 	<context:component-scan base-package="com.hrg" />
 	
 	<context:annotation-config/>
-	
-	
+
 	<aop:aspectj-autoproxy />
 	
 	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig" />    
@@ -31,7 +30,6 @@
 		<property name="password" value="${redis.password}"></property>
 	</bean>
 	
- 
  	<!-- 配置spring session redis -->
 	
 	<bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
