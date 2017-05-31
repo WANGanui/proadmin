@@ -36,7 +36,7 @@ public class PermissionAuthorizationFilter extends PermissionsAuthorizationFilte
 		if (subject.getPrincipal() == null) {  
 			if ("XMLHttpRequest".equalsIgnoreCase(httpServletRequest.getHeader("X-Requested-With"))) { 
 				log.info("================员工身份过期，需重新登录==============");
-				out.println("{\"success\":false,\"message\":\"请重新登录\",\"code\":\"00011\"}");
+				out.println("{\"success\":false,\"message\":\"请重新登录\",\"code\":\"00010\"}");
 				out.flush();
 				out.close();
             } else {  
@@ -45,14 +45,14 @@ public class PermissionAuthorizationFilter extends PermissionsAuthorizationFilte
         } else {  
             if ("XMLHttpRequest".equalsIgnoreCase(httpServletRequest.getHeader("X-Requested-With"))) { 
             	log.info("================员工没有此权限====================");
-            	out.println("{\"success\":false,\"message\":\"你没有权限\",\"code\":\"00016\"}");
+            	out.println("{\"success\":false,\"message\":\"你没有权限\",\"code\":\"00013\"}");
 				out.flush();
 				out.close();  
             } else {  
                 String unauthorizedUrl = getUnauthorizedUrl();
                 if (StringUtils.hasText(unauthorizedUrl)) {  
                 	log.info("================员工没有此权限====================");
-                	out.println("{\"success\":false,\"message\":\"你没有权限\",\"code\":\"00016\"}");
+                	out.println("{\"success\":false,\"message\":\"你没有权限\",\"code\":\"00013\"}");
     				out.flush();
     				out.close();  
                 } else {  
