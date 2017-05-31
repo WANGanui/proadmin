@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop.xsd 
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 最重要:::如果放在spring-context.xml中，这里的aop设置将不会生效 -->
+
+	  <aop:aspectj-autoproxy proxy-target-class="true" /> 
+	<!-- 启用MVC注解 -->
+	<!-- <mvc:annotation-driven> <mvc:message-converters register-defaults="true"> 
+		<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> 
+		<property name="supportedMediaTypes"> <list> <value>application/json</value> 
+		<value>text/json</value> <value>text/html;charset=UTF-8</value> </list> </property> 
+		</bean> </mvc:message-converters> </mvc:annotation-driven> -->
+
+	<mvc:annotation-driven></mvc:annotation-driven>
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+				<value>application/json</value> 
+				<value>text/json</value>
+			</list>
+		</property>
+	</bean>
+
+
+
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<!--json转换器 -->
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- 指定Sping组件扫描的基本包路径 -->
+	<context:component-scan base-package="com.hrg.model.*"></context:component-scan>
+	
+
+	<!-- 开启aop，对类代理 -->
+	<!-- <aop:config proxy-target-class="true"></aop:config> -->
+
+	<!-- 开启shiro注解支持 -->
+	<!-- <bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean> -->
+
+	<!-- 开启shiro无权限异常映射 -->
+  <!--  <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		 <property name="exceptionMappings">
+			<props>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">/worker/unauthorized</prop>
+			</props>
+		</property> 
+		
+	</bean>     -->
+	
+</beans>
