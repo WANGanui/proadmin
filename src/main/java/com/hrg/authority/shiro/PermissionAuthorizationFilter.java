@@ -32,21 +32,21 @@ public class PermissionAuthorizationFilter extends PermissionsAuthorizationFilte
 		httpServletResponse.setContentType("application/json");
 		PrintWriter out = httpServletResponse.getWriter();
 		// If the subject isn't identified, redirect to login URL
-		if (subject.getPrincipal() == null) {  
+		if (subject.getPrincipal() == null) {
 			if ("XMLHttpRequest".equalsIgnoreCase(httpServletRequest.getHeader("X-Requested-With"))) { 
 				log.info("================员工身份过期，需重新登录==============");
 				out.println("{\"success\":false,\"message\":\"请重新登录\",\"code\":\"00010\"}");
 				out.flush();
 				out.close();
-            } else {  
-                saveRequestAndRedirectToLogin(request, response);  
-            }  
-        } else {  
+            } else {
+                saveRequestAndRedirectToLogin(request, response);
+            }
+        } else {
             if ("XMLHttpRequest".equalsIgnoreCase(httpServletRequest.getHeader("X-Requested-With"))) { 
             	log.info("================员工没有此权限====================");
             	out.println("{\"success\":false,\"message\":\"你没有权限\",\"code\":\"00013\"}");
 				out.flush();
-				out.close();  
+				out.close();
             } else {  
                 String unauthorizedUrl = getUnauthorizedUrl();
                 if (StringUtils.hasText(unauthorizedUrl)) {  
