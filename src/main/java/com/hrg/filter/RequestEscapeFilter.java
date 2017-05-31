@@ -18,11 +18,7 @@ public class RequestEscapeFilter implements Filter{
 	 */
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		/**
-		 * @author 
-		 * @date 2016年12月10日 上午9:57:29
-		 * @param
-		*/
+
 	}
 
 	/**
