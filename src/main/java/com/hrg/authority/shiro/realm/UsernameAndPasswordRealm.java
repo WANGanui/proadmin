@@ -23,8 +23,6 @@ import java.util.Set;
 
 /**
  * 类说明：ShiroRealm扩展类 本类实现了根据用户名和密码完成用户认证及授权的方法 选择本类实现的认证方法只需要作为ShiroRealm的实例向SpringContext注册即可
- * 
- * @author 杨应铭 16-4-23 下午4:17 .
  */
 
 public class UsernameAndPasswordRealm extends AuthorizingRealm {
@@ -145,9 +143,7 @@ public class UsernameAndPasswordRealm extends AuthorizingRealm {
 		return simpleAuthenticationInfo;
 	}
 	/**
-	 * 
 	 * <span style="color: red; font-weight: 900">方法说明:清除权限缓存 </span>
-	 * @author x 2016年12月12日 上午10:56:09
 	 * @return: void
 	 */
 	public void clearCached(){
@@ -157,8 +153,6 @@ public class UsernameAndPasswordRealm extends AuthorizingRealm {
 		}
 
 	}
-
-
     public void setSessionWorker(String cooperationdataid){
         Subject sub = SecurityUtils.getSubject();
         Worker worker = (Worker) sub.getPrincipal();
