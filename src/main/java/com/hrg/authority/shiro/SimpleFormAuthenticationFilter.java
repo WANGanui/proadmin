@@ -33,7 +33,6 @@ public class SimpleFormAuthenticationFilter extends FormAuthenticationFilter {
 	protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-
 		if (!"XMLHttpRequest".equalsIgnoreCase(httpServletRequest.getHeader("X-Requested-With"))) {
 			// 不是ajax请求
 			log.info("=============非ajax请求方式=============");
@@ -107,20 +106,17 @@ public class SimpleFormAuthenticationFilter extends FormAuthenticationFilter {
                 if(log.isTraceEnabled()) {
                     log.trace("Login submission detected.  Attempting to execute login.");
                 }
-
                 return this.executeLogin(request, response);
             } else {
                 if(log.isTraceEnabled()) {
                     log.trace("Login page view.");
                 }
-
                 return true;
             }
         } else {
             if(log.isTraceEnabled()) {
                 log.trace("Attempting to access a path which requires authentication.  Forwarding to the Authentication url [" + this.getLoginUrl() + "]");
             }
-
             if ("XMLHttpRequest".equalsIgnoreCase(((HttpServletRequest) request).getHeader("X-Requested-With"))) {
             	response.setCharacterEncoding("UTF-8");
     			response.setContentType("application/json");
@@ -135,5 +131,4 @@ public class SimpleFormAuthenticationFilter extends FormAuthenticationFilter {
             return false;
         }
     }
-
 }

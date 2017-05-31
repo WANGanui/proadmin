@@ -65,7 +65,6 @@ public class PermissionAuthorizationFilter extends PermissionsAuthorizationFilte
 
 	@Override
 	 public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws IOException {
-		
 	        Subject subject = getSubject(request, response);
 	        String[] perms = (String[]) mappedValue;
 	        boolean isPermitted = true;
@@ -80,10 +79,6 @@ public class PermissionAuthorizationFilter extends PermissionsAuthorizationFilte
 	                }
 	            }
 	        }
-
 	        return isPermitted;
 	    }
-	
-	
-
 }
