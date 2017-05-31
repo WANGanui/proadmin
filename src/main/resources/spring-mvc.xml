@@ -36,13 +36,9 @@
 		</property>
 	</bean>
 
-
-
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
-	<bean
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
-	<bean
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="messageConverters">
 			<list>
 				<!--json转换器 -->
@@ -51,10 +47,8 @@
 		</property>
 	</bean>
 
-
 	<!-- 指定Sping组件扫描的基本包路径 -->
 	<context:component-scan base-package="com.hrg.model.*"></context:component-scan>
-	
 
 	<!-- 开启aop，对类代理 -->
 	<!-- <aop:config proxy-target-class="true"></aop:config> -->
@@ -74,5 +68,4 @@
 		</property> 
 		
 	</bean>     -->
-	
 </beans>
