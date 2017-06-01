@@ -1,6 +1,8 @@
 package com.hrg.authority.shiro.realm;
 
 import com.hrg.authority.redis.RedisManager;
+import com.hrg.model.Worker;
+import com.hrg.service.ShiroRealmService;
 import com.hrg.util.JsonUtil;
 //import com.hrg.api.service.CooperationService;
 //import com.qpm.api.service.ShiroRealmService;
@@ -41,9 +43,7 @@ public class UsernameAndPasswordRealm extends AuthorizingRealm {
 	private ShiroRealmService shiroRealmService;
 
 	private RedisManager redisManager;
-	
-	@Autowired
-	private CooperationService cooperationService;
+
 	/**
 	 * 方法说明：用于向用户授权
 	 * 
@@ -112,13 +112,6 @@ public class UsernameAndPasswordRealm extends AuthorizingRealm {
 				throw new UnknownAccountException();
 			}
 			worker = (Worker)principalObject;
-			//多账套处理
-			List<Cooperation> cooperations = cooperationService.selectByAccount(worker.getDataid());
-			if(worker.getCooperationdataid()==null||worker.getCooperationdataid().equals("")){
-				if(cooperations!=null&&cooperations.size()>0){
-					worker.setCooperationdataid(cooperations.get(0).getDataid());
-				}
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -153,14 +146,14 @@ public class UsernameAndPasswordRealm extends AuthorizingRealm {
 		}
 
 	}
-    public void setSessionWorker(String cooperationdataid){
+    /*public void setSessionWorker(String cooperationdataid){
         Subject sub = SecurityUtils.getSubject();
         Worker worker = (Worker) sub.getPrincipal();
         if(!ValidUtil.isNullOrEmpty(worker)&&!ValidUtil.isNullOrEmpty(cooperationdataid)){
             worker.setCooperationdataid(cooperationdataid);
         }
         sub.getSession().setAttribute("CURRENT_USER", worker);
-    }
+    }*/
 
     public Worker getSessionWorker(){
         return  (Worker)SecurityUtils.getSubject().getSession().getAttribute("CURRENT_USER");
