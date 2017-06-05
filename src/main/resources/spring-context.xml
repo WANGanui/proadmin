@@ -21,13 +21,16 @@
 
 	<aop:aspectj-autoproxy />
 	
-	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig" />    
-	
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig" >
+		<property name="maxIdle" value="100"/>
+	</bean>
+
 	<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"  p:pool-config-ref="poolConfig">
 		<property name="hostName" value="${redis.host}"></property>
 		<property name="port" value="${redis.port}"></property>
 		<property name="timeout" value="${redis.timeout}"></property>
 		<property name="password" value="${redis.password}"></property>
+
 	</bean>
 	
  	<!-- 配置spring session redis -->

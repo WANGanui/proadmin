@@ -63,7 +63,7 @@
 	<!--安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<!-- 集成上数据访问的Realm -->
-		<property name="realm" ref="shiroRealm" />
+		<!--<property name="realm" ref="shiroRealm" />-->
 
 		<!-- sessionManager -->
 		<property name="sessionManager" ref="sessionManager" />

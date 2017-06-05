@@ -6,7 +6,7 @@
 
     <groupId>hrg</groupId>
     <artifactId>proadmin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <properties>
         <project.version>1.0</project.version>
         <spring>4.2.5.RELEASE</spring>
@@ -133,7 +133,7 @@
         <dependency>
             <groupId>hrg</groupId>
             <artifactId>procommon</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
