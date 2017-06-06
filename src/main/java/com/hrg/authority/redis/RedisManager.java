@@ -54,11 +54,11 @@ private String host = "127.0.0.1";
 	 */
 	public byte[] get(byte[] key){
 		byte[] value = null;
-		Jedis jedis = jedisPool.getResource();
+		Jedis jedis = new JedisPool(new JedisPoolConfig(), host, port).getResource();
 		try{
 			value = jedis.get(key);
 		}finally{
-			jedisPool.returnResource(jedis);
+			jedis.close();
 		}
 		return value;
 	}
@@ -70,14 +70,14 @@ private String host = "127.0.0.1";
 	 * @return
 	 */
 	public byte[] set(byte[] key,byte[] value){
-		Jedis jedis = jedisPool.getResource();
+		Jedis jedis = new JedisPool(new JedisPoolConfig(), host, port).getResource();
 		try{
 			jedis.set(key,value);
 			if(this.expire != 0){
 				jedis.expire(key, this.expire);
 		 	}
 		}finally{
-			jedisPool.returnResource(jedis);
+			jedis.close();
 		}
 		return value;
 	}
@@ -90,14 +90,14 @@ private String host = "127.0.0.1";
 	 * @return
 	 */
 	public byte[] set(byte[] key,byte[] value,int expire){
-		Jedis jedis = jedisPool.getResource();
+		Jedis jedis = new JedisPool(new JedisPoolConfig(), host, port).getResource();
 		try{
 			jedis.set(key,value);
 			if(expire != 0){
 				jedis.expire(key, expire);
 		 	}
 		}finally{
-			jedisPool.returnResource(jedis);
+			jedis.close();
 		}
 		return value;
 	}
@@ -107,11 +107,11 @@ private String host = "127.0.0.1";
 	 * @param key
 	 */
 	public void del(byte[] key){
-		Jedis jedis = jedisPool.getResource();
+		Jedis jedis = new JedisPool(new JedisPoolConfig(), host, port).getResource();
 		try{
 			jedis.del(key);
 		}finally{
-			jedisPool.returnResource(jedis);
+			jedis.close();
 		}
 	}
 	
@@ -119,11 +119,11 @@ private String host = "127.0.0.1";
 	 * flush
 	 */
 	public void flushDB(){
-		Jedis jedis = jedisPool.getResource();
+		Jedis jedis = new JedisPool(new JedisPoolConfig(), host, port).getResource();
 		try{
 			jedis.flushDB();
 		}finally{
-			jedisPool.returnResource(jedis);
+			jedis.close();
 		}
 	}
 	
@@ -132,27 +132,26 @@ private String host = "127.0.0.1";
 	 */
 	public Long dbSize(){
 		Long dbSize = 0L;
-		Jedis jedis = jedisPool.getResource();
+		Jedis jedis = new JedisPool(new JedisPoolConfig(), host, port).getResource();
 		try{
 			dbSize = jedis.dbSize();
 		}finally{
-			jedisPool.returnResource(jedis);
+			jedis.close();
 		}
 		return dbSize;
 	}
 
 	/**
 	 * keys
-	 * @param regex
 	 * @return
 	 */
 	public Set<byte[]> keys(String pattern){
 		Set<byte[]> keys = null;
-		Jedis jedis = jedisPool.getResource();
+		Jedis jedis = new JedisPool(new JedisPoolConfig(), host, port).getResource();
 		try{
 			keys = jedis.keys(pattern.getBytes());
 		}finally{
-			jedisPool.returnResource(jedis);
+			jedis.close();
 		}
 		return keys;
 	}

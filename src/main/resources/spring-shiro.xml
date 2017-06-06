@@ -4,11 +4,16 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
+	<!--表单认证过滤器-->
+	<bean id="formAuthenticationFilter" class="com.hrg.authority.shiro.SimpleFormAuthenticationFilter">
+		<property name="usernameParam" value="account" />
+		<property name="passwordParam" value="password" />
+	</bean>
 	<!--shiro主过滤器的配置，这里的名字和web中的要对应 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- 集成上安全管理器 -->
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/worker/login" />
+		<property name="loginUrl" value="/worker/hellow" />
 		<property name="successUrl" value="/worker/success"/>
 		<property name="unauthorizedUrl" value="/worker/unauthorized" />
 		<property name="filters">
@@ -23,47 +28,21 @@
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
-				/worker/retrievePassword = anon
-				/worker/isLogin = anon
-				
-				 
-				<!-- 员工相关 -->
-				/worker/list = perm["worker:list"]
-				/worker/findDetail = perm["worker:update"]
-				/worker/update = perm["worker:update"]
-				/worker/batchUpdateState = perm["worker:update"]
-				/worker/updateState = perm["worker:update"]
-				/worker/regist = perm["worker:add"]
-				/warehouse/updateRoleName = perm["worker:rolePermission"]
-				/warehouse/selectPermissions = perm["worker:rolePermission"]
-				/warehouse/deleteRole = perm["worker:rolePermission"]
-				/warehouse/updatePermissions = perm["worker:rolePermission"]
-				/warehouse/addRole = perm["worker:rolePermission"]
-				<!-- 部门相关 -->
-				/department/list = perm["department:list"]
-				/department/update = perm["department:update"]
-				/department/selectDetail = perm["department:update"]
-				/department/batchUpdateState = perm["department:update"]
-				/department/updateState = perm["department:update"]
-				/department/insert = perm["department:add"]
-
-				
+				/jsp/login.jsp* = anon
+				/worker/hellow = anon
+				/worker/login = anon
 				<!-- 所有路径都需要认证 -->
-				/** = authc
 			</value>
 		</property>
 	</bean>
 
-	<!-- 表单认证过滤器 -->
-	<!-- <bean id="formAuthenticationFilter" class="com.qpm.SimpleFormAuthenticationFilter">
-		<property name="usernameParam" value="username" />
-		<property name="passwordParam" value="password" />
-	</bean> -->
+	<!-- 自定义ShiroRealm -->
+	<bean id="shiroRealm" class="com.hrg.authority.shiro.realm.UsernameAndPasswordRealm"></bean>
 
 	<!--安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<!-- 集成上数据访问的Realm -->
-		<!--<property name="realm" ref="shiroRealm" />-->
+		<property name="realm" ref="shiroRealm" />
 
 		<!-- sessionManager -->
 		<property name="sessionManager" ref="sessionManager" />
@@ -72,8 +51,7 @@
 		<property name="cacheManager" ref="shiroRedisCacheManager" />
 	</bean>
 
-	<!-- 自定义ShiroRealm -->
-	<bean id="shiroRealm" class="com.hrg.authority.shiro.realm.UsernameAndPasswordRealm"></bean>
+
 
 	<!-- sessionManager -->
 	<bean id="sessionManager"

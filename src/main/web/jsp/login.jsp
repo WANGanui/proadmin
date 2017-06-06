@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 82705
-  Date: 2017/6/5
-  Time: 15:22
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
@@ -23,7 +16,6 @@
     <link rel="stylesheet" href="<%=basePath%>css/messenger-theme-future.css" />
     <link rel="stylesheet" href="<%=basePath%>css/webpro.login.css" />
     <link rel="stylesheet" href="<%=basePath%>css/animate.css">
-
 
     <script src="<%=basePath%>js/jquery1.11.3.min.js"></script>
     <script src="<%=basePath%>js/bootstrap.min.js"></script>
@@ -50,10 +42,9 @@
                 }
 
                 var url =initData.validateLoginUrl;
-                console.warn("进来了",url);
                 $.post(url,{
-                    signName : $("#signName").val(),
-                    passWord : $("#tbxPwd").val()
+                    username : $("#account").val(),
+                    password : $("#password").val()
                 },function(data){
                     console.info("返回数据",data);
                     if(data.status == 200){
@@ -63,14 +54,6 @@
                     }
                 },"json");
             });
-
-            /*document.onkeydown = function (e) {
-             var ev = document.all ? window.event : e;
-             if (ev.keyCode == 13) {
-             $("#loginBtn").click();
-             }
-             }*/
-
         }
     </script>
 </head>
@@ -90,23 +73,16 @@
         <div class="form-group relative">
             <div class="input-group">
                 <span class="input-group-addon input_icon"><i class="fa fa-envelope"></i></span>
-                <input class="form-control input-lg typeahead-email" placeholder="账号" type="text" name="tbxName" id="signName"/>
+                <input class="form-control input-lg typeahead-email" placeholder="账号" type="text" name="account" id="account"/>
             </div>
             <span class="inputTips email_inputTips"></span>
         </div>
         <div class="form-group relative">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input class="form-control input-lg" placeholder="密码" type="password" id="tbxPwd" />
+                <input class="form-control input-lg" placeholder="密码" type="password" name="password" id="password" />
             </div>
             <span class="inputTips pwd_inputTips"></span>
-        </div>
-        <div class="form-group">
-            <!--<div class="checkbox">-->
-            <!--<label>-->
-            <!--<input type="checkbox"> 记住密码-->
-            <!--</label>-->
-            <!--</div>-->
         </div>
         <div class="form-group">
             <button class="button button-rounded button-royal" id="loginBtn">登录</button>
@@ -122,8 +98,8 @@
 
 <script>
     var initData={
-        validateLoginUrl:$.getRootPath()+"api/Login/verificationLogin.json",
-        gotoIndexUrl:$.getRootPath()+"api/Login/initIndex.html"
+        validateLoginUrl:$.getRootPath()+"login",
+        gotoIndexUrl:$.getRootPath()+"success"
     };
 
     //模拟验证用户信息

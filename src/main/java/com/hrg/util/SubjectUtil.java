@@ -5,8 +5,11 @@ package com.hrg.util;
 
 import com.hrg.exception.ValidatorException;
 //import com.hrg.model.Worker;
+import com.hrg.model.Worker;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 类说明:获取员工信息工具类
@@ -14,13 +17,14 @@ import org.apache.shiro.subject.Subject;
 public class SubjectUtil {
 	
 
-	/*public static String getAccout() throws Exception {
+	public static String getAccout(HttpServletRequest request) throws Exception {
 		Subject subject = SecurityUtils.getSubject();
 		 if(subject==null){
 			throw new ValidatorException("未登录"); 
 		 }
 		 Worker worker = (Worker)subject.getPrincipal();
-		 return worker.getAccount();
+		 String account = request.getParameter("username");
+		 return account;
 	}
 	public static String getName() throws Exception {
 		Subject subject = SecurityUtils.getSubject();
@@ -53,5 +57,5 @@ public class SubjectUtil {
 			 throw new ValidatorException("未登录"); 
 			 }
 		 return worker.getDepartment();
-	}*/
+	}
 }

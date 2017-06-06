@@ -104,12 +104,12 @@ public class SimpleFormAuthenticationFilter extends FormAuthenticationFilter {
         if(this.isLoginRequest(request, response)) {
             if(this.isLoginSubmission(request, response)) {
                 if(log.isTraceEnabled()) {
-                    log.trace("Login submission detected.  Attempting to execute login.");
+                    log.trace("LoginController submission detected.  Attempting to execute login.");
                 }
                 return this.executeLogin(request, response);
             } else {
                 if(log.isTraceEnabled()) {
-                    log.trace("Login page view.");
+                    log.trace("LoginController page view.");
                 }
                 return true;
             }
