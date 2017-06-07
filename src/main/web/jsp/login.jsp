@@ -32,27 +32,36 @@
             $("#loginBtn").click(function(){
                 Messenger().hideAll();
 
-                if ($("#tbxName").val() == "") {
+                if ($("#account").val() == "") {
                     Messenger().alertErr("请输入用户名！");
                     return ;
                 }
-                if ($("#tbxPwd").val() == "") {
+                if ($("#password").val() == "") {
                     Messenger().alertErr("请输入用户密码！");
                     return ;
                 }
 
                 var url =initData.validateLoginUrl;
-                $.post(url,{
+
+                var param = {
                     username : $("#account").val(),
                     password : $("#password").val()
-                },function(data){
-                    console.info("返回数据",data);
-                    if(data.status == 200){
-                        window.location.href=initData.gotoIndexUrl;
-                    }else{
-                        Messenger().alertErr(data.msg);
+                };
+
+                $.ajax({
+                    url:url,
+                    type:'POST',
+                    data:param,
+                    dataType:'json',
+                    success:function (data) {
+                        console.info("返回值",data);
+                        if (data.success == false){
+                            Messenger().alertErr(data.msg);
+                        }else {
+                            window.location.href=initData.gotoIndexUrl;
+                        }
                     }
-                },"json");
+                })
             });
         }
     </script>
@@ -73,7 +82,7 @@
         <div class="form-group relative">
             <div class="input-group">
                 <span class="input-group-addon input_icon"><i class="fa fa-envelope"></i></span>
-                <input class="form-control input-lg typeahead-email" placeholder="账号" type="text" name="account" id="account"/>
+                <input class="form-control input-lg typeahead-email" placeholder="账号" type="text" name="username" id="account"/>
             </div>
             <span class="inputTips email_inputTips"></span>
         </div>
@@ -101,14 +110,6 @@
         validateLoginUrl:$.getRootPath()+"login",
         gotoIndexUrl:$.getRootPath()+"success"
     };
-
-    //模拟验证用户信息
-    /*Mock.mock(initData.validateLoginUrl, {
-     'status|200':0,
-     'msg': '提交失败',
-     'data':null
-     });*/
-
     WebPro(initData);
 </script>
 </html>

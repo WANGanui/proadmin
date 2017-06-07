@@ -61,7 +61,7 @@ public class LoginController {
             }
         } else {
             try {
-                SubjectUtil.getAccout(request);
+                SubjectUtil.getAccout();
                 logger.error("=============你已经登录，若需登录其他账号，请先退出当前账号===========");
                 jr = ResultUtil.returnSuccess("你已经登录，若需登录其他账号，请先退出当前账号");
             } catch (Exception e) {

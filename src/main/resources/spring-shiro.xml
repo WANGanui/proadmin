@@ -4,11 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-	<!--表单认证过滤器-->
-	<bean id="formAuthenticationFilter" class="com.hrg.authority.shiro.SimpleFormAuthenticationFilter">
-		<property name="usernameParam" value="account" />
-		<property name="passwordParam" value="password" />
-	</bean>
+
 	<!--shiro主过滤器的配置，这里的名字和web中的要对应 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- 集成上安全管理器 -->
@@ -28,16 +24,29 @@
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
-				/jsp/login.jsp* = anon
-				/worker/hellow = anon
-				/worker/login = anon
+				<!--/jsp/login.jsp* = anon-->
+				/worker/hellow* = anon
+				/css/*.css* = anon
+				/js/*.js* = anon
+				/img/*.jpg* = anon
+				/fonts/* =anon
+				<!--/worker/login = anon-->
 				<!-- 所有路径都需要认证 -->
+				/** = authc
 			</value>
 		</property>
 	</bean>
-
+	<!--表单认证过滤器-->
+	<!--<bean id="formAuthenticationFilter" class="com.hrg.authority.shiro.SimpleFormAuthenticationFilter">
+		<property name="usernameParam" value="username" />
+		<property name="passwordParam" value="password" />
+	</bean>-->
 	<!-- 自定义ShiroRealm -->
-	<bean id="shiroRealm" class="com.hrg.authority.shiro.realm.UsernameAndPasswordRealm"></bean>
+	<bean id="shiroRealm" class="com.hrg.authority.shiro.realm.UsernameAndPasswordRealm">
+		<property name="cacheManager" ref="cacheManager"/>
+	</bean>
+
+	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>
 
 	<!--安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -51,7 +60,11 @@
 		<property name="cacheManager" ref="shiroRedisCacheManager" />
 	</bean>
 
-
+	<!-- 开启shiro注解支持 -->
+	<bean
+			class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
 
 	<!-- sessionManager -->
 	<bean id="sessionManager"
@@ -94,6 +107,4 @@
 	<!--保证shiro内部生命周期的bean被执行 -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
-
-
-</beans>  
+</beans>

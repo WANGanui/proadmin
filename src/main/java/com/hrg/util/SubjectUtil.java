@@ -17,14 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 public class SubjectUtil {
 	
 
-	public static String getAccout(HttpServletRequest request) throws Exception {
+	public static String getAccout() throws Exception {
 		Subject subject = SecurityUtils.getSubject();
 		 if(subject==null){
 			throw new ValidatorException("未登录"); 
 		 }
 		 Worker worker = (Worker)subject.getPrincipal();
-		 String account = request.getParameter("username");
-		 return account;
+		 return worker.getAccount();
 	}
 	public static String getName() throws Exception {
 		Subject subject = SecurityUtils.getSubject();
