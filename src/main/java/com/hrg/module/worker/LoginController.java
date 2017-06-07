@@ -11,6 +11,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,9 +72,9 @@ public class LoginController {
         }
         return jr;
     }
+
     @RequestMapping("/success")
     public ModelAndView success(){
-        JsonResult jr = null;
         Worker worker = null;
         ModelAndView model = new ModelAndView();
         model.setViewName("index");
@@ -85,17 +86,31 @@ public class LoginController {
             Map<String, Object> workerAllInfo = new HashMap<String, Object>();
             workerAllInfo.put("workerInfo", worker);
             workerAllInfo.put("workerpermissions", WarehouseRoleRelPermission);
-            jr = ResultUtil.returnSuccess("workerAllInfo", workerAllInfo);
             model.addObject("workerInfo",worker);
             model.addObject("workerpermissions",WarehouseRoleRelPermission);
             logger.info("=============查询员工权限完成=============");
         } catch (NullPointerException exception) {
             logger.error("=============查询员工权限失败，员工身份过期=============");
-            jr = ResultUtil.returnFail(ErrorCode.NOT_LOGIN_EXCEPTION.getCode());
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("=============查询员工权限失败，系统异常=============");
-            jr = ResultUtil.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getCode());
+        }
+        return model;
+    }
+
+    @RequestMapping("/logout")
+    public ModelAndView logout(){
+        ModelAndView model = new ModelAndView();
+        logger.info("=============退出登录=============");
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.isAuthenticated()) {
+            Worker worker = (Worker) subject.getPrincipal();
+            subject.logout();
+            logger.info("=============用户【" + worker.getName() + "】退出登录=============");
+            model.addObject(ResultUtil.returnSuccess("用户成功退出"));
+        } else {
+            logger.error("=============退出失败,系统异常=============");
+            model.addObject(ResultUtil.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getCode()));
         }
         return model;
     }

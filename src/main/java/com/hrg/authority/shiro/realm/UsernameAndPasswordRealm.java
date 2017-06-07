@@ -146,14 +146,6 @@ public class UsernameAndPasswordRealm extends AuthorizingRealm {
 		}
 
 	}
-    /*public void setSessionWorker(String cooperationdataid){
-        Subject sub = SecurityUtils.getSubject();
-        Worker worker = (Worker) sub.getPrincipal();
-        if(!ValidUtil.isNullOrEmpty(worker)&&!ValidUtil.isNullOrEmpty(cooperationdataid)){
-            worker.setCooperationdataid(cooperationdataid);
-        }
-        sub.getSession().setAttribute("CURRENT_USER", worker);
-    }*/
 
     public Worker getSessionWorker(){
         return  (Worker)SecurityUtils.getSubject().getSession().getAttribute("CURRENT_USER");
