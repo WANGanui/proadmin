@@ -37,10 +37,10 @@
 		</property>
 	</bean>
 	<!--表单认证过滤器-->
-	<!--<bean id="formAuthenticationFilter" class="com.hrg.authority.shiro.SimpleFormAuthenticationFilter">
+	<bean id="formAuthenticationFilter" class="com.hrg.authority.shiro.SimpleFormAuthenticationFilter">
 		<property name="usernameParam" value="username" />
 		<property name="passwordParam" value="password" />
-	</bean>-->
+	</bean>
 	<!-- 自定义ShiroRealm -->
 	<bean id="shiroRealm" class="com.hrg.authority.shiro.realm.UsernameAndPasswordRealm">
 		<property name="cacheManager" ref="cacheManager"/>

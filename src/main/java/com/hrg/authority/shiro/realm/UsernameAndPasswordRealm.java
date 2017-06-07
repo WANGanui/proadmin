@@ -123,7 +123,6 @@ public class UsernameAndPasswordRealm extends AuthorizingRealm {
 			throw new LockedAccountException();
 		}
 
-
 		/**
 		 * SimpleAuthenticationInfo构造方法：Object principal, Object credentials, String realmName principal：身份 credentials：凭证
 		 */

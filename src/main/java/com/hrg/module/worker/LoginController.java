@@ -15,6 +15,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -98,7 +99,7 @@ public class LoginController {
         return model;
     }
 
-    @RequestMapping("/logout")
+    @RequestMapping(value = "/logout",method = RequestMethod.POST)
     public ModelAndView logout(){
         ModelAndView model = new ModelAndView();
         logger.info("=============退出登录=============");
@@ -113,5 +114,13 @@ public class LoginController {
             model.addObject(ResultUtil.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getCode()));
         }
         return model;
+    }
+
+    @RequestMapping(value = "/unauthorized",method = RequestMethod.POST)
+    public JsonResult unauthorized(){
+        JsonResult jr = null;
+        logger.info("=============该员工没有此权限=============");
+        jr = ResultUtil.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getCode(), "该员工没有此权限");
+        return jr;
     }
 }
