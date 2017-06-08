@@ -30,7 +30,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/worker")
-public class LoginController {
+public class WorkerController {
 
     @Autowired
     private ShiroRealmService shiroRealmService;
