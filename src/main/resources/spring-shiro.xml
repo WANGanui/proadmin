@@ -9,7 +9,7 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- 集成上安全管理器 -->
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/worker/hellow" />
+		<property name="loginUrl" value="/worker/login" />
 		<property name="successUrl" value="/worker/success"/>
 		<property name="unauthorizedUrl" value="/worker/unauthorized" />
 		<property name="filters">
@@ -24,13 +24,12 @@
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
-				<!--/jsp/login.jsp* = anon-->
-				/worker/hellow* = anon
+				/worker/hellow = anon
+				/worker/logout = anon
 				/css/*.css* = anon
 				/js/*.js* = anon
 				/img/*.jpg* = anon
 				/fonts/* =anon
-				<!--/worker/login = anon-->
 				<!-- 所有路径都需要认证 -->
 				/** = authc
 			</value>

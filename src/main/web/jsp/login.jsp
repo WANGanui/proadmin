@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
+    <title>登录</title>
     <link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css">
     <link rel="stylesheet" href="<%=basePath%>css/public.css" />
     <link rel="stylesheet" href="<%=basePath%>css/font-awesome.min.css">
@@ -99,10 +99,8 @@
         </div>
         <div class="horizontal-line"></div>
     </div>
-
 </div>
-<div class="login-bottom">
-</div>
+<div class="login-bottom"></div>
 </body>
 
 <script>

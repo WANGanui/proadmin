@@ -99,12 +99,13 @@ public class LoginController {
         return model;
     }
 
-    @RequestMapping(value = "/logout",method = RequestMethod.POST)
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
     public ModelAndView logout(){
         ModelAndView model = new ModelAndView();
         logger.info("=============退出登录=============");
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {
+
             Worker worker = (Worker) subject.getPrincipal();
             subject.logout();
             logger.info("=============用户【" + worker.getName() + "】退出登录=============");
@@ -113,6 +114,7 @@ public class LoginController {
             logger.error("=============退出失败,系统异常=============");
             model.addObject(ResultUtil.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getCode()));
         }
+        model.setViewName("login");
         return model;
     }
 
@@ -122,5 +124,30 @@ public class LoginController {
         logger.info("=============该员工没有此权限=============");
         jr = ResultUtil.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getCode(), "该员工没有此权限");
         return jr;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/isLogin", method = RequestMethod.POST)
+    public JsonResult isLogin() {
+        JsonResult jr = null;
+        try {
+            logger.info("=============校验员工是否为已登陆=============】");
+            Subject subject = SecurityUtils.getSubject();
+            Boolean islogin = true;
+            islogin=(subject.getPrincipal()!=null?true:false);
+            if (islogin) {
+                jr = ResultUtil.returnSuccess();
+                logger.info("=============员工已登陆成功=============");
+            } else {
+                logger.error("=============员工未登陆，未登录异常=============");
+                jr = ResultUtil.returnFail(ErrorCode.NOT_LOGIN_EXCEPTION.getCode());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("=============校验员工是否为已登陆失败，系统异常=============");
+            jr = ResultUtil.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getCode());
+        }
+        return jr;
+
     }
 }
