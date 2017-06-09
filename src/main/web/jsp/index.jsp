@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="<%=basePath%>css/lyz.calendar.css" />
     <link rel="stylesheet" href="<%=basePath%>css/messenger.css" />
     <link rel="stylesheet" href="<%=basePath%>css/messenger-theme-future.css" />
+    <link rel="stylesheet" href="<%=basePath%>css/default/easyui.css"/>
     <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <script type="text/javascript" src="<%=basePath%>js/jquery1.11.3.min.js"></script>
@@ -38,6 +39,7 @@
     <script type="text/javascript" src="<%=basePath%>js/mock-min.js" ></script>
     <script type="text/javascript" src="<%=basePath%>js/webpro.debug.js" ></script>
     <script type="text/javascript" src="<%=basePath%>js/webpro.index.js"></script>
+    <script type="text/javascript" src="<%=basePath%>js/jquery.easyui.min.js"></script>
 
     <script id="lv1MenuTmpl" type="text/x-dot-template">
         {{~it:value:i}}
@@ -85,7 +87,21 @@
 <div class="view-body">
     <div class="view-body-menu">
         <div class="view-body-menu-control">
-            <div class="menu-control-lv1"></div>
+            <div class="menu-control-lv1">
+            </div>
+        </div>
+        <div data-options="region:'west',split:true" title="West" style="width:200px;margin-left: 30px;">
+            <div class="easyui-accordion" data-options="fit:true,border:false">
+                <div title="Title1" style="padding:10px;">
+                    content1
+                </div>
+                <div title="Title2" data-options="selected:true" style="padding:10px;">
+                    content2
+                </div>
+                <div title="Title3" style="padding:10px">
+                    content3
+                </div>
+            </div>
         </div>
         <div class="view-body-menu-split"><div class="split-btn"><i class="fa fa-caret-left"></i></div>	</div>
     </div>

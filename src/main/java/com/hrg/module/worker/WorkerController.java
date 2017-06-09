@@ -148,6 +148,5 @@ public class WorkerController {
             jr = ResultUtil.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getCode());
         }
         return jr;
-
     }
 }
