@@ -24,6 +24,7 @@
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
+				/jsp/worker_list.jsp* = anon
 				/worker/hellow = anon
 				/worker/logout = anon
 				/css/*.css* = anon

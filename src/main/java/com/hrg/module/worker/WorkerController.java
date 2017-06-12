@@ -1,11 +1,16 @@
 package com.hrg.module.worker;
 
+import com.alibaba.dubbo.common.json.JSONObject;
+import com.google.gson.Gson;
 import com.hrg.enums.ErrorCode;
 import com.hrg.global.JsonResult;
 import com.hrg.model.Worker;
 import com.hrg.service.ShiroRealmService;
+import com.hrg.service.WorkerService;
+import com.hrg.util.JsonUtil;
 import com.hrg.util.ResultUtil;
 import com.hrg.util.SubjectUtil;
+import com.hrg.util.ValidUtil;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -19,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +38,8 @@ public class WorkerController {
 
     @Autowired
     private ShiroRealmService shiroRealmService;
+    @Autowired
+    private WorkerService workerService;
 
     private static Logger logger = Logger.getLogger("LoginController");
 
@@ -78,17 +84,16 @@ public class WorkerController {
     public ModelAndView success(){
         Worker worker = null;
         ModelAndView model = new ModelAndView();
-        model.setViewName("index");
+        JsonUtil jsonUtil = null;
         try {
+            model.setViewName("index");
             logger.info("=============开始查询员工权限=============");
             worker = (Worker) SecurityUtils.getSubject().getPrincipal();
-            //根据员工主键查询员工账套
-            List<? extends Object> WarehouseRoleRelPermission = shiroRealmService.getPermissionByUser(worker);
-            Map<String, Object> workerAllInfo = new HashMap<String, Object>();
-            workerAllInfo.put("workerInfo", worker);
-            workerAllInfo.put("workerpermissions", WarehouseRoleRelPermission);
-            model.addObject("workerInfo",worker);
-            model.addObject("workerpermissions",WarehouseRoleRelPermission);
+            Map<String, Object> initData = new HashMap<String, Object>();
+            List<? extends Object> roleRelPermission = shiroRealmService.getPermissionByUser(worker);
+            initData.put("workerInfo",worker);
+            jsonUtil.encode(initData);
+            model.addObject("initData",jsonUtil.encode(initData));
             logger.info("=============查询员工权限完成=============");
         } catch (NullPointerException exception) {
             logger.error("=============查询员工权限失败，员工身份过期=============");
@@ -148,5 +153,19 @@ public class WorkerController {
             jr = ResultUtil.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getCode());
         }
         return jr;
+    }
+    @ResponseBody
+    @RequestMapping("/password")
+    public ModelAndView password(String userID){
+        ModelAndView model = new ModelAndView();
+        Worker worker = null;
+        try {
+            worker = workerService.selectDetail(userID);
+            model.setViewName("worker/password");
+            model.addObject(JsonUtil.encode(worker));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
     }
 }

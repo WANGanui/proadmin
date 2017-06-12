@@ -41,28 +41,10 @@
     <script type="text/javascript" src="<%=basePath%>js/webpro.index.js"></script>
     <script type="text/javascript" src="<%=basePath%>js/jquery.easyui.min.js"></script>
 
-    <script id="lv1MenuTmpl" type="text/x-dot-template">
-        {{~it:value:i}}
-        <div class="menu-control-lv1-item"><i class="fa lv1-item-icon {{= value.icon }}"></i><div class="lv1-item-txt">{{= value.name}}</div></div>
-        {{~}}
-    </script>
+<script>
 
-    <script id="lv2MenuTmpl" type="text/x-dot-template">
-        {{~it.arrForAttrVal("pcode",""):value:i}}
-        <div class="menu-control-group">
-            {{~it.arrForAttrVal("pcode",value.code):l2Item:y}}
-            <div class="menuLV2-lv2Item">
-                <div class="L2Header">{{=l2Item.name}}</div>
-                <div class="L3CC">
-                    {{~it.arrForAttrVal("pcode",l2Item.code):l3Item:k}}
-                    <div class="L3Item" code="{{=l3Item.code}}" aciton_url="{{=l3Item.aciton_url}}"><i class="fa {{=l3Item.icon}}"></i>{{=l3Item.name}}</div>
-                    {{~}}
-                </div>
-            </div>
-            {{~}}
-        </div>
-        {{~}}
-    </script>
+</script>
+
 </head>
 <body>
 <div class="view-header">
@@ -72,11 +54,11 @@
 
     <dic class="login-gourp btn-group">
         <div class="loginName dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-user"></i><span>测试用户</span><i class="fa fa-angle-down"></i>
+            <i class="fa fa-user"></i><span></span><i class="fa fa-angle-down"></i>
         </div>
         <ul class="dropdown-menu" role="menu">
             <li><a class="updateUserInfo" url="user_group/user_info_dialog.html">修改个人信息</a></li>
-            <li><a class="updatePwd" url="user_group/user_pwd_dialog.html">修改密码</a></li>
+            <li><a class="updatePwd" url="worker/password">修改密码</a></li>
 
             <li class="divider"></li>
             <li><a href="<%=basePath%>worker/logout">注销</a></li>
@@ -89,17 +71,31 @@
         <div class="view-body-menu-control">
             <div class="menu-control-lv1">
             </div>
-        </div>
-        <div data-options="region:'west',split:true" title="West" style="width:200px;margin-left: 30px;">
-            <div class="easyui-accordion" data-options="fit:true,border:false">
-                <div title="Title1" style="padding:10px;">
-                    content1
+            <div class="menu-control-group" style="display: block;">
+                <div class="menuLV2-lv2Item">
+                    <div class="L2Header" id="h1">项目管理</div>
+                    <div class="L3CC" id="l1" style="display: block;">
+                        <div class="L3Item" code="13_9" href="<%=basePath%>/jsp/worker_list.jsp"><i class="fa fa-file-text-o"></i>水电费</div>
+                        <div class="L3Item" code="13_8" aciton_url="{{=l3Item.aciton_url}}"><i class="fa fa-file-text-o"></i>阿斯蒂芬</div>
+                        <div class="L3Item" code="13_9" aciton_url="{{=l3Item.aciton_url}}"><i class="fa fa-file-text-o"></i>水电费</div>
+                        <div class="L3Item" code="13_8" aciton_url="{{=l3Item.aciton_url}}"><i class="fa fa-file-text-o"></i>阿斯蒂芬</div>
+                    </div>
                 </div>
-                <div title="Title2" data-options="selected:true" style="padding:10px;">
-                    content2
+                <div class="menuLV2-lv2Item">
+                    <div class="L2Header">任务管理</div>
+                    <div class="L3CC">
+                        <div class="L3Item" code="13_9" aciton_url="{{=l3Item.aciton_url}}"><i class="fa fa-file-text-o"></i>东三省</div>
+                        <div class="L3Item" code="13_8" aciton_url="{{=l3Item.aciton_url}}"><i class="fa fa-file-text-o"></i>a还能发货</div>
+                        <div class="L3Item" code="13_9" aciton_url="{{=l3Item.aciton_url}}"><i class="fa fa-file-text-o"></i>水电费</div>
+                        <div class="L3Item" code="13_8" aciton_url="{{=l3Item.aciton_url}}"><i class="fa fa-file-text-o"></i>阿斯蒂芬</div>
+                    </div>
                 </div>
-                <div title="Title3" style="padding:10px">
-                    content3
+                <div class="menuLV2-lv2Item">
+                    <div class="L2Header">个人管理</div>
+                    <div class="L3CC">
+                        <div class="L3Item" code="13_9" aciton_url="{{=l3Item.aciton_url}}"><i class="fa fa-file-text-o"></i>安慰分为</div>
+                        <div class="L3Item" code="13_8" aciton_url="{{=l3Item.aciton_url}}"><i class="fa fa-file-text-o"></i>羊肉汤</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -135,7 +131,7 @@
     <div class="mask"><i class="fa fa-refresh fa-spin fa-2x fa-fw"></i></div>
 </div>
 <script>
-
+    var webpro=webpro(${initData},"");
 </script>
 </body>
 </html>
