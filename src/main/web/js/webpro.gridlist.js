@@ -3,7 +3,7 @@
  * @param {Object} parentWindow
  * @param {Object} gridInitJson　初始注入的JSON对象
  */
-var WebPro_gridlistPage=(function(parentWindow,gridInitJson){
+var WebPro_gridlistPage=(function(parentWindow,data){
 
 	console.groupEnd();
 	console.group("WebPro_gridlistPage");
@@ -12,7 +12,7 @@ var WebPro_gridlistPage=(function(parentWindow,gridInitJson){
 	var msg=webPro.mainMsg;
 	var dataGrid=$('#dg').datagrid();
 	var dataKeyID = $("#dg").attr("keyId");
-	var dataUrl =  webPro.setting.basePath+ gridInitJson.dataUrl;
+	var dataUrl =  webPro.setting.basePath+ data.dataUrl;
 	var fontColor=webPro.setting.fontColor||new Object();
 
 	//渲染功能按钮
@@ -27,12 +27,11 @@ var WebPro_gridlistPage=(function(parentWindow,gridInitJson){
 	 * @param {Object} data
 	 */
 	var renderData=function(data){
-		
 		$(".gridPanle #dg th[forDic]").each(function(){
 			var fieldName =dataGrid.datagrid("options").columns[0][$(this).index()].field;
 			var forCode = $(this).attr("forDic");
 			
-			$.each(data.rows,function(i,item){
+			$.each(data.totalCount,function(i,item){
 				item[fieldName+"_Code"]=item[fieldName];
 				item[fieldName]=webPro.mainDic.valueForCodeAndKey(forCode,item[fieldName]);
 			});
@@ -43,7 +42,7 @@ var WebPro_gridlistPage=(function(parentWindow,gridInitJson){
 			var fieldName =dataGrid.datagrid("options").columns[0][$(this).index()].field;
 			var forParent = $(this).attr("forParent")+"_Code";
 
-			$.each(data.rows,function(i,item){
+			$.each(data.totalCount,function(i,item){
 				item[fieldName]=+webPro.mainDic.valueForCodeAndKey(item[forParent],item[fieldName]);
 			});
 		});
@@ -52,7 +51,7 @@ var WebPro_gridlistPage=(function(parentWindow,gridInitJson){
 		$(".gridPanle #dg th").each(function(){
 			var fieldName =dataGrid.datagrid("options").columns[0][$(this).index()].field;
 
-			$.each(data.rows,function(i,item){
+			$.each(data.totalCount,function(i,item){
 				if(typeof(fontColor[item[fieldName]]) == "undefined"||typeof(item[fieldName])=="undefined"){
 					return true;
 				}
@@ -69,12 +68,12 @@ var WebPro_gridlistPage=(function(parentWindow,gridInitJson){
 			reHtml+=$(this).prop("outerHTML");
 		});
 
-		for (var i=0,size=data.rows.length;i<size;i++) {
-			data.rows[i].gridList_btns= reHtml;
-		}
+		/*for (var i=0,size=data.totalCount;i<size;i++) {
+            data.totalCount[i].gridList_btns= reHtml;
+		}*/
 	};
 
-	console.log("表格的功能级权限对象:",funBtns);
+	//console.log("表格的功能级权限对象:",funBtns);
 
 	var gridUtils={
 		/**
@@ -363,10 +362,10 @@ var WebPro_gridlistPage=(function(parentWindow,gridInitJson){
 		//初始化表格数据
 //		console.dir(gridInitJson.gridData);
 
-		renderData(gridInitJson.gridData);
+		renderData(data);
 		
 		
-		dataGrid.datagrid('loadData',gridInitJson.gridData); 
+		dataGrid.datagrid('loadData',data.pageResults);
 		$(".panle-body").animate({opacity:1},300);
 	}
 	

@@ -18,7 +18,7 @@ var webpro=function(initData,routeUrl){
         var curPath = curWwwPath.substr(localhostPaht.length, curWwwPath.length);
         var projectName=curPath.substring(0,pathName.substr(1).indexOf('/')+2);
 
-//	    console.info("地址:",localhostPaht+projectName+routeUrl);
+	    console.info("地址:",localhostPaht);
 
         return routeUrl||(localhostPaht+projectName);
     };
@@ -166,13 +166,14 @@ var webpro=function(initData,routeUrl){
             changeBanner(iconClass,lv1Txt,lv2Txt,lv3html);
 
             $(".view-body-content .iframe-mask").show();
-            $(".view-body-content iframe").attr("src",$$.setting.basePath+$(this).attr("actionUrl"));
+            console.warn($$.setting.basePath+$(this).attr("aciton_url"));
+            $(".view-body-content iframe").attr("src",$$.setting.basePath+$(this).attr("aciton_url"));
 
-            if(initData.data.funRules == undefined){
+            /*if(initData.data.funRules == undefined){
                 return ;
-            }
+            }*/
 
-            $(".view-body-content iframe").data("data",initData.data.funRules.arrForAttrVal("menuCode",$(this).attr("code")));
+           /* $(".view-body-content iframe").data("data",initData.data.funRules.arrForAttrVal("menuCode",$(this).attr("code")));*/
         });
 
         /**

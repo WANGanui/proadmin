@@ -1,7 +1,7 @@
 /**
  * 
  */
-var WebPro_dialogPage=(function(parentWindow,jsonData){
+var WebPro_dialogPage=(function(parentWindow,jsonData,url){
 
 	var webPro=parentWindow.webpro;			//用户
 	var msg=webPro.mainMsg;					//消息模块
@@ -32,7 +32,6 @@ var WebPro_dialogPage=(function(parentWindow,jsonData){
 		$("#okBtn").click(function(){
 			var obj={};
 			obj.rules={};
-
 			//绑定验证函数
 			$(".dialog-body-center input[validClass^='{']").each(function(){	
 				obj.rules[$(this).attr("name")]=eval("("+$(this).attr("validClass")+")");
@@ -44,32 +43,41 @@ var WebPro_dialogPage=(function(parentWindow,jsonData){
 				
 				jsonData.queryObj=$(".dialog-body-center form").serializeJson();
 				
-				//ajax提交
-//				alert(jsonData);
 				if(jsonData.queryObj.requestUrl==""){
 					webPro.mainDialog.closeDialogDiv();
 					return;
 				}
 				
-				jsonData.queryObj.keyId = $.getUrlParam("keyId");
 				jsonData.queryObj.userID = webPro.setting.userID;
 
-				console.info("请求:"+jsonData.requestUrl,jsonData.queryObj);
+				$.ajax({
+					type:"POST",
+					url:url,
+					data:jsonData.queryObj,
+					dataType:"json",
+					success:function (data) {
+						if (data.status=="200"){
+                            msg.alertInfo("请求成功！");
+                            webPro.mainDialog.closeDialogDiv();
+						}else{
+                            msg.alertErr(data.msg+",错误代码："+data.status);
+                        }
+                    }
+				});
 
-				$.post(jsonData.requestUrl,jsonData.queryObj,function(data){
+				/*$.post(url,jsonData.queryObj,function(data){
 					msg.hideAll();
 					console.info("请求提交回调事件,返回对象:",data);
-					
+
 					if(data.status=="200"){
 						msg.alertInfo("请求成功！");
-						
-						webPro.mainGridList.refreshGrid();
+						//webPro.mainGridList.refreshGrid();
 						webPro.mainDialog.closeDialogDiv();
 					}
 					else{
 						msg.alertErr(data.msg+",错误代码："+data.status);
 					}
-				},"json");
+				},"json");*/
 				
 			}else{
 				msg.hideAll();
@@ -155,8 +163,6 @@ var WebPro_dialogPage=(function(parentWindow,jsonData){
 			$("input[name$='-lng']").val(data.lnt);
 			$("input[name$='-lat']").val(data.lat);
 			//定位标记
-
-
 			mapControl.centerAndZoom(point, 13);
 		}
 

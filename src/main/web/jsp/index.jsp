@@ -15,7 +15,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>基础框架</title>
+    <title>主页</title>
     <link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css">
     <link rel="stylesheet" href="<%=basePath%>css/font-awesome.min.css">
     <link rel="stylesheet" href="<%=basePath%>css/webpro.index.css" />
@@ -42,7 +42,12 @@
     <script type="text/javascript" src="<%=basePath%>js/jquery.easyui.min.js"></script>
 
 <script>
-
+    var data = ${initData};
+    window.onload = function () {
+        if(data.workerInfo == "" || data.workerInfo===undefined){
+            Messenger.alertErr("请重新登录！");
+        }
+    }
 </script>
 
 </head>
@@ -58,7 +63,7 @@
         </div>
         <ul class="dropdown-menu" role="menu">
             <li><a class="updateUserInfo" url="user_group/user_info_dialog.html">修改个人信息</a></li>
-            <li><a class="updatePwd" url="worker/password">修改密码</a></li>
+            <li><a class="updatePwd" url="/password">修改密码</a></li>
 
             <li class="divider"></li>
             <li><a href="<%=basePath%>worker/logout">注销</a></li>
@@ -75,7 +80,7 @@
                 <div class="menuLV2-lv2Item">
                     <div class="L2Header" id="h1">项目管理</div>
                     <div class="L3CC" id="l1" style="display: block;">
-                        <div class="L3Item" code="13_9" href="<%=basePath%>/jsp/worker_list.jsp"><i class="fa fa-file-text-o"></i>水电费</div>
+                        <div class="L3Item" code="13_9" aciton_url="/list"><i class="fa fa-file-text-o"></i>员工列表</div>
                         <div class="L3Item" code="13_8" aciton_url="{{=l3Item.aciton_url}}"><i class="fa fa-file-text-o"></i>阿斯蒂芬</div>
                         <div class="L3Item" code="13_9" aciton_url="{{=l3Item.aciton_url}}"><i class="fa fa-file-text-o"></i>水电费</div>
                         <div class="L3Item" code="13_8" aciton_url="{{=l3Item.aciton_url}}"><i class="fa fa-file-text-o"></i>阿斯蒂芬</div>

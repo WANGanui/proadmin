@@ -1,16 +1,18 @@
 package com.hrg.module.worker;
 
-import com.alibaba.dubbo.common.json.JSONObject;
-import com.google.gson.Gson;
 import com.hrg.enums.ErrorCode;
+import com.hrg.exception.MessageException;
+import com.hrg.exception.ValidatorException;
+import com.hrg.global.ApiResult;
 import com.hrg.global.JsonResult;
 import com.hrg.model.Worker;
+import com.hrg.model.WorkerCriteria;
 import com.hrg.service.ShiroRealmService;
 import com.hrg.service.WorkerService;
 import com.hrg.util.JsonUtil;
+import com.hrg.util.PageUtil;
 import com.hrg.util.ResultUtil;
 import com.hrg.util.SubjectUtil;
-import com.hrg.util.ValidUtil;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -162,9 +164,59 @@ public class WorkerController {
         try {
             worker = workerService.selectDetail(userID);
             model.setViewName("worker/password");
-            model.addObject(JsonUtil.encode(worker));
+            model.addObject("data",JsonUtil.encode(worker));
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return model;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/editPass" ,method = RequestMethod.POST)
+    public ModelAndView editPass(String userID,String password,String newPassword){
+        ModelAndView model = new ModelAndView();
+        Worker worker = new Worker();
+        try {
+            logger.info("===========进入修改密码===========");
+            worker.setDataid(userID);
+            Worker worker1 = workerService.selectDetail(userID);
+            logger.info("===========开始验证旧密码===========");
+            if (!password.equals(worker1.getPassword())){
+                logger.error("============原密码不匹配============");
+            }else {
+                worker.setPassword(newPassword);
+                workerService.update(worker);
+                logger.info("=========密码修改成功=========");
+                model.addObject(JsonUtil.encode(ApiResult.returnSuccess()));
+            }
+        } catch (Exception e) {
+            logger.info("===========密码修改失败，系统异常===========");
+            model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.MESSAGE_EXCEPTION.getMessage(),ErrorCode.MESSAGE_EXCEPTION.getCode())));
+            e.printStackTrace();
+        }
+        return model;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/list" ,method = RequestMethod.GET)
+    public ModelAndView workerList(PageUtil pageUtil, WorkerCriteria example){
+        ModelAndView model = new ModelAndView();
+
+        try {
+            logger.info("============查询员工列表入参：【"+JsonUtil.encode(example)+"】==============");
+            PageUtil<Worker> pageUtil1 = workerService.selectByExample(example,pageUtil);
+            logger.info("=============查询员工列表成功,结果:【 " + JsonUtil.encode(pageUtil1) + "】=============");
+            model.addObject("data",JsonUtil.encode(pageUtil1));
+            model.setViewName("worker/worker_list");
+        } catch (ValidatorException e) {
+            logger.warn("=============查询员工列表失败，验证异常=============");
+            model.addObject(ApiResult.returnFail(ErrorCode.ILLEGALARGUMENT_EXCEPTION.getMessage(),ErrorCode.ILLEGALARGUMENT_EXCEPTION.getCode()));
+        } catch (MessageException e) {
+            logger.warn("=============查询员工列表失败，信息异常=============");
+            model.addObject(ApiResult.returnFail(ErrorCode.MESSAGE_EXCEPTION.getMessage(),ErrorCode.MESSAGE_EXCEPTION.getCode()));
+        } catch (Exception e) {
+            logger.error("=============查询员工列表失败，系统异常=============", e);
+            model.addObject(ApiResult.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getMessage(),ErrorCode.UN_KNOWN_EXCEPTION.getCode()));
         }
         return model;
     }

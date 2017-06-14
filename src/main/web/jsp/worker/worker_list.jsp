@@ -48,19 +48,19 @@
     <div class="grid-searchBar">
         <form>
             <div class="queryItem">
-                <div class="titTxt">车牌号</div><input id="name" name="carNo"  class="form-control input-sm" />
+                <div class="titTxt">名称</div><input id="name" name="name"  class="form-control input-sm" />
             </div>
 
             <div class="queryItem">
-                <div class="titTxt">OBD设备</div><input name="deviceId" class="form-control input-sm" />
+                <div class="titTxt">手机号码</div><input name="phone" class="form-control input-sm" />
             </div>
 
             <div class="queryItem">
-                <div class="titTxt">手机号</div><input name="phoneNo" class="form-control input-sm" />
+                <div class="titTxt">状态</div><input name="state" class="form-control input-sm" />
             </div>
 
             <div class="queryItem">
-                <div class="titTxt">昵称</div><input name="nickname" class="form-control input-sm" />
+                <div class="titTxt">部门</div><input name="department" class="form-control input-sm" />
             </div>
 
             <div class="button button-rounded button-royal-flat" id="testButtton">查询</div>
@@ -73,20 +73,16 @@
         <div class="funBar"></div>
 
         <div class="gridPanle">
-            <table id="dg" keyId="dataId" width="100%" height="100%">
+            <table id="dg" keyId="dataid" width="100%" height="100%">
                 <thead>
                 <tr>
-
-
-                    <th data-options="field:'dataId',checkbox:true"></th>
-                    <th data-options="field:'nickname',width:50">昵称</th>
-                    <th data-options="field:'phoneNo',width:50">手机号码</th>
-                    <th data-options="field:'carDes',width:50">车辆描述</th>
-                    <th data-options="field:'carNo',width:50">车牌号</th>
-                    <th data-options="field:'deviceId',width:50">OBD设备号</th>
-                    <th data-options="field:'clztForDic',width:50" forDic="BDZT">审核状态</th>
-                    <th data-options="field:'createDate',width:50">注册时间</th>
-                    <th data-options="field:'gridList_btns',align:'cente车辆r'"></th>
+                    <th data-options="field:'dataid',checkbox:true"></th>
+                    <th data-options="field:'name',width:50">名称</th>
+                    <th data-options="field:'account',width:50">账号</th>
+                    <th data-options="field:'phone',width:50">手机号码</th>
+                    <th data-options="field:'department',width:50">部门</th>
+                    <th data-options="field:'state',width:50">状态</th>
+                    <th data-options="field:'remark',width:50">备注</th>
                 </tr>
                 </thead>
             </table>
@@ -97,8 +93,6 @@
 <script>
     console.info("服务注射的对象:",${data});
 
-    WebPro_gridlistPage(window.parent,${data}).bindBtnFun("审核",function(actionUrl,gridUtils){
-        gridUtils.mainDialog.showDialogDiv(actionUrl,"");
-    });
+    WebPro_gridlistPage(window.parent,${data});
 </script>
 </html>

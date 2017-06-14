@@ -56,7 +56,7 @@
                     success:function (data) {
                         console.info("返回值",data);
                         if (data.success == false){
-                            Messenger().alertErr(data.msg);
+                            Messenger().alertErr(data.message);
                         }else {
                             window.location.href=initData.gotoIndexUrl;
                         }

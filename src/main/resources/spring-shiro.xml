@@ -28,6 +28,8 @@
 				/worker/hellow = anon
 				/worker/logout = anon
 				/css/*.css* = anon
+				/css/*.* = anon
+				/css/default/images/*.* = anon
 				/js/*.js* = anon
 				/img/*.jpg* = anon
 				/fonts/* =anon
