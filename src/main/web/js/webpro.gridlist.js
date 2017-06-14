@@ -173,7 +173,7 @@ var WebPro_gridlistPage=(function(parentWindow,data){
 			 * 绑定按钮事件
 			 */
 			$(document).on("click",".button:contains('"+btnTxt+"')",function(){
-				var goUrl = webPro.setting.basePath+funBtns.arrForAttrVal("name",btnTxt)[0].actionUrl;
+				var goUrl = webPro.setting.basePath+funBtns.arrForAttrVal("name",btnTxt)[0].action_url;
 				goUrl=goUrl.addUrlParam("keyId",gridUtils.getSelectRows()[0][dataKeyID]);
 
 				backFun(goUrl,gridUtils);
