@@ -1,0 +1,473 @@
+@charset "utf-8";
+html {
+  color: #000;
+  background: #fff;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+html * {
+  outline: none;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html,
+body {
+  font-family: sans-serif;
+}
+/* 内外边距通常让各个浏览器样式的表现位置不同 */
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+hr,
+button,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+}
+input,
+select,
+textarea {
+  font-size: 100%;
+}
+/* 去掉各 Table  cell 的边距并让其边重合 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* 去除默认边框 */
+fieldset,
+img {
+  border: 0;
+}
+/* 去掉 firefox 下此元素的边框 */
+abbr,
+acronym {
+  border: 0;
+  font-variant: normal;
+}
+/* 一致的 del 样式 */
+del {
+  text-decoration: line-through;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+th,
+var {
+  font-style: normal;
+  font-weight: 500;
+}
+/* 去掉列表前的标识, li 会继承 */
+ol,
+ul {
+  list-style: none;
+}
+/* 对齐是排版最重要的因素, 别让什么都居中 */
+caption,
+th {
+  text-align: left;
+}
+/* 来自 yahoo, 让标题都自定义, 适应多个系统应用 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: 500;
+}
+q:before,
+q:after {
+  content: '';
+}
+/* 统一上标和下标 */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+/* 正常链接 未访问 */
+/* 鼠标悬停 */
+a:hover {
+  text-decoration: underline;
+}
+/* 默认不显示下划线，保持页面简洁 */
+ins,
+a {
+  text-decoration: none;
+}
+
+
+html,body{
+	height: 100%;
+}
+body{
+	background-color: #FFF;
+	color: #000;
+	min-width: 320px;
+}
+
+//最外层的容器
+#container{
+	min-height: 60px;
+	width: 100%;
+}
+
+
+.order_header_bar
+{
+	/*min-height: 60px;*/
+	height: 1.33rem;
+	line-height: 1.33rem;
+	border-bottom: 1px solid #e4e3e3; 
+	/*border-width: 0 0 1px 0;*/
+}
+.header_icon_goback{
+    float: left;
+    height: 100%;
+    background-image: url(../images/my/bar_back.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: .26rem .4rem;
+    background-position: .3rem center;
+    color: #339eff;
+    text-align: right;
+    width: 1.6rem;
+    font-size: .5rem;
+
+}
+
+.order_header_title{
+	height: 100%;
+	text-align: center;
+	margin:0 1.5;
+	line-height: 1.33rem;
+    font-size: .566rem;
+    font-weight: bold;
+}
+
+.header_publish{
+	float: right;
+	width: 1.66rem;
+	height: 100%;
+	font-size: .5rem;
+	color: #339eff;
+	text-align: center;
+}
+
+
+/*
+	评价中间部分 
+ */
+.evaluate{
+	height: 3.5rem;
+	border-top: .3rem solid #f1f1f1;
+}
+.evaluate_rank{
+	height: 2rem;
+	border-top: 1px solid #e0e0e0;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.evaluate_rank ul li{
+	float: left;
+	height: 2rem;
+	width: 20%;
+	box-sizing: border-box;
+	border-right: 1px solid #e0e0e0;
+}
+.evaluate_rank ul li:nth-child(5){
+	border-right: 0;
+}
+
+.evaluate_grade{
+	position: relative;
+	min-height: 50px;
+	line-height: 50px;
+	text-align: center;
+
+}
+
+.icon{
+    margin: .1px auto;
+    width: 1rem;
+    height: 1rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: .8rem .8rem;
+}
+
+.icon1{
+    background-image: url(../images/order/1.png);
+}
+.icon2{
+	background-image: url(../images/order/bad.png);
+}
+.icon3{
+	background-image: url(../images/order/3.png);
+}
+.icon4{
+	background-image: url(../images/order/4.png);
+}
+.icon5{
+	background-image: url(../images/order/5.png);
+}
+
+.evaluate_star{
+	height: 1.5rem;
+	box-sizing: border-box;
+	border-bottom: 1px solid #e0e0e0; 
+}
+.evaluate_star ul li{
+	float: left;
+	width: 20%;
+	height: 1.5rem;
+	text-align: center;
+}
+.evaluate_star ul li.item span{
+	display: inline-block;
+	width: 50px;
+	height: 48px;	
+	margin: 32px 0 ;
+	background: url(../images/order/evaluate.png) no-repeat 0 -86px;
+}
+
+.evaluate_star ul li.item span.on{
+	background-position: -86px -86px; 
+}
+#order_item{
+	height: 4.5rem;
+	box-sizing: border-box;
+	border-bottom: .3rem solid #f1f1f1;
+}
+
+.items{
+	height: 1.33rem;
+}
+.item_text{
+	position: absolute;
+	left: 25px;
+	height: 1.33rem;
+	line-height: 1.33rem;
+	font-size: .45rem;
+}
+
+.item_icon{
+	position: absolute;
+	right: 0;
+	height: 1.33rem;
+	width: 	7rem;
+}
+.item_icon ul{
+	width: 100%;
+	height: 100%;
+}
+
+.item_icon ul li{
+	float: right;
+	width: 20%;
+	height: 100%;
+}
+
+.item_icon ul li b{
+	display: inline-block;
+	width: 61px;
+	height: 61px;
+	margin: 20px 0 0 22px;
+	background: url(../images/order/evaluate.png) no-repeat -340px -168px;
+}
+.item_icon ul li b.on{
+	background-position: -168px -83px; 	
+}
+
+
+.order_content{
+	border-bottom: .3rem solid #f1f1f1;
+	color: #CCC;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.order_content textarea{
+	height: 2.5rem;
+	border:none;
+	font-size: .4rem;
+	width: 100%;
+}
+
+.order_upload{
+	/*height: 4rem;*/
+	box-sizing: border-box;
+	border-bottom: .3rem solid #f1f1f1;	
+}
+.order_upload  .photo{
+ 	background-image: url(../images/order/photo.png);
+    background-position: center;
+    background-size: 1rem .8rem;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+}
+.order_upload  .upload_file{
+	background-image: url(../images/order/addp.png);
+	background-position: center;
+    background-size: 1rem 1rem;
+    background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+}
+.upload{
+	width: 90%;
+	/*height: 2rem;*/
+	margin: 40px auto 20px;
+
+}
+.upload a{
+	display: inline-block;
+    height: 1.57rem;
+    width: 1.57rem;
+    border-radius: 15px;
+    border: 2px dashed #e0e0e0;
+    margin-right: 8px;
+    /* margin: 0 4px; */
+}
+/*.upload a:last-child{
+	margin-left:12px;
+}*/
+
+.upload_text{
+	height: 60px;	
+	line-height: 60px;
+	text-align: center;
+	font-size: .38rem;
+	color: #989898;
+}
+.order_recommend{
+    position: relative;
+    height: 1.3rem;
+    line-height: 1.3rem;
+    padding-top: .12rem;
+    box-sizing: border-box;
+}
+
+.order_wenchat{
+	position: absolute;
+	height: 78px;
+	width: 78px;
+}
+.order_wenchat b{
+	display: inline-block;
+	width: 46px;
+	height: 46px;
+	margin: 16px 0 0 16px;
+	background: url(../images/order/evaluate.png) no-repeat -254px -85px;
+}
+
+.recommend_title{
+	position: absolute;
+	left: 100px;
+	line-height: 1.1rem;
+	text-align: center;
+	font-size: .45rem;
+	color: #000;
+}
+
+
+
+.check{
+	position: absolute;
+	right: .2rem;
+	width: 45px;
+	height: 45px;
+}
+.check b{
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	margin: 25px 10px 0 0;
+	background: url(../images/order/evaluate.png) no-repeat -345px -83px;
+}
+.bottom-white{
+	/*height: 1.5rem;*/
+	width: 100%;
+	background-color: #f1f1f1;
+	padding:1rem .5rem;
+	box-sizing:border-box;
+}
+.weixin-share-ckbox{
+	display: none;
+	height: 32px;
+    width: 32px;
+}
+
+.check span{
+	cursor: pointer;
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+}
+
+.sub{
+	background: url(../images/order/circle.png) no-repeat center center;
+}
+
+.plus{
+	background: url(../images/order/icon_check.png) no-repeat center center;
+}
+
+.evaluate-fabu-but{
+	width:100%;
+	line-height:1.33rem;
+	height:1.33rem;
+	font-size:.7rem;
+	text-align:center;
+	background:#339eff;
+	color:#fff;	
+	border-style:none;
+	border-radius:5px;
+}

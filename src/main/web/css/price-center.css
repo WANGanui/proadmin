@@ -1,0 +1,60 @@
+.body {
+	padding: 0 10px 6.5rem;
+	overflow: hidden;
+}
+.table {
+	text-align: center;
+	min-width: 100%;
+	background-color: #fff;
+}
+.table-wrapper {
+	margin-top: 10px;
+	border-radius:5px 5px 0 0;
+	border-bottom: 1px solid #ccc;
+	overflow: hidden;
+}
+.table thead {
+	background-color: #005bae;
+	color: #fff;
+}
+.table td,.table th{
+	padding: 10px 0;
+}
+.table thead th {
+	border-left: 1px solid #fff;
+}
+.table thead th:first-child {
+	border-style: none;
+}
+.table tbody td {
+	border-left:1px solid #ccc;
+	border-top:1px solid #ccc
+}
+.table tbody tr td:nth-last-child(1) {
+	border-right:1px solid #ccc;
+}
+
+.top-nav {
+	background-color: #fff;
+	overflow: hidden;
+}
+.top-nav div {
+	display: table;
+	min-width: 100%;
+}
+.top-nav ul {
+	display: table-row;
+	background-color: #fff;
+	text-align: center;
+	min-width: 100%;
+}
+.top-nav li {
+	min-width: 7rem;
+	display: table-cell;
+	font-size: 1.33rem;
+	line-height: 3.66rem;
+	border-bottom: 1px solid #999;
+}
+.top-nav li.active {
+	border-bottom: 2px solid #005bae;
+}

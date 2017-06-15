@@ -1,0 +1,55 @@
+.head {
+	background-color: #fff;
+	line-height: 1.5rem;
+	text-align: center;
+	padding: 0.8rem 3.33rem;
+	color: #999;
+}
+h3 {
+	line-height: 2rem;
+	font-size: 1.1rem;
+}
+.feed-type {
+	padding-top: 1rem;
+	background-color: #fff;
+}
+.feed-type li {
+	position: relative;
+	width: 32%;
+	margin-right: 2%;
+	box-sizing: border-box;
+	line-height: 2.83rem;
+	float: left;
+	border: 1px solid #696969;
+	text-align: center;
+	margin-bottom: 1rem;
+}
+.feed-type li.active {
+	border-color: #005bae;
+	color: #005bae;
+	background-image: url(../images/feed-back/selected.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: 1.12rem 1rem;
+}
+.feed-type li:nth-child(3n) {
+	margin-right: 0;
+}
+.form-input-wrap textarea {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 8px 10px;
+	border-radius: 3px;
+	max-width: 100%;
+	min-height: 10.66rem;
+	margin-bottom: 24px;
+	border: 1px solid #e0e0e0s;
+}
+.company-info {
+	margin-top: 27px;
+	text-align: center;
+}
+.font666 {
+	color: #666;
+	margin-bottom: 16px;
+}

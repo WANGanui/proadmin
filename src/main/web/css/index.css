@@ -1,0 +1,218 @@
+body{
+	background-color: #fff;
+}
+.banner {
+	background: #9095b5;
+
+}
+.banner li {
+	font-size: 0;
+}
+.banner img {
+	width: 100%;
+}
+.item .title {
+	color: #696969;
+	font-size: 1.1rem;
+	line-height: 2.67rem;
+}
+.normal-wash-list li {
+	border: 1px solid #e0e0e0;
+	border-radius: 3px;
+	float: left;
+	width: 49%;
+	box-sizing: border-box;
+	background-color: #fff;
+	padding: 1.14rem 3%;
+}
+.normal-wash-list li h3 {
+	color: #252525;
+	margin-bottom: 8px;
+	font-size: 1.33rem;
+}
+.normal-wash-list li img{
+	width: 3.58rem;
+	height: 3.58rem;
+	margin-right: 10px;
+}
+.normal-wash-list li:nth-child(odd) {
+	margin-right: 2%;
+	margin-bottom: 10px;
+}
+.normal-wash-list li:nth-child(even) {
+	margin-bottom: 10px;
+}
+.normal-wash-list li:nth-last-child(1) {
+	margin-bottom: 0;
+}
+.text-info {
+	color: #999;
+	margin-top: 0.3rem;
+}
+
+.high-wash li{
+	position: relative;
+	width: 49%;
+}
+.high-wash li:nth-child(odd) {
+	margin-right: 2%;
+	margin-bottom: 10px;
+}
+.high-wash li:nth-child(even) {
+	margin-bottom: 10px;
+}
+.high-wash li:nth-last-child(1) {
+	margin-bottom: 0;
+}
+.high-wash img {
+	z-index: 0;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+.high-wash .text {
+	font-size: 0;
+	height: 100%;
+	color: #fff;
+	width: 100%;
+	top: 0;
+	box-sizing: border-box;
+	text-align: center;
+	position: absolute;
+	padding-top: 20%;
+}
+.high-wash .text h3 {
+	font-size: 1.58rem;
+	color: #fff;
+}
+.high-wash p{
+	font-size: 1.14rem;
+}
+
+.close-change .one-item {
+	border-radius: 5px;
+	border: 1px solid #e0e0e0;
+	padding: 1.14rem 3%;
+	background-color: #fff;
+	margin-bottom: .5rem;
+	position: relative;
+}
+.close-change .one-item img {
+	width: 3.58rem;
+	height: 3.58rem;
+	margin-right: 10px;
+}
+.close-change .one-item .text {
+	overflow: hidden;
+	color: #999999;
+}
+.close-change .one-item h3 {
+	margin-top: 0.3rem;
+	margin-bottom: 8px;
+}
+
+.realize-company li {
+	box-sizing: border-box;
+	float: left;
+	width: 49%;
+	line-height: 3.58rem;
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	text-align: center;
+}
+.realize-company li:nth-child(odd) {
+	margin-right: 2%;
+	margin-bottom: 10px;
+}
+.realize-company li:nth-child(even) {
+	margin-bottom: 10px;
+}
+.realize-company li:nth-last-child(1) {
+	margin-bottom: 0;
+}
+
+.assess-list {
+	border-top: 1px solid #e0e0e0;
+}
+.assess-list li {
+	color: #999999;
+	padding: 0 10px;
+	background: #fff;
+	border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 5px;
+}
+.assess-list li .item-title {
+	line-height: 2.66rem;
+	border-bottom: 1px solid #e0e0e0;
+}
+.assess-list li .item-title .name {
+	color: #252525;
+}
+.assess-list li p {
+	color: #696969;
+	padding: 8px 0;
+	font-size: 1.14rem;
+	line-height: 1.5rem;
+	border-bottom: 1px solid #e0e0e0;
+}
+.assess-list .company-date {
+	text-align: right;
+	/*border-bottom: 1px solid #e0e0e0;*/
+}
+.assess-list .company-date span {
+	margin-left: 10px;
+	line-height: 3.33rem;
+}
+
+/*5-9 新版本 fitz*/
+.index-addr{
+	width: 100%;
+	padding: 1rem 0;
+	font-weight: bold;
+	font-size: 1.66rem;
+	text-align: center;
+}
+.index-addr>img{
+    margin-left: -8px;
+    height: 1rem;
+    width: 1.4rem;
+    /*背景旋转90
+	-moz-transform:rotate(90deg);
+    -webkit-transform:rotate(90deg);
+    filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1);*/
+}
+.washbox-num{
+	color: #FFA834;
+}
+.washbox-louzhi{
+	position: absolute;
+    right: 10px;
+    top: 1.5rem;
+    background-image: url("/templates/weixin/images/index/coordinate.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 1rem  1rem;
+    padding-left: 1.16rem;
+    font-size: 1rem;
+    color: #ccc;
+}
+.washbox-louzhi>font{
+	font-weight: bold;
+    font-size: .9rem;
+    margin: 0 3px;
+}
+.middle-index-updown{
+	/*height: 4rem;*/
+	text-align: center;
+	width: 100%;
+	border-top: 1px solid #e0e0e0;
+	border-bottom: 1px solid #e0e0e0;
+	padding: 10px 0;
+	box-sizing: border-box;
+}
+.middle-index-updown>img{
+	height: 1rem;
+    width: 1.7rem;
+}

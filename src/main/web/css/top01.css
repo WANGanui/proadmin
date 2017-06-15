@@ -1,0 +1,105 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.top01-bg{
+    background: url("../images/bg01.png");
+    width: 100%;
+    height: 115px;
+}
+.top01-bg ul{float: right;}
+.top01-bg ul li{ margin: 0; list-style: none; float:left; cursor: pointer; margin-top: -10px;}
+.b01{
+    background: url("../images/b01.png");
+    width: 121px;
+    height: 95px;
+}
+.b01:hover,.b01.active{
+    background: url("../images/bh01.png");
+    width: 121px;
+    height: 95px;
+}
+.b02{
+    background: url("../images/b02.png");
+    width: 121px;
+    height: 95px;
+}
+.b02:hover,.b02.active{
+    background: url("../images/bh02.png");
+    width: 121px;
+    height: 95px;
+}
+.b03{
+    background: url("../images/b03.png");
+    width: 121px;
+    height: 95px;
+ }
+.b03:hover,.b03.active{
+    background: url("../images/bh03.png");
+    width: 121px;
+    height: 95px;
+}
+.b04{
+    background: url("../images/b04.png");
+    width: 121px;
+    height: 95px;
+}
+.b04:hover,.b04.active{
+    background: url("../images/bh04.png");
+    width: 121px;
+    height: 95px;
+}
+.b05{
+    background: url("../images/b05.png");
+    width: 121px;
+    height: 95px;
+}
+
+.b05:hover,.b05.active{
+    background: url("../images/bh05.png");
+    width: 121px;
+    height: 95px;
+}
+.b06{
+    background: url("../images/b06.png");
+    width: 121px;
+    height: 95px;
+}
+.b06:hover,.b06.active{
+    background: url("../images/bh06.png");
+    width: 121px;
+    height: 95px;
+}
+.b07{
+    background: url("../images/b07.png");
+    width: 121px;
+    height: 95px;
+}
+.b07:hover,.b07.active{
+    background: url("../images/bh07.png");
+    width: 121px;
+    height: 95px;
+}
+
+
+.ul-ti{
+    float: right;
+    position: absolute;
+    right: 0px;
+    top:69px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
+.ul-tietle{
+
+    list-style: none;
+    float: left;
+    width: 121px;
+    text-align: center;
+}
+
+
+
+
+

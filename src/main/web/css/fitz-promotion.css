@@ -1,0 +1,210 @@
+.shop-buttom .lanzi{
+    background-color: #2947C3;
+    border-radius: 50%;
+    height: 66px;
+    /* line-height: 70px; */
+    width: 76px;
+    padding: 8px;
+    text-align: center;
+    position: absolute;
+    top: -38px;
+    left: 30px;
+    -moz-box-shadow: 0px -1px 3px #333333;
+    -webkit-box-shadow: 0px -1px 3px #333333;
+    box-shadow: 0px -1px 3px #333333;
+}
+.shop-buttom .mui-badge-red{
+	position: absolute;
+ 	top: 21px;
+    right: 8px;
+
+}
+ .shop-buttom .mui-col-xs-8{
+	background-color: #2947C3;
+	height: 100%;
+    -moz-box-shadow: 0px 0px 1px #333333;
+    -webkit-box-shadow: 0px 0px 1px #333333;
+    box-shadow: 0px 0px 1px #333333;
+}
+.shop-buttom p{
+    margin-top: 25px;
+    margin-bottom: 5px;
+    /* text-align: center; */
+    margin-left: 19px;
+    color: #fff;	
+}
+.shop-buttom p font{
+    color: #E4255B;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0 5px;
+}
+.shop-buttom .mui-col-xs-4{
+	background-color: #E4255B;
+	text-align: center;
+	color: #fff;
+	padding: 16px;
+    -moz-box-shadow: 0px 0px 1px #E4255B;
+     -webkit-box-shadow: 0px 0px 1px #E4255B; 
+    box-shadow: 0px 0px 1px #E4255B;
+}
+.index-banner-top{
+	background-image: url(../images/banner_bg.jpg);
+	background-size: 100% 100%;
+	height: 343px;
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	padding-top: 187px;
+}
+.index-title-bg{
+    background: url(../images/banner_title3.png) no-repeat;
+    background-size: 100%;
+    /* height: 58px; */
+    width: 268px;
+    height: 80px;
+    margin: auto;
+}
+.index-banner-top .text{
+	padding: 7px 6px;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 5px;
+	margin: auto;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	color: #FFFFFF;
+    width: 86%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.bg-blue{
+	background-color: #0e6eff;
+}
+.index-second-bg{
+	background:url(../images/chaoren@2x.png)no-repeat ;
+	background-size: 100% 100% ;
+	height: 125px;
+	width: 100%;
+}
+.index-second-text{
+    padding-left: 32%;
+    padding-top: 15px;
+    color: #fff;
+}
+.index-second-text .title{
+	font-size: 15px;
+	font-weight: bold;
+	font-family: "΢���ź�";
+	margin-bottom: 5px;
+}
+.index-second-text b{
+	color: #e3255b;
+	font-style: normal;
+}
+.index-second-text .money{
+	font-size: 13px;
+}
+.index-second-text .more{
+	font-size: 12px;
+	margin-top: 3px;
+}
+.index-budong-leb{
+	background: url(../images/toutiao@2x.png) no-repeat;
+	background-size: 100% 100%;
+    height: 30px;
+    width: 103px;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    font-size: 14px;
+    margin-top: 30px;
+}
+.index-price{
+    background: url(../images/dijiao@2x.png);
+    background-size: 100% 100%;
+    height: 27px;
+    width: 100px;
+    text-align: center;
+    line-height: 27px;
+    color: #fff;
+    font-size: 14px;
+    margin-top: 9px;
+}
+.height119{
+	height: 119px !important;
+}
+.black-bg{
+	display: none;
+	/* background-color: rgba(0, 0, 0, 0.7); */
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	
+}
+.black-bg .line{
+    height: 50px;
+    width: 100%;
+    padding: 157px 20px 0px;
+}
+.black-bg .right ,.black-bg .left{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    line-height: 45px;
+    font-size: 22px;
+}
+.black-bg .left{
+	float: left;
+	background-color: #e3255b;
+}
+.black-bg .right{
+	float: right;
+	background-color: #2845c2;
+}
+
+/*�б�ҳ*/
+.gre-bg{
+	background: #f4f4f4;
+}
+.pay-list-top{
+	background: #fff;
+	margin-top: 15px;
+	padding-left: 0px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+.pay-list-top .xiyilan{
+	border-left: 3px solid #2845c2;
+	padding-left: 15px;
+}
+.pay-list-top .mui-icon-trash{
+	font-size: 15px;
+}
+.pay-list-img{
+	height: 50px;
+	width: 50px;
+}
+.pay-list-img>img{
+	height: 100%;
+	width: 100%;
+}
+.pay-list-lcc{
+	margin: 0 100px 0 60px;
+}
+.pay-list-lcc .text1{
+	font-size: 15px;
+	margin-bottom: 3px;
+}
+.pay-list-lcc p{
+	color: #c6c6c6;	
+	font-size: 13px;
+}
+.pay-list-number{
+    padding: 10px 0;	
+}

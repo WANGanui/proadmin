@@ -1,0 +1,37 @@
+.body {
+	padding: 10px 10px 4rem;
+	
+}
+.order-table {
+	box-sizing: border-box;
+	text-align: center;
+	background-color: #fff;
+}
+.table-wrapper {
+	overflow-X: auto;
+	border-radius:5px 5px 0 0;
+}
+.order-table thead {
+	background-color: #005bae;
+	color: #fff;
+}
+.order-table td,.order-table th{
+	padding: 10px 0;
+}
+.order-table thead th {
+	border-left: 1px solid #fff;
+}
+.order-table thead th:first-child {
+	border-style: none;
+}
+.order-table tbody td {
+	min-width: 73px;
+	border-left:1px solid #ccc;
+	border-top:1px solid #ccc
+}
+.order-table tbody tr td:nth-last-child(1) {
+	border-right:1px solid #ccc;
+}
+.order-table tbody tr:nth-last-child(1) {
+	border-bottom:1px solid red;
+}

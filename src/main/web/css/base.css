@@ -1,0 +1,78 @@
+.login-logo {
+    background-image: url("../images/logo.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 530px;
+    height: 74px;
+    /* position: relative; */
+    margin: 0 auto;
+    /* top: 150px; */
+}
+.login-bg {
+    background-image: url("../images/01-1.png");
+    background-position: center;
+    width: 882px;
+    height: 396px;
+    /* position: relative; */
+    margin: 0 auto;
+    /* top: 220px; */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-top: 50px;
+}
+.bg-all {
+    width: 887px;
+    height: 540px;
+    /* position: absolute; */
+    /* background: #000; */
+    /* top: 0px; */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -443px;
+    margin-top: -270px;
+}
+
+.input-box{
+    width: 40%;
+    height: 60%;
+    margin-top: 10%;
+    margin-right: 5%;
+    float: right;
+}
+
+.input-box input{
+    outline:none;
+    border-radius: 5px;
+    height: 40px;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.input-user{
+    background:url(../images/user01.png) no-repeat 0 center; padding-left: 130px
+}
+.input-pwd{
+    background:url(../images/user02.png) no-repeat 0 center; padding-left: 130px
+}
+.input-ver{
+    background:url(../images/ver.png) no-repeat 0 center;
+    padding-left: 100px;
+    width: 50%;
+    position: relative;
+    top: -15px;
+}
+
+.btn-bg{
+    color: #fff;
+    background-image:url(../images/btn01.png);
+    width: 350px;
+    height: 55px;
+
+    border-radius: 5px;
+    outline:none;
+    border: 0;
+    margin-top: 15px;
+    cursor: pointer;
+
+}

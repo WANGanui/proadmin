@@ -1,0 +1,46 @@
+.form-wrap {
+	padding-top: 50px;
+}
+.form-wrap li input{
+	border-style: none;
+	width: 90%;
+}
+.form-wrap li label {
+	display: inline-block;
+	width: 4.33rem;
+	float: left;
+}
+.form-wrap li {
+	font-size: 1.14rem;
+	padding: 0 10px;
+	line-height: 3.66rem;
+	height: 3.66rem;
+	border-top: 1px solid #e0e0e0;
+	background-color: #fff;
+}
+.form-wrap li:nth-last-child(1) {
+	border-bottom: 1px solid #e0e0e0;
+}
+.input-wrap {
+	margin-left: 4.33rem;
+	margin-right: 7.5rem;
+}
+.code-btn {
+	float: right;
+	border: 1px solid #ccc;
+	color: #ccc;
+	line-height: 2.41rem;
+	display: inline-block;
+	width: 7.5rem;
+	border-radius: 5px;
+	text-align: center;
+	margin-top: 0.55rem;
+	box-sizing: border-box;
+}
+.code-btn-canclick {
+	color: #005bae;
+	border-color: #005bae;
+}
+.btn-wrap {
+	margin-top: 53px;
+}

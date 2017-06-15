@@ -1,0 +1,17 @@
+.top-nav {
+	line-height: 3.66rem;
+	background-color: #fff;
+}
+.top-nav li {
+	float: left;
+	width: 50%;
+	text-align: center;
+	border-bottom: 1px solid #999;
+	box-sizing: border-box;
+}
+.top-nav li.active {
+	position: relative;
+	top: -1px;
+	color: #005bae;
+	border-bottom: 2px solid #005bae;
+}

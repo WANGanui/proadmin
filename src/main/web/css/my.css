@@ -1,0 +1,210 @@
+.banner {
+	/*height: 8.75rem;*/
+	background-image: url(../images/my/banner-bg.png);
+	background-size: 100% 100%;
+	position: relative;
+}
+.banner img {
+	width: 4.66rem;
+	height: 4.66rem;
+	/*float: left;*/
+	margin-top: .67rem;
+	border-radius: 50px;
+}
+.banner .text {
+	font-size: 1.1rem;
+	/*float: left;*/
+	text-align: center;
+}
+.banner .uname {
+	font-size: 1.5rem;
+	margin: 5px 0 3px 0;
+	color: #252525; 
+}
+.banner .tel{
+	font-size:1.3rem;
+	color: #999999;
+	padding-bottom: 10px; 
+}
+.banner .charge {
+	color: #e56c19;
+	background-image: url(../images/my/wodi_xy1.png);
+	background-repeat: no-repeat;
+	background-position: right center;
+	background-size: 1rem 1.5rem;
+	position: absolute;
+    top: 4.5rem;
+    right: 10px;
+}
+
+.balance {
+	margin-bottom: 10px;
+	text-align: center;
+	padding-top: 1.14rem;
+	box-sizing: border-box;
+	height: 5.83rem;
+	background: #fff;
+}
+.balance img {
+	vertical-align: middle;
+	position: relative;
+	top: -0.27rem;
+    right: 0.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+
+}
+.balance-label {
+	margin-bottom: 0.5rem;
+}
+.balance-value {
+	color: #339eff;
+}
+
+.handle-list {
+	background: #fff;
+}
+.handle-list li {
+	background-position: 10px center;
+	background-repeat: no-repeat;
+	background-size: 1.8rem 1.8rem;
+	padding-left: 3rem;
+	line-height: 4rem;
+}
+.handle-list li div {
+	padding-right: 10px;
+	background-origin: content-box;
+	background-image: url(../images/common/zuo.png);
+	background-repeat: no-repeat;
+	background-position: right center;
+	border-bottom: 1px solid #f1f1f1;
+	background-size: 0.67rem 1.25rem;
+	color: #333333;
+}
+.handle-list .last div{
+	border-bottom-style: none;
+}
+
+.handle-list .tel {
+	background-image: url(../images/my/wodi_tuichu-.png);
+}
+.handle-list .logout {
+	background-image: url(../images/my/wodi_lishi.png);
+}
+.handle-list .history {
+	background-image: url(../images/my/wodi_dianhua.png);
+}
+.padding-t50{
+	padding-top:4.17rem; 
+}
+
+/*用户中心-新版本*/
+.users-header{
+	height: 4.17rem;
+	line-height: 4.17rem;
+	box-sizing: border-box;
+	background: #fff;
+	overflow: hidden;
+	text-align: center;
+	/*position: fixed;*/
+	color: #000;
+	width: 100%;
+	/*top: 0;*/
+	/*left: 0;*/
+}
+.users-header-left{
+	float: left;
+	width: 8.33rem;
+	height: 100%;
+	/*background-image: url(../images/my/);*/
+}
+.users-header-right1,.users-header-right2{
+	float: right;
+	text-align: center;
+	height: 100%;
+	width: 4.17rem;
+	background-position: center;
+	background-repeat: no-repeat;
+
+}
+.users-header-right2{
+	background-image: url(../images/my/share.png);
+	background-size: 1.8rem 1.8rem;
+	position: relative;
+}
+.users-header-right1{
+	background-image: url(../images/my/sz.png);
+	background-size: 2rem 2rem;
+}
+.users-header-content{
+	font-size: 1.66rem;
+	font-weight: bold;
+}
+.users-header-right2>i{
+    background: url(../images/my/sms-point.png) no-repeat;
+    background-size: .7rem .7rem;
+    background-position: right;
+    height: 1.5rem;
+    width: 1.5rem;
+    display: block;
+    font-style: normal;
+    position: absolute;
+/*	right: .85rem;
+    top: .5rem;*/
+    right: 0.52rem;
+    top: 0.13rem;
+}
+.header-more-pops{
+	display: none;
+    position: fixed;
+    top: 3.42rem;
+    right: .81rem;
+    background-image: url(../images/my/dialog-box.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10rem 10rem;
+    height: 10rem;
+    width: 10rem;
+    z-index: 99;
+
+}
+.header-more-pops li{
+	height:2rem;
+	padding-left: 3rem;
+	padding-right: 1.5rem;
+}
+.header-more-pops li>div{
+	height: 2rem;
+	line-height: 1.1rem;
+	width: 100%;
+	box-sizing: border-box;
+	text-align: right;
+	color: #252525;
+	font-size: 1.33rem;
+	margin: 1rem 0;
+	border-bottom: 1px solid #f1f1f1;
+
+}
+.header-more-pops .message, .header-more-pops .help, .header-more-pops .backsms{
+	background-repeat: no-repeat;
+	background-size: 1.5rem 1.5rem;
+	background-position: 1.33rem -0.09rem;;
+}
+.header-more-pops .message{
+	background-image: url(../images/my/xx.png);
+}
+.header-more-pops .help{
+	background-image: url(../images/my/bz.png);
+}
+.header-more-pops .backsms{
+	background-image: url(../images/my/wyfk.png);
+}
+.header-more-pops ul{
+	padding-top: 1rem;
+}
+.header-more-pops .last{
+	border-bottom: none;
+}
+.tal-center{
+	text-align: center!important;
+}

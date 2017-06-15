@@ -1,0 +1,334 @@
+/*搓衣板后台板块*/
+*,*:before, *:after{
+	margin: 0;
+	padding: 0;
+	outline: none;
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body,button{
+	font-family:"Microsoft YaHei",Arial,Helvetica,sans-serif,"瀹嬩綋";
+	font-size: 12px;
+	color: #6e6e6e;
+}
+button{
+	cursor: pointer;
+}
+table{
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.clearfix:before, .clearfix:after{
+	display: table;
+    content: " ";
+}
+.clearfix:after {
+    clear: both;
+}
+ol,ul{
+	list-style: none;
+}
+/*首页*/
+.admin-index-body{
+	width: 100%;
+	height: 100%;
+}
+.content-box{
+	width: 1100px;
+	height: 100%;
+	padding: 15px 0 0 0;
+	box-sizing: border-box;
+	margin: 0 auto;
+}
+.admin-i-header{
+	height: 50px;
+	line-height: 50px;
+}
+.i-user-infor{
+	float: right;
+}
+.admin-i-header .i-logo{
+    height: 100%;
+    width: 150px;
+    padding: 5px 20px 5px 0;
+    box-sizing: border-box;
+}
+.i-user-infor>div{
+	float: right;
+	margin: 0px 0 0 15px;
+	background-position: left center;
+	background-repeat: no-repeat;
+	padding-left: 20px;
+    box-sizing: border-box;
+    font-size: 13px;
+    cursor: pointer;
+}
+.i-user-infor>div:hover{
+	text-decoration: underline;
+}
+.i-user-infor .user-out{
+	background-image: url(../images/loginout.png);
+}
+.i-user-infor .user-name{
+	background-image: url(../images/user-admin.png);
+}
+.i-user-infor .user-msg{
+	background-image: url(../images/message.png);
+}
+.admin-i-center{
+	margin-top: 15px;
+	width: 100%;
+	height: 614px;
+	background-color:#FFFFFF;
+	background: url(../images/admin-bg.png);
+	background-position: center 0;
+	background-repeat: no-repeat;
+	background-size: cover;	
+	padding: 100px 110px;
+    box-sizing: border-box;
+}
+.admin-i-oneline{
+	width: 100%;
+	height: 202px;
+	text-align: center;
+}
+.admin-i-secondline{
+	width: 100%;
+	height: 202px;
+	text-align: center;
+}
+.admin-i-oneline>div, .admin-i-secondline>div{
+	float: left;
+	height: 100%;
+	margin-right: 8px;
+    margin-bottom: 8px;
+    padding-top: 38px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.admin-i-oneline .one{
+	width: 202px;
+	background-color:#31df49;
+}
+.admin-i-oneline .two{
+	width: 294px;
+	background-color: #37cded;
+}
+.admin-i-oneline .three{
+	width: 	120px;
+	background-color: #2ff1ca;
+}
+.admin-i-oneline .four{
+	width: 240px;
+	background-color: #f1d215;
+	margin-right: 0!important;
+}
+.admin-i-oneline>div>div ,.admin-i-secondline>div>div{
+	font-size: 18px;
+	color: #FFFFFF;
+	line-height: 45px;
+}
+.admin-i-secondline .one{
+	width: 270px;
+	background-color:#faad3e;	
+}
+.admin-i-secondline .two{
+	width: 240px;
+	background-color:#be77eb;	
+}
+.admin-i-secondline .three{
+	width: 354px;
+	background-color:#f47c73;	
+	margin-right: 0!important;
+}
+.a-i-1:hover, .a-i-2:hover, .a-i-3:hover, .a-i-4:hover , .a-i-5:hover, .a-i-6:hover, .a-i-7:hover{
+	position: relative;
+    top: -2px;
+    left: -2px;
+    text-decoration: underline;
+    color: #FFFFFF;
+    font-size: 18px;
+    box-shadow: 1px 1px 1px #E6E3E3;
+}
+.a-i-1:hover{
+	background: #29E443;
+}
+.a-i-2:hover{
+	background: #31D4F7;
+}
+.a-i-3:hover{
+	background: #0DF7C8;
+}
+.a-i-4:hover{
+	background: #fcd70c;
+}
+.a-i-5:hover{
+	background: #F9A730;
+}
+.a-i-6:hover{
+	background: #C278F1;
+}
+.a-i-7:hover{
+	background: #F36D63;
+}
+
+/*入库*/
+.storage-header{
+	height: 80px;
+	line-height: 80px;
+	padding: 0 40px;
+}
+.storage-header .i-logo{
+    height: 80px;
+    width: 150px;
+    padding: 18px 20px 18px 0;
+    cursor: pointer;
+}
+.sto-header-nav{
+    height: 60px;
+    line-height: 60px;
+    background: #339eff;
+}
+.sto-header-nav ul li{
+	float: left;
+    _display: inline;
+    _zoom: 1;
+}
+.sto-header-nav ul{
+    padding: 0 40px;	
+}
+.sto-header-nav li a{
+    width: 188px;
+    height: 60px;
+    padding: 0;
+    line-height: 60px;
+    text-align: center;
+    color: #FFFFFF;
+    display: block;
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+.sto-header-nav span{
+	height: 20px;
+	width: 20px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 20px 20px;
+    display: block;
+    margin-right: 8px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 4px;
+}
+.sto-header-nav li.active a{
+	background: #5086D8;
+}
+.sto-header-nav .ruku{
+	background-image: url(../images/qianshou-s.png);
+}
+.sto-header-nav .fenjian{
+	background-image: url(../images/fenjian-s.png);
+}
+.sto-header-nav .chuku{
+	background-image: url(../images/chuku-s.png);
+}
+.sto-header-nav .check{
+	background-image: url(../images/check-s.png);
+}
+.sto-header-nav .warning{
+	background-image: url(../images/warning-s.png);
+}
+.sto-header-nav .gejia{
+	background-image: url(../images/gejia-s.png);
+}
+.storage-box-content{
+	width: 100%;
+	height: 100%;
+	padding: 35px 40px;
+}
+.storage-box-content .search-s{
+	text-align: center;
+}
+.storage-search>div{
+	width: 100%;
+	line-height: 30px;
+	text-align: center;
+}
+.storage-search{
+	border: 1px solid #ccc;
+}
+.storage-search .title{
+	font-size: 17px;
+    height: 50px;
+    line-height: 50px;
+}
+.storage-search .search-line{
+	font-size: 13px;
+}
+.storage-search button{
+    width: 65px;
+    height: 32px;
+    border: 1px solid #ccc;
+    background: #FFFFFF;
+    border-radius: 4px;
+    color: #757171;
+    font-size: 13px;
+    margin-left: 5px;
+}
+.storage-search button:hover{
+	background: #339eff;
+	color: #FFFFFF;
+	border:0;
+}
+.storage-search input{
+    width: 400px;
+    height: 32px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 5px;
+    padding: 0 8px
+}
+.storage-search .infors{
+    font-size: 13px;
+    height: 50px;
+    line-height: 43px;	
+}
+.storage-search input:focus, .storage-search input:hover{
+    border:1px solid #339eff;
+}
+.storage-list-title{
+	width: 100%;
+    height: 40px;
+    line-height: 40px;
+	font-size: 17px;
+	text-align: center;
+	border-bottom: ;
+	border:1px solid #ccc;
+	border-top: 0;
+	border-bottom: 0
+}
+.storage-list-content{
+/*	width: 100%;
+	height: 100%;*/
+}
+.storage-list-content table{
+	width: 100%;
+}
+.storage-list-content>table th, .storage-list-content>table td{
+	border: 1px solid #ddd;
+	font-size: 13px;
+}
+.storage-list-content>table>thead>tr{
+	background-color: #f5f5f5;
+}
+.storage-list-content>table> thead > tr > th{
+	padding: 8px 15px;
+	vertical-align: middle;
+}
+.storage-list-content>table> tbody > tr > td{
+	padding: 15px;
+	vertical-align: middle;
+	text-align: center;
+}

@@ -52,34 +52,38 @@ public class WorkerController {
 
     @ResponseBody
     @RequestMapping("/login")
-    public JsonResult workerLogin(HttpServletRequest request) {
+    public ModelAndView workerLogin(HttpServletRequest request) {
         JsonResult jr = null;
+        ModelAndView model = new ModelAndView();
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
         if (exceptionClassName != null) {
             if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
                 logger.info("=============登录失败，用户名错误=============");
-                jr = ResultUtil.returnFail(ErrorCode.ACCOUNT_NON_EXISTEND.getCode(), ErrorCode.ACCOUNT_NON_EXISTEND.getMessage());
+                model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_NON_EXISTEND.getMessage(),ErrorCode.ACCOUNT_NON_EXISTEND.getCode())));
+                model.setViewName("login");
             } else if (IncorrectCredentialsException.class.getName().equals(exceptionClassName)) {
                 logger.info("=============登录失败，密码错误=============");
-                jr = ResultUtil.returnFail(ErrorCode.ACCOUNT_PASSWORD_ERROR.getCode(), ErrorCode.ACCOUNT_PASSWORD_ERROR.getMessage());
+                model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_PASSWORD_ERROR.getMessage(),ErrorCode.ACCOUNT_PASSWORD_ERROR.getCode())));
+                model.setViewName("login");
             } else if (LockedAccountException.class.getName().equals(exceptionClassName)) {
                 logger.info("=============登录失败，用户被锁定=============");
-                jr = ResultUtil.returnFail(ErrorCode.ACCOUNT_TYPE_EXCEPTION.getCode(), ErrorCode.ACCOUNT_TYPE_EXCEPTION.getMessage());
+                model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_TYPE_EXCEPTION.getMessage(),ErrorCode.ACCOUNT_TYPE_EXCEPTION.getCode())));
+                model.setViewName("login");
             } else {
                 logger.error("=============登录失败失败，系统异常=============");
-                jr = ResultUtil.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getCode(), ErrorCode.UN_KNOWN_EXCEPTION.getMessage());
+                model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getMessage(),ErrorCode.UN_KNOWN_EXCEPTION.getCode())));
+                model.setViewName("login");
             }
         } else {
             try {
                 SubjectUtil.getAccout();
                 logger.error("=============你已经登录，若需登录其他账号，请先退出当前账号===========");
-                jr = ResultUtil.returnSuccess("你已经登录，若需登录其他账号，请先退出当前账号");
             } catch (Exception e) {
                 logger.info("================请先登录==============");
-                jr = ResultUtil.returnFail(ErrorCode.NOT_LOGIN_EXCEPTION.getCode(), ErrorCode.NOT_LOGIN_EXCEPTION.getMessage());
+                model.setViewName("login");
             }
         }
-        return jr;
+        return model;
     }
 
     @RequestMapping("/success")

@@ -168,7 +168,31 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
             <version>${spring}</version>
+
         </dependency>
+        <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-oxm</artifactId>
+        <version>${spring}</version>
+    </dependency>
+    <dependency>
+        <groupId>opensymphony</groupId>
+        <artifactId>sitemesh</artifactId>
+        <version>2.4.2</version>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>taglibs</groupId>
+        <artifactId>standard</artifactId>
+        <version>1.1.2</version>
+        <type>jar</type>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>1.2</version>
+        <type>jar</type>
+    </dependency>
         <!-- spring end -->
 
         <!-- AOP 依赖包 start -->
@@ -338,6 +362,7 @@
             <artifactId>gson</artifactId>
             <version>2.2.4</version>
         </dependency>
+
     </dependencies>
 
 </project>

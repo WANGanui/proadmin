@@ -1,0 +1,71 @@
+.head > div {
+	position: relative;
+	padding-left: 40%;
+}
+.head  span {
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: 1.29rem 1.29rem;
+	padding-left: 1.4rem;
+	line-height: 1.4rem;
+	height: 1.4rem;
+}
+.head {
+	margin-bottom: 1.58rem;
+	box-sizing: border-box;
+	padding-top: 2.97rem;
+	background-color: #f0f0f0;
+	background-image: url(../images/pay-online/bg.png);
+	height: 10rem;
+	background-size: 100% 100%;
+}
+.head .user {
+	margin-bottom: 1rem;
+	font-size: 1.25rem;
+	background-image: url(../images/pay-online/user.png);
+}
+.head .balance {
+	color: #005bae;
+	font-size: 1.33rem;
+	background-image: url(../images/pay-online/yue.png);
+}
+
+.pay-way-list li {
+	font-size: 1.25rem;
+	background-color: #fff;
+	line-height: 3.58rem;
+	margin-bottom: 0.5rem;
+	float: left;
+	margin-right: 1%;
+	width: 49.5%;
+	padding-left: 1.37rem;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+.pay-way-list li.selected {
+	background-image: url(../images/pay-online/selected.png);
+	background-position: right top;
+	background-repeat: no-repeat;
+	background-size: 1.79rem 2.16rem;
+}
+.pay-way-list li:nth-child(2n) {
+	margin-right: 0;
+}
+.pay-way-list li:nth-last-child(1) {
+	margin-bottom: 0;
+}
+.pay-way-list li input {
+	border-style: none;
+	outline-style: none;
+	background-color: #fff;
+	width: 100%;
+	box-sizing: border-box;
+	padding-left: 1.37rem;
+}
+.pay-way-list li.input-wrap {
+	padding-left: 0;
+}
+.submit-wrap {
+	margin-top: 25px;
+}

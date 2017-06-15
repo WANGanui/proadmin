@@ -1,0 +1,65 @@
+.head-tip {
+	text-align: center;
+	height: 6.25rem;
+	box-sizing: border-box;
+	padding-top: 1.66rem;
+}
+.head-tip div {
+	margin-bottom: 6px;
+}
+.content {
+	padding-bottom: 6.5rem;
+}
+.content>ul{
+	border-radius: 5px;
+	padding: 0 20px;
+	background-color: #fff;
+}
+.content li.high {
+	padding-top: 1.66rem;
+	box-sizing: border-box;
+	height: 12.66rem;
+	border-bottom: 1px solid #ccc;
+}
+.right-content {
+	overflow: hidden;
+}
+.right-content {
+
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+.right-content li {
+	box-sizing: border-box;
+	padding-left: 3.66rem;
+	line-height: 4rem;
+	background-position: 5px center;
+	background-repeat: no-repeat;
+	background-size: 2.5rem 2.5rem;
+}
+.right-content li:first-child {
+	border-bottom: 1px solid #ccc;
+}
+.zhuchuang {
+	background-image: url(../images/curtains-wash/greencl.png);
+}
+.shachuang {
+	color: #5c5c5c;
+	background-image: url(../images/curtains-wash/greycl.png);
+}
+.left-content {
+	margin-right: 10px;
+	text-align: center;
+}
+.left-content img{
+	width: 5.66rem;
+	height: 5.66rem;
+}
+.min {
+	padding: 1rem 0;
+}
+.min li {
+	list-style-type: disc;
+	list-style-position: inside;
+	line-height: 1.66rem;
+}

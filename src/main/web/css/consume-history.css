@@ -1,0 +1,33 @@
+.consume-list-wrap {
+	padding-top: 10px;
+}
+.consume-list {
+	padding: 0 10px;
+	background-color: #fff;
+}
+
+.consume-list li {
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid #e0e0e0;
+}
+.consume-list li .first-line {
+	line-height: 2.25rem;
+}
+.consume-list li:last-child {
+	border-style: none;
+}
+.title {
+	font-size: 1.15rem;
+}
+.result-success {
+	color: #0b801b;
+}
+.result-failed {
+	color: #ccc;
+}
+.date-time {
+	color: #999;
+}
+.money {
+	color: #005bae;
+}

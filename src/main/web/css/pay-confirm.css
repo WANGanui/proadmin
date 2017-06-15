@@ -1,0 +1,72 @@
+.head {
+	box-sizing: border-box;
+	padding-top: 2rem;
+	text-align: center;
+	height: 10rem;
+	background-color: #fff;
+}
+.leave-money {
+	padding-left: 20px;
+	font-size: 2rem;
+	color: #005bae;
+	font-weight: 700;
+}
+.leave-money-wrap {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+.give-money {
+	margin-left: 7px;
+	color: #e56c19;
+}
+.pay-way-title {
+	line-height: 2.67rem;
+	color: #666;
+}
+
+.pay-way-list {
+	margin-bottom: 24px;
+	background: #fff;
+}
+.pay-way-list li {
+	background-position: 10px center;
+	background-repeat: no-repeat;
+	background-size: 1.8rem 1.8rem;
+	padding-left: 3rem;
+	line-height: 3.66rem;
+	font-weight: 600;
+}
+.pay-way-list li div {
+	border-bottom: 1px solid #ccc;
+	padding-right: 10px;
+	background-origin: content-box;
+	/*background-image: url(../images/pay-confirm/unselected.png);*/
+	background-repeat: no-repeat;
+	background-position: right center;
+	border-bottom: 1px solid #ccc;
+	background-size: 1.33rem 1.33rem;
+}
+.pay-way-list li.selected div {
+	/*background-image: url(../images/pay-confirm/selected.png);*/
+}
+.pay-way-list .last div{
+	border-bottom-style: none;
+}
+
+.pay-way-list .weixin {
+	background-image: url(../images/pay-confirm/weixin.png);
+}
+.pay-way-list .zhifubao {
+	background-image: url(../images/pay-confirm/zhifubao.png);
+}
+.submit {
+	width: 100%;
+	line-height: 3.75rem;
+	background-color: #005bae;
+	color: #fff;
+	border-radius: 5px;
+}
+
+.balance{
+	background-image: url(../images/my/balance.png);
+}
