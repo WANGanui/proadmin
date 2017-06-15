@@ -5,8 +5,11 @@ import com.hrg.exception.MessageException;
 import com.hrg.exception.ValidatorException;
 import com.hrg.global.ApiResult;
 import com.hrg.global.JsonResult;
+import com.hrg.model.Module;
+import com.hrg.model.ModuleCriteria;
 import com.hrg.model.Worker;
 import com.hrg.model.WorkerCriteria;
+import com.hrg.service.ModuleService;
 import com.hrg.service.ShiroRealmService;
 import com.hrg.service.WorkerService;
 import com.hrg.util.JsonUtil;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +46,9 @@ public class WorkerController {
     private ShiroRealmService shiroRealmService;
     @Autowired
     private WorkerService workerService;
+    @Autowired
+    private ModuleService moduleService;
+
 
     private static Logger logger = Logger.getLogger("LoginController");
 
@@ -56,6 +63,20 @@ public class WorkerController {
         JsonResult jr = null;
         ModelAndView model = new ModelAndView();
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
+        if (exceptionClassName==null){
+            Subject subject = SecurityUtils.getSubject();
+            Worker worker = (Worker) subject.getPrincipal();
+            if (worker.getDataid()=="1"){
+                try {
+                    List<Module> Module = moduleService.selectList(new ModuleCriteria());
+                    model.addObject("module",Module);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else {
+
+            }
+        }
         if (exceptionClassName != null) {
             if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
                 logger.info("=============登录失败，用户名错误=============");
