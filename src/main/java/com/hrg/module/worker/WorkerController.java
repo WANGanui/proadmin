@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -63,19 +62,20 @@ public class WorkerController {
         JsonResult jr = null;
         ModelAndView model = new ModelAndView();
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
-        if (exceptionClassName==null){
-            Subject subject = SecurityUtils.getSubject();
-            Worker worker = (Worker) subject.getPrincipal();
-            if (worker.getDataid()=="1"){
-                try {
+        try {
+            if (exceptionClassName==null){
+                String account = request.getParameter("username");
+                Worker worker = workerService.getWorkerInfo(account);
+                if (worker.getDataid()=="1"){
                     List<Module> Module = moduleService.selectList(new ModuleCriteria());
                     model.addObject("module",Module);
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }else {
 
             }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
         if (exceptionClassName != null) {
             if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
@@ -113,7 +113,7 @@ public class WorkerController {
         ModelAndView model = new ModelAndView();
         JsonUtil jsonUtil = null;
         try {
-            model.setViewName("index");
+            model.setViewName("index/main");
             logger.info("=============开始查询员工权限=============");
             worker = (Worker) SecurityUtils.getSubject().getPrincipal();
             Map<String, Object> initData = new HashMap<String, Object>();
