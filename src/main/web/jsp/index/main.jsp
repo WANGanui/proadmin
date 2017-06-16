@@ -74,8 +74,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <c:forEach items="${menus}" var="menu">
 	<c:if test="${menu.modulePid==0}">
 		<dl id="menu-product">
-				<dt><i class="Hui-iconfont">&#xe620;</i> 
-					      ${menu.moduleName} 
+				<dt><i class="Hui-iconfont">&#xe620;</i>
+					      ${menu.moduleName}
 					  <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 			  </dt>
 				<dd>
@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								 <c:if test="${menutwo.modulePid==menu.moduleId}">
 									    <li><a data-href="${menutwo.moduleUrl}" data-title="${menutwo.moduleName}" href="javascript:void(0)">${menutwo.moduleName}</a></li>
 								 </c:if>
-							</c:forEach>										
+							</c:forEach>
 					</ul>
 				</dd>
 		</dl>
