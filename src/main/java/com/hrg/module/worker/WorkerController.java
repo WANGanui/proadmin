@@ -15,7 +15,6 @@ import com.hrg.service.WorkerService;
 import com.hrg.util.JsonUtil;
 import com.hrg.util.PageUtil;
 import com.hrg.util.ResultUtil;
-import com.hrg.util.SubjectUtil;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -96,13 +95,7 @@ public class WorkerController {
                 model.setViewName("login");
             }
         } else {
-            try {
-                SubjectUtil.getAccout();
-                logger.error("=============你已经登录，若需登录其他账号，请先退出当前账号===========");
-            } catch (Exception e) {
-                logger.info("================请先登录==============");
-                model.setViewName("login");
-            }
+
         }
         return model;
     }

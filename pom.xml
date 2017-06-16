@@ -201,20 +201,7 @@
             <groupId>org.glassfish.web</groupId>
             <artifactId>jstl-impl</artifactId>
             <version>1.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.servlet.jsp</groupId>
-                    <artifactId>jsp-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.servlet.jsp.jstl</groupId>
-                    <artifactId>jstl-api</artifactId>
-                </exclusion>
-            </exclusions>
+            <type>jar</type>
         </dependency>
 
         <!-- spring end -->
