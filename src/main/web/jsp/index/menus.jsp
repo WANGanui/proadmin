@@ -1,6 +1,6 @@
-﻿<%@ page language="java" import="java.util.*"
-	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+﻿<%@ page language="java" import="com.hrg.model.*"
+		 contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link href="../css/style.css" rel="stylesheet" type="text/css" />
 <script language="JavaScript" src="../js/jquery.js">
@@ -34,10 +34,10 @@ $(function() {
 	</div>
 
 	<dl class="leftmenu">
-		<%--<c:set var="one" value="0"></c:set>
+		<c:set var="one" value="0"></c:set>
 		<c:forEach items="${menus}" var="menu">
 			<!-- 一级菜单  -->
-			<c:if test="${menu.modulePid==0}">
+			<c:if test="${menu.modulepid==0}">
 				<dd>
 					<div class="title">
 						<span><img src="../images/leftico01.png" /> </span>${menu.moduleName}
@@ -45,9 +45,9 @@ $(function() {
 					<!--  二级菜单  -->
 					<ul class="menuson">
 						<c:forEach items="${menus}" var="menutwo">
-							<c:if test="${menutwo.modulePid==menu.moduleId}">
+							<c:if test="${menutwo.modulepid==menu.dataid}">
 								<li >
-									<cite></cite><a href="${menutwo.moduleUrl}" target="${menutwo.pageTarget!=null? 'blank' : 'rightFrame'}">${menutwo.moduleName}</a><i></i>
+									<cite></cite><a href="${menutwo.moduleurl}" target="${menutwo.pageTarget!=null? 'blank' : 'rightFrame'}">${menutwo.modulename}</a><i></i>
 								</li>
 								<c:set value="1" var="one"></c:set>
 							</c:if>
@@ -55,7 +55,7 @@ $(function() {
 					</ul>
 				</dd>
 			</c:if>
-		</c:forEach>--%>
+		</c:forEach>
 	</dl>
 </body>
 

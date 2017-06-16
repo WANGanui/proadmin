@@ -53,7 +53,7 @@
 			<thead>
 				<tr class="text-c">
 					<th width="40">ID</th>
-					<th width="40">序号</th>
+					<th width="40">名称</th>
 					<th width="200">标题</th>
 					<th width="100">车型</th>
 					<th width="100">上线状态</th>

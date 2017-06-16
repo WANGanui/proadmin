@@ -61,21 +61,6 @@ public class WorkerController {
         JsonResult jr = null;
         ModelAndView model = new ModelAndView();
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
-        try {
-            if (exceptionClassName==null){
-                String account = request.getParameter("username");
-                Worker worker = workerService.getWorkerInfo(account);
-                if (worker.getDataid()=="1"){
-                    List<Module> Module = moduleService.selectList(new ModuleCriteria());
-                    model.addObject("module",Module);
-                }
-            }else {
-
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
         if (exceptionClassName != null) {
             if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
                 logger.info("=============登录失败，用户名错误=============");
@@ -104,16 +89,16 @@ public class WorkerController {
     public ModelAndView success(){
         Worker worker = null;
         ModelAndView model = new ModelAndView();
-        JsonUtil jsonUtil = null;
         try {
             model.setViewName("index/main");
             logger.info("=============开始查询员工权限=============");
             worker = (Worker) SecurityUtils.getSubject().getPrincipal();
-            Map<String, Object> initData = new HashMap<String, Object>();
-            List<? extends Object> roleRelPermission = shiroRealmService.getPermissionByUser(worker);
-            initData.put("workerInfo",worker);
-            jsonUtil.encode(initData);
-            model.addObject("initData",jsonUtil.encode(initData));
+            model.addObject("worker",worker);
+            if (worker.getDataid()=="1" || worker.getDataid().equals("1")){
+                List<Module> module = null;
+                module = moduleService.selectList(new ModuleCriteria());
+                model.addObject("menus",module);
+            }
             logger.info("=============查询员工权限完成=============");
         } catch (NullPointerException exception) {
             logger.error("=============查询员工权限失败，员工身份过期=============");

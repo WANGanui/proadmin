@@ -1,4 +1,4 @@
-﻿<%@ page language="java" import="java.util.*"	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" import="com.hrg.model.*"	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
@@ -33,18 +33,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>五爪猫后台管理系统</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
+
 </head>
 <body>
 <header class="navbar-wrapper">
 	<div class="navbar navbar-fixed-top">
-		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">五爪猫</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">后台管理系统</a> <span class="logo navbar-slogan f-l mr-10 hidden-xs">v1.0</span> <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
+		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">HRG项目管理系统</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">后台管理系统</a> <span class="logo navbar-slogan f-l mr-10 hidden-xs">v1.0</span> <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
 			<nav class="nav navbar-nav">
 
 			</nav>
 			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 				<ul class="cl">
-					<li>欢迎：</li>
-					<li class="dropDown dropDown_hover"> <a href="javascript:;" class="dropDown_A">${user_info.admUserName} <i class="Hui-iconfont">&#xe6d5;</i></a>
+					<li>欢迎:</li>
+					<li class="dropDown dropDown_hover"> <a href="javascript:;" class="dropDown_A">${worker.name} <i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">
 							<%--<li><a href="#">个人信息</a></li>--%>
 							<li><a href="javascript:;" onclick="updatePwe()">修改密码</a></li>
@@ -72,17 +73,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="menu_dropdown bk_2">
 
 <c:forEach items="${menus}" var="menu">
-	<c:if test="${menu.modulePid==0}">
+	<c:if test="${menu.modulepid==0}">
 		<dl id="menu-product">
 				<dt><i class="Hui-iconfont">&#xe620;</i>
-					      ${menu.moduleName}
+					      ${menu.modulename}
 					  <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 			  </dt>
 				<dd>
 					<ul>
 							<c:forEach items="${menus}" var="menutwo">
-								 <c:if test="${menutwo.modulePid==menu.moduleId}">
-									    <li><a data-href="${menutwo.moduleUrl}" data-title="${menutwo.moduleName}" href="javascript:void(0)">${menutwo.moduleName}</a></li>
+								 <c:if test="${menutwo.modulepid==menu.datatid}">
+									    <li><a data-href="${menutwo.moduleurl}" data-title="${menutwo.modulename}" href="javascript:void(0)">${menutwo.modulename}</a></li>
 								 </c:if>
 							</c:forEach>
 					</ul>

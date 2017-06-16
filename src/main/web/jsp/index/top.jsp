@@ -1,5 +1,5 @@
-﻿<%@ page language="java" import="java.util.*"
-	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" import="com.hrg.model.*"
+         contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%--	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 <%
 	String path = request.getContextPath();
@@ -27,7 +27,7 @@ color:#fff;
 </div>
 <ul class="ul-ti">
     <a href="../adm/user/index.do" target="_parent"><li class="ul-tietle">首页</li></a>
-    <li class="ul-tietle">${user_info.admUserName}</li>
+    <li class="ul-tietle">${worker.name}</li>
     <a href="../adm/user/loginout.do" target="_parent"><li class="ul-tietle">退出</li></a>
 </ul>
 </body>

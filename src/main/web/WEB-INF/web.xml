@@ -44,7 +44,9 @@
         <url-pattern>/fonts/*</url-pattern>
         <url-pattern>/lib/*</url-pattern>
         <url-pattern>/layer/*</url-pattern>
-        <url-pattern>/static/*"</url-pattern>
+        <url-pattern>/static/*</url-pattern>
+        <url-pattern>*.jpg</url-pattern>
+        <url-pattern>*.png</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>SpringMVC</servlet-name>

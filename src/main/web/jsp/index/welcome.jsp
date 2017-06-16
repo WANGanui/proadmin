@@ -23,6 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body style="position:absolute; z-index:-1 ; text-align: center;">
-     <img src="images/background.jpg" height="80%" width="57%"/>    
+     <img src="<%=basePath%>img/116777973943578118.png"/>
   </body>
 </html>
