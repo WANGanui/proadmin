@@ -18,11 +18,11 @@
 
 	  <aop:aspectj-autoproxy proxy-target-class="true" /> 
 	<!-- 启用MVC注解 -->
-	<!-- <mvc:annotation-driven> <mvc:message-converters register-defaults="true"> 
+	 <!--<mvc:annotation-driven> <mvc:message-converters register-defaults="true">
 		<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> 
 		<property name="supportedMediaTypes"> <list> <value>application/json</value> 
 		<value>text/json</value> <value>text/html;charset=UTF-8</value> </list> </property> 
-		</bean> </mvc:message-converters> </mvc:annotation-driven> -->
+		</bean> </mvc:message-converters> </mvc:annotation-driven>-->
 
 	<mvc:annotation-driven></mvc:annotation-driven>
 	<bean id="mappingJacksonHttpMessageConverter"

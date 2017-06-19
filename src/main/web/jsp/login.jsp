@@ -40,7 +40,7 @@
                     Messenger().alertErr("请输入用户密码！");
                     return ;
                 }
-
+                console.info(initData.gotoIndexUrl);
                 var url =initData.validateLoginUrl;
 
                 var param = {
@@ -54,9 +54,8 @@
                     data:param,
                     dataType:'json',
                     success:function (data) {
-                        console.info("返回值",data);
                         if (data.success == false){
-                            Messenger().alertErr(data.message);
+                            Messenger().alertErr(data.msg);
                         }else {
                             window.location.href=initData.gotoIndexUrl;
                         }
@@ -106,8 +105,8 @@
 <script>
     var initData={
         validateLoginUrl:$.getRootPath()+"login",
-        gotoIndexUrl:$.getRootPath()+"success"
-    };
+        gotoIndexUrl:$.getRootPath()+"success"}
+
     WebPro(initData);
 </script>
 </html>
