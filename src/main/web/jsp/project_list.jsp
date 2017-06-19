@@ -1,7 +1,7 @@
 ﻿<!--_meta 作为公共模版分离出去-->
 <%@ page language="java" import="java.util.*"	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -30,7 +30,7 @@
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 
-	<title>图片列表</title>
+	<title>项目列表</title>
 <style>
 	textarea{
 		border:0;
@@ -44,10 +44,10 @@
 </style>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 内容管理 <span class="c-gray en">&gt;</span> 案例管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span class="c-gray en">&gt;</span> 项目列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%><a class="btn btn-primary radius" onclick="picture_add('添加案例','getContentCaseByContentId.do')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加案例</a>  <%--<a class="btn btn-primary radius" onclick="picture_query('精选案例','getAllContentPickup.do?contentType=2')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i> 查看精选案例</a>--%></span> <span class="r">共有数据：<strong>${length}</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%><a class="btn btn-primary radius" onclick="picture_add('添加案例','getContentCaseByContentId.do')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加项目</a>  <%--<a class="btn btn-primary radius" onclick="picture_query('精选案例','getAllContentPickup.do?contentType=2')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i> 查看精选案例</a>--%></span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort">
 			<thead>
@@ -56,7 +56,6 @@
 					<th width="40">项目名称</th>
 					<th width="200">开始时间</th>
 					<th width="100">预计结束时间</th>
-					<th width="100">项目组人员</th>
 					<th width="60">项目负责人</th>
 					<th  width="60">状态</th>
 					<th width="60">项目进度</th>
@@ -64,31 +63,26 @@
 				</tr>
 			</thead>
 			<tbody>
-<c:forEach items="${projectList}" var="project" varStatus="projectIndex">
+<c:forEach items="${projectList}" var="projectAll" varStatus="projectIndex">
 				<tr class="text-c">
-					<td>${project.contentId}</td>
+
 					<td>${projectIndex.index+1}</td>
-					<td>${project.contentTitle}</td>
-					<td>${project.carSystemName}</td>
-					<td class="td-status"><%--<c:if test="${content.status==1}">
+					<td>${projectAll.name}</td>
+					<td class="td-time"><fmt:formatDate value="${projectAll.starttime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					<td class="td-time"><fmt:formatDate value="${projectAll.endtime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					<td>${projectAll.leader}</td>
+					<td class="td-status"><c:if test="${projectAll.state==1}">
 						<span class="label label-success radius">	已发布 </span>
 					</c:if>
-						<c:if test="${content.status==0}">
+						<c:if test="${projectAll.state==0}">
 							<span class="label label-defaunt radius">	已下架</span>
 						</c:if></td>
-					<td><c:if test="${content.isPickup==1}">
-							是
-						</c:if>
-						<c:if test="${content.isPickup==0}">
-							 否
-						</c:if>--%></td>
-					<td>${project.numberRead}</td>
-					<td>${project.numberRise}</td>
+
 
                     <td class="td-time"><fmt:formatDate value="${project.updateTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td class="td-manage">
-						<a style="text-decoration:none" class="ml-5" onClick="picture_edit('案例编辑','getContentCaseByContentId.do','${project.contentId}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
-						<a style="text-decoration:none" class="ml-5" onClick="picture_del(this,'${project.contentId}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+						<a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${project.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a style="text-decoration:none" class="ml-5" onClick="picture_del('创建任务列表','${project.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
 					</td>
 				</tr>
 </c:forEach>
