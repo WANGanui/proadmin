@@ -12,6 +12,8 @@ public class ApiResult {
 	
 	public Object result;
 
+	public boolean success;
+
 
 	public interface DataLoadBackCall{
 		Object success();
@@ -23,10 +25,12 @@ public class ApiResult {
 			apiResult.result=dataLoadBackCall.success();
 			apiResult.status="200";
 			apiResult.msg="请求成功";
+			apiResult.success = true;
 		}
 		catch (Exception ex){
 			apiResult.status = "-1";
 			apiResult.msg = "请求数据失败!";
+			apiResult.success = false;
 		}
 
 		return apiResult;
@@ -37,12 +41,15 @@ public class ApiResult {
 		apiResult.status="200";
 		apiResult.result=object;
 		apiResult.msg="请求成功";
+		apiResult.success = true;
 		return apiResult;
 	}
 
 	public static ApiResult returnSuccess(){
 		ApiResult apiResult = new ApiResult();
+		apiResult.status="200";
 		apiResult.msg="请求成功";
+		apiResult.success = true;
 		return apiResult;
 	}
 
@@ -50,6 +57,7 @@ public class ApiResult {
 		ApiResult apiResult = new ApiResult();
 		apiResult.status = status;
 		apiResult.msg = msg;
+		apiResult.success = false;
 		return apiResult;
 	}
 }

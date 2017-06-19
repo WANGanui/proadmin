@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<input runat="server" id="divScrollValue" type="hidden" value="" />
 	<div class="menu_dropdown bk_2">
 
-<c:forEach items="${menus}" var="menu">
+<c:forEach items="${map.menus}" var="menu">
 	<c:if test="${menu.modulepid==0}">
 		<dl id="menu-product">
 				<dt><i class="Hui-iconfont">&#xe620;</i>
@@ -81,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  </dt>
 				<dd>
 					<ul>
-							<c:forEach items="${menus}" var="menutwo">
+							<c:forEach items="${map.menus}" var="menutwo">
 								 <c:if test="${menutwo.modulepid==menu.datatid}">
 									    <li><a data-href="${menutwo.moduleurl}" data-title="${menutwo.modulename}" href="javascript:void(0)">${menutwo.modulename}</a></li>
 								 </c:if>

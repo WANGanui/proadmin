@@ -9,8 +9,6 @@ import com.hrg.model.Worker;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * 类说明:获取员工信息工具类
  */
