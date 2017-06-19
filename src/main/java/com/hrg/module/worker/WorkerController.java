@@ -35,8 +35,7 @@ import java.util.Map;
 @RequestMapping("/worker")
 public class WorkerController {
 
-    @Autowired
-    private ShiroRealmService shiroRealmService;
+
     @Autowired
     private WorkerService workerService;
     @Autowired

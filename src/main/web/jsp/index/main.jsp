@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>五爪猫后台管理系统</title>
+<title>HRG项目管理系统</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 
