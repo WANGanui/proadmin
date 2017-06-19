@@ -14,6 +14,7 @@ import com.hrg.service.WorkerService;
 import com.hrg.util.JsonUtil;
 import com.hrg.util.PageUtil;
 import com.hrg.util.ResultUtil;
+import com.hrg.util.ValidUtil;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -28,7 +29,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by 82705 on 2017/6/6.
@@ -53,48 +58,46 @@ public class WorkerController {
 
     @ResponseBody
     @RequestMapping("/login")
-    public ModelAndView workerLogin(HttpServletRequest request) {
+    public Object workerLogin(HttpServletRequest request) {
         JsonResult jr = null;
-        ModelAndView model = new ModelAndView();
-        String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
-        if (exceptionClassName != null) {
-            if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
-                logger.info("=============登录失败，用户名错误=============");
-                model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_NON_EXISTEND.getMessage(),ErrorCode.ACCOUNT_NON_EXISTEND.getCode())));
-                model.setViewName("login");
-            } else if (IncorrectCredentialsException.class.getName().equals(exceptionClassName)) {
-                logger.info("=============登录失败，密码错误=============");
-                model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_PASSWORD_ERROR.getMessage(),ErrorCode.ACCOUNT_PASSWORD_ERROR.getCode())));
-                model.setViewName("login");
-            } else if (LockedAccountException.class.getName().equals(exceptionClassName)) {
-                logger.info("=============登录失败，用户被锁定=============");
-                model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_TYPE_EXCEPTION.getMessage(),ErrorCode.ACCOUNT_TYPE_EXCEPTION.getCode())));
-                model.setViewName("login");
-            } else {
-                logger.error("=============登录失败失败，系统异常=============");
-                model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getMessage(),ErrorCode.UN_KNOWN_EXCEPTION.getCode())));
-                model.setViewName("login");
+        HttpSession session = request.getSession();
+        String account = request.getParameter("username");
+        try {
+            Worker worker =  workerService.getWorkerInfo(account);
+            if (ValidUtil.isNullOrEmpty(worker)){
+                logger.info("=============账号不存在=============");
+                return JsonUtil.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_NON_EXISTEND.getMessage(),ErrorCode.ACCOUNT_NON_EXISTEND.getCode()));
+            }else{
+                if (!worker.getPassword().equals(request.getParameter("password"))){
+                    logger.info("==============密码不正确=================");
+                    return JsonUtil.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_PASSWORD_ERROR.getMessage(),ErrorCode.ACCOUNT_NON_EXISTEND.getCode()));
+                }else if (worker.getState()=="0" || worker.getState().equals("0")){
+                    logger.info("==============账号被锁定=============");
+                    return JsonUtil.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_TYPE_EXCEPTION.getMessage(),ErrorCode.ACCOUNT_TYPE_EXCEPTION.getCode()));
+                }else {
+                    logger.info("=============登录成功=============");
+                    session.setAttribute("worker",worker);
+                    return JsonUtil.encode(ApiResult.returnSuccess());
+                }
             }
-        } else {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return model;
+
+        return false;
     }
 
     @RequestMapping("/success")
-    public ModelAndView success(){
-        Worker worker = null;
+    public ModelAndView success(HttpServletRequest request){
         ModelAndView model = new ModelAndView();
+        HttpSession session = request.getSession();
+        Worker worker = (Worker) session.getAttribute("worker");
         try {
             model.setViewName("index/main");
             logger.info("=============开始查询员工权限=============");
-            worker = (Worker) SecurityUtils.getSubject().getPrincipal();
             model.addObject("worker",worker);
-            if (worker.getDataid()=="1" || worker.getDataid().equals("1")){
-                List<Module> module = null;
-                module = moduleService.selectList(new ModuleCriteria());
-                model.addObject("menus",module);
-            }
+            Map<String, Object> map = workerService.selectModuleAndPermission(worker.getDataid());
+            model.addObject("map",map);
             logger.info("=============查询员工权限完成=============");
         } catch (NullPointerException exception) {
             logger.error("=============查询员工权限失败，员工身份过期=============");
