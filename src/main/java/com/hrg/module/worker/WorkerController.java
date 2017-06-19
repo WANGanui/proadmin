@@ -5,17 +5,20 @@ import com.hrg.exception.MessageException;
 import com.hrg.exception.ValidatorException;
 import com.hrg.global.ApiResult;
 import com.hrg.global.JsonResult;
+import com.hrg.model.Module;
+import com.hrg.model.ModuleCriteria;
 import com.hrg.model.Worker;
 import com.hrg.model.WorkerCriteria;
 import com.hrg.service.ModuleService;
-import com.hrg.service.ShiroRealmService;
 import com.hrg.service.WorkerService;
 import com.hrg.util.JsonUtil;
 import com.hrg.util.PageUtil;
 import com.hrg.util.ResultUtil;
-import com.hrg.util.ValidUtil;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by 82705 on 2017/6/6.
@@ -50,49 +52,49 @@ public class WorkerController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public Object workerLogin(HttpServletRequest request) {
-        JsonUtil util = null;
-        String account = request.getParameter("username");
-        HttpSession session = request.getSession();
-        try {
-            Worker worker = workerService.getWorkerInfo(account);
-            if (ValidUtil.isNullOrEmpty(worker)){
-                logger.info("===============账号不存在=============");
-                return util.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_NON_EXISTEND.getMessage(),ErrorCode.ACCOUNT_NON_EXISTEND.getCode()));
-            }else {
-                if (!worker.getPassword().equals(request.getParameter("password"))){
-                    logger.info("===============登录失败，密码错误===============");
-                    return util.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_PASSWORD_ERROR.getMessage(),ErrorCode.ACCOUNT_PASSWORD_ERROR.getCode()));
-                }else if (worker.getState()=="0" || worker.getState().equals("0")){
-                    logger.info("=============登录失败，用户被锁定=============");
-                    return util.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_TYPE_EXCEPTION.getMessage(),ErrorCode.ACCOUNT_TYPE_EXCEPTION.getCode()));
-                }else {
-                    logger.info("================登录成功================");
-                    session.setAttribute("worker",worker);
-                    return JsonUtil.encode(ApiResult.returnSuccess());
-                }
+    @RequestMapping("/login")
+    public ModelAndView workerLogin(HttpServletRequest request) {
+        JsonResult jr = null;
+        ModelAndView model = new ModelAndView();
+        String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
+        if (exceptionClassName != null) {
+            if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
+                logger.info("=============登录失败，用户名错误=============");
+                model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_NON_EXISTEND.getMessage(),ErrorCode.ACCOUNT_NON_EXISTEND.getCode())));
+                model.setViewName("login");
+            } else if (IncorrectCredentialsException.class.getName().equals(exceptionClassName)) {
+                logger.info("=============登录失败，密码错误=============");
+                model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_PASSWORD_ERROR.getMessage(),ErrorCode.ACCOUNT_PASSWORD_ERROR.getCode())));
+                model.setViewName("login");
+            } else if (LockedAccountException.class.getName().equals(exceptionClassName)) {
+                logger.info("=============登录失败，用户被锁定=============");
+                model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.ACCOUNT_TYPE_EXCEPTION.getMessage(),ErrorCode.ACCOUNT_TYPE_EXCEPTION.getCode())));
+                model.setViewName("login");
+            } else {
+                logger.error("=============登录失败失败，系统异常=============");
+                model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getMessage(),ErrorCode.UN_KNOWN_EXCEPTION.getCode())));
+                model.setViewName("login");
             }
-        }catch (NullPointerException exception) {
-            logger.error("=============查询员工权限失败，员工身份过期=============");
+        } else {
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("=============查询员工权限失败，系统异常=============");
         }
-        return false;
+        return model;
     }
 
     @RequestMapping("/success")
-    public ModelAndView success(HttpServletRequest request){
+    public ModelAndView success(){
+        Worker worker = null;
         ModelAndView model = new ModelAndView();
-        HttpSession session = request.getSession();
-        Worker worker =(Worker) session.getAttribute("worker");
         try {
-            model.setViewName("/index/main");
+            model.setViewName("index/main");
             logger.info("=============开始查询员工权限=============");
-            Map<String, Object> map = workerService.selectModuleAndPermission(worker.getDataid());
-            model.addObject("map",map);
+            worker = (Worker) SecurityUtils.getSubject().getPrincipal();
+            model.addObject("worker",worker);
+            if (worker.getDataid()=="1" || worker.getDataid().equals("1")){
+                List<Module> module = null;
+                module = moduleService.selectList(new ModuleCriteria());
+                model.addObject("menus",module);
+            }
             logger.info("=============查询员工权限完成=============");
         } catch (NullPointerException exception) {
             logger.error("=============查询员工权限失败，员工身份过期=============");
