@@ -16,4 +16,5 @@
 	<dubbo:reference id="shiroRealmService" interface="com.hrg.service.ShiroRealmService"/>
 	<dubbo:reference id="workerService" interface="com.hrg.service.WorkerService"/>
 	<dubbo:reference id="moduleService" interface="com.hrg.service.ModuleService"/>
+	<dubbo:reference id="projectService" interface="com.hrg.service.ProjectService"/>
 </beans>
