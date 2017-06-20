@@ -17,4 +17,9 @@
 	<dubbo:reference id="workerService" interface="com.hrg.service.WorkerService"/>
 	<dubbo:reference id="moduleService" interface="com.hrg.service.ModuleService"/>
 	<dubbo:reference id="projectService" interface="com.hrg.service.ProjectService"/>
+	<dubbo:reference id="departmentService" interface="com.hrg.service.DepartmentService"/>
+	<dubbo:reference id="missionService" interface="com.hrg.service.MissionService"/>
+	<dubbo:reference id="noticeService" interface="com.hrg.service.NoticeService"/>
+	<dubbo:reference id="workDataService" interface="com.hrg.service.WorkDataService"/>
+	<dubbo:reference id="workerRoleService" interface="com.hrg.service.WorkerRoleService"/>
 </beans>
