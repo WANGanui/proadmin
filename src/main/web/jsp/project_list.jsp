@@ -75,11 +75,16 @@
 						<span class="label label-success radius">	已发布 </span>
 					</c:if>
 						<c:if test="${projectAll.state==0}">
-							<span class="label label-defaunt radius">	已下架</span>
-						</c:if></td>
+							<span class="label label-success radius">	已完成</span>
+						</c:if>
+
+					<c:if test="${projectAll.state==2}">
+						<span class="label label-success radius">	进行中</span>
+					</c:if>
+					</td>
 
 
-                    <td class="td-time"><fmt:formatDate value="${project.updateTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					<td class="td-time">${projectAll.progress}</td>
 					<td class="td-manage">
 						<a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${project.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
 						<a style="text-decoration:none" class="ml-5" onClick="picture_del('创建任务列表','${project.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
