@@ -68,8 +68,8 @@
 
 					<td>${projectIndex.index+1}</td>
 					<td>${projectAll.name}</td>
-					<td class="td-time"><fmt:formatDate value="${projectAll.starttime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-					<td class="td-time"><fmt:formatDate value="${projectAll.endtime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					<td class="td-time"><fmt:formatDate value="${projectAll.starttime}" pattern="yyyy-MM-dd" /></td>
+					<td class="td-time"><fmt:formatDate value="${projectAll.endtime}" pattern="yyyy-MM-dd" /></td>
 					<td>${projectAll.leader}</td>
 					<td class="td-status"><c:if test="${projectAll.state==1}">
 						<span class="label label-success radius">	已发布 </span>

@@ -36,6 +36,6 @@ logger.info("=========================================:"+ JsonUtil.encode(projec
         }catch (Exception e){
             e.printStackTrace();
         }
-        return "project/project_list";
+        return "project_list";
     }
 }
