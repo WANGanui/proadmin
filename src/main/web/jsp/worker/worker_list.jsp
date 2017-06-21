@@ -1,98 +1,295 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 82705
-  Date: 2017/6/9
-  Time: 15:01
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!--_meta 作为公共模版分离出去-->
+<%@ page language="java" import="java.util.*"	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <title></title>
-    <link rel="stylesheet" href="<%=basePath%>css/public.css" />
-    <link rel="stylesheet" href="<%=basePath%>css/bootstrap.css" />
-    <link rel="stylesheet" href="<%=basePath%>css/bootstrap-theme.min.css" />
-    <link href="<%=basePath%>css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/default/easyui.css">
-    <link rel="stylesheet" href="<%=basePath%>css/webpro.datalist.css" />
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="<%=basePath%>lib/html5.js"></script>
+    <script type="text/javascript" src="<%=basePath%>lib/respond.min.js"></script>
+    <script type="text/javascript" src="<%=basePath%>lib/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
 
-    <script type="text/javascript" src="<%=basePath%>js/jquery1.11.3.min.js" ></script>
-    <script type="text/javascript" src="<%=basePath%>js/bootstrap.min.js" ></script>
-    <script type="text/javascript" src="<%=basePath%>js/lyz.calendar.min.js" ></script>
-    <script type="text/javascript" src="<%=basePath%>js/jquery.validate.js"></script>
-    <script type="text/javascript" src="<%=basePath%>js/jquery.easyui.min.js"></script>
-
-    <script type="text/javascript" src="<%=basePath%>js/mock-min.js" ></script>
-    <script type="text/javascript" src="<%=basePath%>js/webpro.debug.js" ></script>
-    <script type="text/javascript" src="<%=basePath%>js/easy.ui.1.5/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="<%=basePath%>js/doT.js"></script>
-    <script type="text/javascript" src="<%=basePath%>js/webpro.gridlist.js"></script>
-    <script type="text/javascript" src="<%=basePath%>js/webpro.debug.js"></script>
-    <script type="text/javascript" src="<%=basePath%>js/webpro.dialog.js"></script>
-
-
-    <script id="funBtnsTmpl" type="text/x-dot-template">
-        {{~it:value:i}}
-        <button atTblTr="{{=value.attbltr}}" class="button button-rounded button-royal-flat"><i class="fa {{=value.icon}}"></i>{{=value.name}}</button>
-        {{~}}
-    </script>
-
+    <title>图片列表</title>
+    <style>
+        textarea{
+            border:0;
+            background-color:transparent;
+            /*scrollbar-arrow-color:yellow;
+            scrollbar-base-color:lightsalmon;
+            overflow: hidden;*/
+            color: #666464;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
-<div class="panle-body">
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 员工管理 <span class="c-gray en">&gt;</span> 员工列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
 
-    <div class="grid-searchBar">
-        <form>
-            <div class="queryItem">
-                <div class="titTxt">名称</div><input id="name" name="name"  class="form-control input-sm" />
-            </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%><a class="btn btn-primary radius" onclick="picture_add('添加员工','getContentCaseByContentId.do')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加员工</a>  <%--<a class="btn btn-primary radius" onclick="picture_query('精选案例','getAllContentPickup.do?contentType=2')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i> 查看精选案例</a>--%></span> <span class="r"></span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="40">序号</th>
+                <th width="70">名称</th>
+                <th width="70">账户</th>
+                <th width="100">电话</th>
+                <th width="60">状态</th>
+                <th  width="60">部门</th>
+                <th  width="100">备注</th>
+                <th  width="60">创建时间</th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${list}" var="worker" varStatus="workerIndex">
+                <tr class="text-c">
+                    <td>${workerIndex.index+1}</td>
+                    <td>${worker.name}</td>
+                    <td>${worker.account}</td>
+                    <td>${worker.phone}</td>
+                    <td class="td-status"><c:if test="${worker.state==1}">
+						<span class="label label-success radius">	已启用 </span>
+					</c:if>
+						<c:if test="${worker.state==0}">
+							<span class="label label-defaunt radius">	已关闭</span>
+						</c:if></td>
 
-            <div class="queryItem">
-                <div class="titTxt">手机号码</div><input name="phone" class="form-control input-sm" />
-            </div>
-
-            <div class="queryItem">
-                <div class="titTxt">状态</div><input name="state" class="form-control input-sm" />
-            </div>
-
-            <div class="queryItem">
-                <div class="titTxt">部门</div><input name="department" class="form-control input-sm" />
-            </div>
-
-            <div class="button button-rounded button-royal-flat" id="testButtton">查询</div>
-
-            <div style="clear: both;"></div>
-        </form>
-    </div>
-
-    <div class="grid-bodyCenter">
-        <div class="funBar"></div>
-
-        <div class="gridPanle">
-            <table id="dg" keyId="dataid" width="100%" height="100%">
-                <thead>
-                <tr>
-                    <th data-options="field:'dataid',checkbox:true"></th>
-                    <th data-options="field:'name',width:50">名称</th>
-                    <th data-options="field:'account',width:50">账号</th>
-                    <th data-options="field:'phone',width:50">手机号码</th>
-                    <th data-options="field:'department',width:50">部门</th>
-                    <th data-options="field:'state',width:50">状态</th>
-                    <th data-options="field:'remark',width:50">备注</th>
+                    <td>${worker.department}</td>
+                    <td>${worker.remark}</td>
+                    <td class="td-time"><fmt:formatDate value="${worker.createtime}" pattern="yyyy-MM-dd" /></td>
+                    <td class="td-manage">
+                        <a style="text-decoration:none" class="ml-5" onClick="picture_edit('案例编辑','getContentCaseByContentId.do','${worker.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+                        <a style="text-decoration:none" class="ml-5" onClick="picture_del(this,'${worker.dataid}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                    </td>
                 </tr>
-                </thead>
-            </table>
-        </div>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
 </div>
-</body>
-<script>
-    console.info("服务注射的对象:",${data});
 
-    WebPro_gridlistPage(window.parent,${data});
+<script type="text/javascript" src="<%=basePath%>lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="<%=basePath%>static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="<%=basePath%>static/h-ui/js/ZeroClipboard.js"></script><%--
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.min.js" ></script>--%>
+<script type="text/javascript">
+    function  obj(id) {
+        var clip = new ZeroClipboard.Client();
+        ZeroClipboard.setMoviePath("ZeroClipboard.swf");
+        clip.setHandCursor(true);
+        clip.setText("http://www.5cpr.com/mobile/share.do?id="+id+"&type=2");
+        clip.addEventListener('complete', function (client) {
+            layer.msg('复制成功', {time: 2000, icon: 6});
+        });
+        clip.glue('J_copy_clipboard_data'+id);
+    }
 </script>
+<script type="text/javascript">
+    $('.table-sort').dataTable({
+        "aaSorting": [[ 0, "asc" ]],//默认第几个排序
+        "bStateSave": false,//状态保存
+        "aoColumnDefs": [
+            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+            {"orderable":false,"aTargets":[0]}// 制定列不参与排序
+        ]
+    });
+    /*案例-添加*/
+    function picture_add(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url,
+
+        });
+        layer.full(index);
+    }
+
+    /*案例-查看*/
+    function picture_query(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+
+    function selectContent(title,id){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: "getTitleByContentId.do?contentId="+id
+        });
+        layer.full(index);
+    }
+
+    /*图片-查看*/
+    function picture_show(title,url,id){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+    /*图片-审核*/
+    function picture_shenhe(obj,id){
+        layer.confirm('审核文章？', {
+                btn: ['通过','不通过'],
+                shade: false
+            },
+            function(){
+                $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="picture_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
+                $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
+                $(obj).remove();
+                layer.msg('已发布', {icon:6,time:1000});
+            },
+            function(){
+                $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="picture_shenqing(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
+                $(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
+                $(obj).remove();
+                layer.msg('未通过', {icon:5,time:1000});
+            });
+    }
+    /*图片-下架*/
+    function picture_stop(obj,id){
+        layer.confirm('确认要下架吗？',function(index){
+
+            var  dataJson={
+                status:0,
+                modular:"update",
+                contentId:id
+            }
+
+            $.ajax( {
+                url : 'updateStatusOrDeleteByContent.do',
+                type : 'post',
+                contentType : 'application/json;charset=utf-8',
+                dataType : 'json',
+                data : JSON.stringify(dataJson),
+                success : function(data) {
+                    if (data.success) {
+                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="picture_start(this,'+id+')" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
+                        $(obj).remove();
+                        layer.msg('已下架!',{icon: 5,time:1000});
+                    } else {
+
+                    }
+                }
+            });
+
+
+
+        });
+    }
+
+    /*图片-发布*/
+    function picture_start(obj,id){
+        layer.confirm('确认要发布吗？',function(index){
+            var  dataJson={
+                status:1,
+                modular:"update",
+                contentId:id
+            }
+            $.ajax( {
+                url : 'updateStatusOrDeleteByContent.do',
+                type : 'post',
+                contentType : 'application/json;charset=utf-8',
+                dataType : 'json',
+                data : JSON.stringify(dataJson),
+                success : function(data) {
+                    if (data.success) {
+                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick=picture_stop(this,'+id+') href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
+                        $(obj).remove();
+                        layer.msg('已发布!',{icon: 6,time:1000});
+                    } else {
+
+                    }
+                }
+            });
+
+        });
+    }
+    /*图片-申请上线*/
+    function picture_shenqing(obj,id){
+        $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
+        $(obj).parents("tr").find(".td-manage").html("");
+        layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
+    }
+    /*图片-编辑*/
+    function picture_edit(title,url,id) {
+        var status = $("#status" + id).text().trim();
+        if (status=='已下架') {
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url+"?contentId="+id
+            });
+            layer.full(index);
+        }else {
+            layer.msg('请先下架!',{icon:1,time:2000});
+        }
+    }
+    /*图片-删除*/
+    function picture_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+
+            var  dataJson={
+                status:1,
+                modular:"delete",
+                contentId:id
+            }
+            $.ajax( {
+                url : 'updateStatusOrDeleteByContent.do',
+                type : 'post',
+                contentType : 'application/json;charset=utf-8',
+                dataType : 'json',
+                data : JSON.stringify(dataJson),
+                success : function(data) {
+                    if (data.success) {
+                        //$(obj).parents("tr").remove();
+                        location.replace(location.href)
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    } else {
+
+                    }
+                }
+            });
+
+
+
+        });
+    }
+</script>
+
+</body>
 </html>
