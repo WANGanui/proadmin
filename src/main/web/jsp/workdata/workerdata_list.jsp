@@ -44,7 +44,7 @@
     </style>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 公告管理 <span class="c-gray en">&gt;</span> 公告列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 个人管理 <span class="c-gray en">&gt;</span> 工作日志 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 
     <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%><a class="btn btn-primary radius" onclick="picture_add('添加案例','getContentCaseByContentId.do')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加项目</a>  <%--<a class="btn btn-primary radius" onclick="picture_query('精选案例','getAllContentPickup.do?contentType=2')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i> 查看精选案例</a>--%></span> </div>
@@ -53,29 +53,28 @@
             <thead>
             <tr class="text-c">
                 <th width="40">序号</th>
-                <th width="60">公告标题</th>
-                <th width="200">公告内容</th>
-                <th width="60">创建时间</th>
-                <th width="80">发布人</th>
-                <th  width="60">发布部门</th>
-                <th width="60">发布日期</th>
+                <th width="60">项目名称</th>
+                <th width="60">任务名称</th>
+                <th width="200">工作内容</th>
+                <th width="80">日期</th>
+                <th  width="60">项目负责人</th>
                 <th width="100">操作</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${list}" var="notice" varStatus="noticeIndex">
+            <c:forEach items="${list}" var="data" varStatus="dataIndex">
                 <tr class="text-c">
 
-                    <td>${noticeIndex.index+1}</td>
-                    <td>${notice.title}</td>
-                    <td>${notice.context}</td>
-                    <td class="td-time"><fmt:formatDate value="${notice.createtime}" pattern="yyyy-MM-dd" /></td>
-                    <td>${notice.worker}</td>
-                    <td>${notice.department}</td>
-                    <td class="td-time"><fmt:formatDate value="${mission.time}" pattern="yyyy-MM-dd" /></td>
+                    <td>${dataIndex.index+1}</td>
+                    <td>${data.projectname}</td>
+                    <td>${data.missionname}</td>
+                    <td>${data.workcontext}</td>
+
+                    <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
+                    <td>${data.projectleader}</td>
                     <td class="td-manage">
                         <a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${notice.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-                        <a style="text-decoration:none" class="ml-5" onClick="picture_del('创建任务列表','${notice.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
+                        <a style="text-decoration:none" class="ml-5" onClick="picture_del('创建日志列表','${notice.dataid}')" href="javascript:;" title="创建日志"><i class="Hui-iconfont">&#xe61f;</i></a>
                     </td>
                 </tr>
             </c:forEach>

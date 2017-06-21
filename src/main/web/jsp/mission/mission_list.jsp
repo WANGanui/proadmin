@@ -29,7 +29,16 @@
     <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-
+    <![endif]-->
+    <!--[if IE 6]>
+    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <style type="text/css">
+        .background{
+            background:#00FFFF;
+        }
+    </style>
     <title>项目列表</title>
     <style>
         textarea{
@@ -46,87 +55,112 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 任务管理 <span class="c-gray en">&gt;</span> 任务列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
+            <a class="btn btn-primary radius" onclick="picture_add('添加任务','getContentCaseByContentId.do')" href="javascript:;">
+                <i class="Hui-iconfont">&#xe600;</i> 添加任务</a>
+           </span> </div>
 
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%><a class="btn btn-primary radius" onclick="picture_add('添加案例','getContentCaseByContentId.do')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加项目</a>  <%--<a class="btn btn-primary radius" onclick="picture_query('精选案例','getAllContentPickup.do?contentType=2')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i> 查看精选案例</a>--%></span> </div>
     <div class="mt-20">
-        <table class="table table-border table-bordered table-bg table-hover table-sort">
-            <thead>
-            <tr class="text-c">
-                <th width="40">序号</th>
-                <th width="60">任务名称</th>
-                <th width="150">任务内容</th>
-                <th width="60">开始时间</th>
-                <th width="80">计划结束时间</th>
-                <th  width="60">项目名称</th>
-                <th width="60">完成百分比</th>
-                <th width="60">任务比重</th>
-                <th width="60">创建人</th>
-                <th width="60">创建时间</th>
-                <th width="60">审核人</th>
-                <th width="60">修改人</th>
-                <th width="60">修改时间</th>
-                <th width="60">责任人</th>
-                <th width="60">类型</th>
-                <th width="60">状态</th>
-                <th width="100">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${list}" var="mission" varStatus="missionIndex">
+        <div id="div1" >
+            <table class="table table-border table-bordered table-bg table-hover table-sort" id="table1">
+                <thead>
                 <tr class="text-c">
-
-                    <td>${missionIndex.index+1}</td>
-                    <td>${mission.name}</td>
-                    <td>${mission.context}</td>
-                    <td class="td-time"><fmt:formatDate value="${mission.starttime}" pattern="yyyy-MM-dd" /></td>
-                    <td class="td-time"><fmt:formatDate value="${mission.endtime}" pattern="yyyy-MM-dd" /></td>
-                    <td>${mission.proname}</td>
-                    <td>${mission.percentage}</td>
-                    <td>${mission.proportion}</td>
-                    <td>${mission.creator}</td>
-                    <td class="td-time"><fmt:formatDate value="${mission.createtime}" pattern="yyyy-MM-dd" /></td>
-                    <td>${mission.auditorname}</td>
-                    <td>${mission.modify}</td>
-                    <td class="td-time"><fmt:formatDate value="${mission.modifytime}" pattern="yyyy-MM-dd" /></td>
-                    <td>${mission.headername}</td>
-                    <td class="td-status"><c:if test="${mission.type==0}">
-                        <span class="label label-success radius">	项目任务 </span>
-                    </c:if>
-                        <c:if test="${mission.type==1}">
-                            <span class="label label-success radius">个人任务</span>
-                        </c:if>
-                    </td>
-                    <td class="td-status"><c:if test="${mission.state==0}">
-                        <span class="label label-success radius">	已发布 </span>
-                    </c:if>
-                        <c:if test="${mission.state==1}">
-                            <span class="label label-success radius">进行中</span>
-                        </c:if>
-                        <c:if test="${mission.state==2}">
-                            <span class="label label-success radius">待审核</span>
-                        </c:if>
-                        <c:if test="${mission.state==3}">
-                            <span class="label label-success radius">已完成</span>
-                        </c:if>
-                    </td>
-                    <td class="td-manage">
-                        <a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${mission.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-                        <a style="text-decoration:none" class="ml-5" onClick="picture_del('创建任务列表','${mission.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
-                    </td>
+                    <th width="40">序号</th>
+                    <th width="60">任务名称</th>
+                    <th width="150">任务内容</th>
+                    <th width="80">开始时间</th>
+                    <th width="80">计划结束时间</th>
+                    <th  width="60">项目名称</th>
+                    <th width="60">进度</th>
+                    <th width="60">任务比重</th>
+                    <th width="60">创建人</th>
+                    <th width="60">审核人</th>
+                    <th width="60">责任人</th>
+                    <th width="60">类型</th>
+                    <th width="60">项目阶段</th>
+                    <th width="60">状态</th>
+                    <th width="100">操作</th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+
+                <tbody>
+                <c:forEach items="${list}" var="mission1" varStatus="missionIndex1">
+                    <tr class="text-c">
+
+                        <td>${missionIndex1.index+1}</td>
+                        <td>${mission1.name}</td>
+                        <td>${mission1.context}</td>
+                        <td class="td-time"><fmt:formatDate value="${mission1.starttime}" pattern="yyyy-MM-dd" /></td>
+                        <td class="td-time"><fmt:formatDate value="${mission1.endtime}" pattern="yyyy-MM-dd" /></td>
+                        <td>${mission1.proname}</td>
+                        <td>${mission1.percentage}</td>
+                        <td>${mission1.proportion}</td>
+                        <td>${mission1.creator}</td>
+                        <td>${mission1.auditorname}</td>
+                        <td>${mission1.headername}</td>
+                        <td class="td-status"><c:if test="${mission1.type==0}">
+                            <span class="label label-success radius">	项目任务 </span>
+                        </c:if>
+                            <c:if test="${mission1.type==1}">
+                                <span class="label label-success radius">个人任务</span>
+                            </c:if>
+                        </td>
+                        <td class="td-status">
+                            <c:if test="${mission1.level==1}">
+                            <span class="label label-success radius">	现场勘查 </span>
+                        </c:if>
+                            <c:if test="${mission1.level==2}">
+                                <span class="label label-success radius">设备实测</span>
+                            </c:if>
+                            <c:if test="${mission1.level==3}">
+                                <span class="label label-success radius">技术方案设计</span>
+                            </c:if>
+                            <c:if test="${mission1.level==4}">
+                                <span class="label label-success radius">成本核算</span>
+                            </c:if></td>
+                        <td class="td-status"><c:if test="${mission1.state==0}">
+                            <span class="label label-success radius">	已发布 </span>
+                        </c:if>
+                            <c:if test="${mission1.state==1}">
+                                <span class="label label-success radius">进行中</span>
+                            </c:if>
+                            <c:if test="${mission1.state==2}">
+                                <span class="label label-success radius">待审核</span>
+                            </c:if>
+                            <c:if test="${mission1.state==3}">
+                                <span class="label label-success radius">已完成</span>
+                            </c:if>
+                        </td>
+                        <td class="td-manage">
+                            <a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${mission1.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
+                            <a style="text-decoration:none" class="ml-5" onClick="picture_del('创建任务列表','${mission1.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
+                        </td>
+                    </tr>
+                </c:forEach>
+
+                </tbody>
+            </table>
+        </div>
     </div>
+
+
+</div>
 </div>
 
-<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="lib/layer/2.1/layer.js"></script>
-<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
-<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
-<script type="text/javascript" src="static/h-ui/js/ZeroClipboard.js"></script><%--
+<script type="text/javascript" src="<%=basePath%>lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="<%=basePath%>static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="<%=basePath%>static/h-ui/js/ZeroClipboard.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="<%=basePath%>static/h-ui.admin/js/H-ui.admin.js"></script>
+<%--
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.min.js" ></script>--%>
 <script type="text/javascript">
     function  obj(id) {
@@ -288,6 +322,50 @@
             layer.msg('请先下架!',{icon:1,time:2000});
         }
     }
+
+    function show1() {
+        document.getElementById("div1").style.display = "";
+        document.getElementById("div2").style.display = "none";
+        document.getElementById("div3").style.display = "none";
+        document.getElementById("div4").style.display = "none";
+        $("#auction1").removeClass('background');
+        $("#auction2").removeClass('background');
+        $("#auction3").removeClass('background');
+        $("#auction").addClass('background');
+
+    }
+    function show2() {
+        document.getElementById("div1").style.display = "none";
+        document.getElementById("div2").style.display = "";
+        document.getElementById("div3").style.display = "none";
+        document.getElementById("div4").style.display = "none";
+        $("#auction").removeClass('background');
+        $("#auction2").removeClass('background');
+        $("#auction3").removeClass('background');
+        $("#auction1").addClass('background');
+
+    }
+    function show3() {
+        document.getElementById("div1").style.display = "none";
+        document.getElementById("div2").style.display = "none";
+        document.getElementById("div3").style.display = "";
+        document.getElementById("div4").style.display = "none";
+        $("#auction1").removeClass('background');
+        $("#auction3").removeClass('background');
+        $("#auction").removeClass('background');
+        $("#auction2").addClass('background');
+    }
+    function show4() {
+        document.getElementById("div1").style.display = "none";
+        document.getElementById("div2").style.display = "none";
+        document.getElementById("div3").style.display = "none";
+        document.getElementById("div4").style.display = "";
+        $("#auction1").removeClass('background');
+        $("#auction2").removeClass('background');
+        $("#auction").removeClass('background');
+        $("#auction3").addClass('background');
+    }
+
     /*图片-删除*/
     function picture_del(obj,id){
         layer.confirm('确认要删除吗？',function(index){

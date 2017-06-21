@@ -109,21 +109,20 @@ public class WorkerController {
     }
 
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
-    public ModelAndView logout(){
+    public ModelAndView logout(HttpServletRequest request){
         ModelAndView model = new ModelAndView();
         logger.info("=============退出登录=============");
-        Subject subject = SecurityUtils.getSubject();
-        if (subject.isAuthenticated()) {
-
-            Worker worker = (Worker) subject.getPrincipal();
-            subject.logout();
+        HttpSession session = request.getSession();
+        Worker worker = (Worker)session.getAttribute("worker");
+        if (!ValidUtil.isNullOrEmpty(worker)) {
+            session.removeAttribute("worker");
             logger.info("=============用户【" + worker.getName() + "】退出登录=============");
             model.addObject(ResultUtil.returnSuccess("用户成功退出"));
+            model.setViewName("login");
         } else {
-            logger.error("=============退出失败,系统异常=============");
-            model.addObject(ResultUtil.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getCode()));
+            logger.error("=============用户已进退出=============");
+            model.setViewName("login");
         }
-        model.setViewName("login");
         return model;
     }
 
