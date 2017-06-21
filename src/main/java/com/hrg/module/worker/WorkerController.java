@@ -206,9 +206,9 @@ public class WorkerController {
 
         try {
             logger.info("============查询员工列表入参：【"+JsonUtil.encode(example)+"】==============");
-            PageUtil<Worker> pageUtil1 = workerService.selectByExample(example,pageUtil);
-            logger.info("=============查询员工列表成功,结果:【 " + JsonUtil.encode(pageUtil1) + "】=============");
-            model.addObject("data",JsonUtil.encode(pageUtil1));
+            List<Worker> workerList = workerService.selectList(example);
+            logger.info("=============查询员工列表成功,结果:【 " + JsonUtil.encode(workerList) + "】=============");
+            model.addObject("list",workerList);
             model.setViewName("worker/worker_list");
         } catch (ValidatorException e) {
             logger.warn("=============查询员工列表失败，验证异常=============");
