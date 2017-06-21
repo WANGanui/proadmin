@@ -49,7 +49,7 @@
 
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${content.contentTitle}" placeholder="" id="contentTitle" name="contentTitle">
+				<input type="text"  class="input-text" style="width: 300px;" value="${content.contentTitle}" placeholder="" id="contentTitle" name="contentTitle">
 			</div>
 		</div>
 
@@ -57,7 +57,7 @@
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目负责人部门：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<%--<input type="text" class="input-text" value="${content.contentSummary}" placeholder="" id="contentSummary" name="contentSummary">--%>
-				<select class="select" id="department"  name="department" size="1" onchange="department()">
+				<select class="select" id="department" style="width: 300px;"  name="department" size="1" onchange="department()">
 					<option value="0" > 请选择 </option>
 					<c:forEach items="${departmentList}" var="department">
 						<option value="${department.dataid}">${department.name}</option>
@@ -70,7 +70,7 @@
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目负责人：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<%--<input type="text" class="input-text" value="${content.contentSummary}" placeholder="" id="contentSummary" name="contentSummary">--%>
-				<select class="select" id="departmentName"  name="departmentName" size="1" >
+				<select class="select" style="width: 300px;" id="departmentName"  name="departmentName" size="1" >
 					<option value="0"> 请选择 </option>
 
 
@@ -105,11 +105,13 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>封面图片(660*360)：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目开始时间：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<div id="tcPreview">
+				<%--<div id="tcPreview">
 					</div>
-				<input type="file" name="file" id="coverImg" onchange="previewImage(this,'tcPreview')" />
+				<input type="file" name="file" id="coverImg" onchange="previewImage(this,'tcPreview')" />--%>
+					<input id="hello" class="laydate-icon">
+
 			</div>
 		</div>
 
@@ -134,8 +136,14 @@
 <script type="text/javascript" src="<%=basePath%>lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="<%=basePath%>static/h-ui.admin/js/H-ui.admin.js"></script>
+<script src="<%=basePath%>laydate/laydate.js"></script>
 <!--/_footer /作为公共模版分离出去-->
-
+<script>
+    laydate({
+        elem: '#hello', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+        event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+    });
+</script>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript">
 function article_save(){
