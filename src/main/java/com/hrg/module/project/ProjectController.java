@@ -61,6 +61,7 @@ logger.info("=========================================:"+ JsonUtil.encode(projec
         return "project/project_add";
     }
 
+
     //创建项目
     @RequestMapping(value = "/addProject")
     public @ResponseBody Object addProject(HttpSession session, @RequestBody Project project){
