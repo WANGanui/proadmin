@@ -30,7 +30,7 @@
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 
-	<title>项目列表</title>
+	<title>项目进度详情</title>
 <style>
 	textarea{
 		border:0;
@@ -44,55 +44,31 @@
 </style>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span class="c-gray en">&gt;</span> 项目列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span class="c-gray en">&gt;</span> 项目进度详情 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%><a class="btn btn-primary radius" onclick="picture_add('添加案例','getContentCaseByContentId.do')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加项目</a>  <%--<a class="btn btn-primary radius" onclick="picture_query('精选案例','getAllContentPickup.do?contentType=2')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i> 查看精选案例</a>--%></span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><select onchange="projectProgress()" id="dataId" class="select" style="width: 150px;"><c:forEach items="${projectList}" var="project"><option value="${project.dataid}">${project.name}</option></c:forEach></select></span> </div>
 	<div class="mt-20">
-		<table class="table table-border table-bordered table-bg table-hover table-sort">
+		<table id="tbody" class="table table-border table-bordered table-bg table-hover table-sort">
 			<thead>
 				<tr class="text-c">
 					<th width="40">序号</th>
-					<th width="40">项目名称</th>
-					<th width="200">开始时间</th>
-					<th width="100">预计结束时间</th>
-					<th width="60">项目负责人</th>
-					<th  width="60">状态</th>
-					<th width="60">项目进度</th>
-					<th width="100">操作</th>
+					<th width="40">日期</th>
+					<th width="60">人员</th>
+					<th width="100">任务名称</th>
+					<th width="200">工作内容</th>
 				</tr>
 			</thead>
-			<tbody>
-<c:forEach items="${projectList}" var="projectAll" varStatus="projectIndex">
+			<tbody >
+<c:forEach items="${workdataList}" var="workdata" varStatus="projectIndex">
 				<tr class="text-c">
 
 					<td>${projectIndex.index+1}</td>
-					<td onclick="queryDetaila()">${projectAll.name}</td>
-					<td class="td-time"><fmt:formatDate value="${projectAll.starttime}" pattern="yyyy-MM-dd" /></td>
-					<td class="td-time"><fmt:formatDate value="${projectAll.endtime}" pattern="yyyy-MM-dd" /></td>
-					<td>${projectAll.leader}</td>
-					<td class="td-status"><c:if test="${projectAll.state==1}">
-						<span class="label label-success radius">	通过审核 </span>
-					</c:if>
-						<c:if test="${projectAll.state==0}">
-							<span class="label label-success radius">	待审核</span>
-						</c:if>
+					<td onclick="queryDetaila()"><fmt:formatDate value="${workdata.time}" pattern="yyyy-MM-dd" /></td>
+					<td class="td-time">${workdata.workername}</td>
+					<td class="td-time">${workdata.missionname}</td>
+					<td>${workdata.workcontext}</td>
 
-					<c:if test="${projectAll.state==2}">
-						<span class="label label-success radius">	进行中</span>
-					</c:if>
-
-						<c:if test="${projectAll.state==3}">
-							<span class="label label-success radius">	已经成</span>
-						</c:if>
-					</td>
-
-
-					<td class="td-time">${projectAll.progress}</td>
-					<td class="td-manage">
-						<%--<a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${project.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-						--%><a style="text-decoration:none" class="ml-5" onClick="picture_del('创建任务列表','${project.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
-					</td>
 				</tr>
 </c:forEach>
 			</tbody>
@@ -140,26 +116,34 @@ function picture_add(title,url){
 	layer.full(index);
 }
 
-/*案例-查看*/
-function picture_query(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
+function projectProgress() {
+
+	var dataId=$("#dataId").val();
+
+    var dataJson = {
+        dataId:dataId
+    };
+    $.ajax( {
+        url : 'queryDataId',
+        type : 'post',
+        contentType : 'application/json;charset=utf-8',
+        dataType : 'json',
+        data : JSON.stringify(dataJson),
+        success : function(data) {
+            if (data.length==0) {
+                $("#tbody tbody").html("<tr><td colspan='5'>没有数据</td></tr>");
+            } else {
+                var htm="";
+                for (var i=0;i<data.length;i++){
+                    htm=htm+"<tr> <td  style='text-align: center'>"+(i+1)+"</td><td style='text-align: center'>"+data[i].time+"</td><td style='text-align: center'>"+data[i].workername+"</td><td style='text-align: center'></td><td style='text-align: center'></td></tr>";
+				}
+                $("#tbody tbody").html(htm);
+            }
+        }
+    });
 }
 
-function selectContent(title,id){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: "getTitleByContentId.do?contentId="+id
-	});
-	layer.full(index);
-}
-
-/*图片-查看*/
+/*图片-查看*//*
 function picture_show(title,url,id){
 	var index = layer.open({
 		type: 2,
@@ -167,8 +151,8 @@ function picture_show(title,url,id){
 		content: url
 	});
 	layer.full(index);
-}
-/*图片-审核*/
+}*/
+/*图片-审核*//*
 function picture_shenhe(obj,id){
 	layer.confirm('审核文章？', {
 		btn: ['通过','不通过'], 
@@ -186,8 +170,8 @@ function picture_shenhe(obj,id){
 		$(obj).remove();
     	layer.msg('未通过', {icon:5,time:1000});
 	});	
-}
-/*图片-下架*/
+}*/
+/*图片-下架*//*
 function picture_stop(obj,id){
 	layer.confirm('确认要下架吗？',function(index){
 
@@ -218,9 +202,9 @@ function picture_stop(obj,id){
 
 
 	});
-}
+}*/
 
-/*图片-发布*/
+/*图片-发布*//*
 function picture_start(obj,id){
 	layer.confirm('确认要发布吗？',function(index){
 		var  dataJson={
@@ -247,14 +231,14 @@ function picture_start(obj,id){
 		});
 
 	});
-}
-/*图片-申请上线*/
+}*/
+/*图片-申请上线*//*
 function picture_shenqing(obj,id){
 	$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
 	$(obj).parents("tr").find(".td-manage").html("");
 	layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
-}
-/*图片-编辑*/
+}*/
+/*图片-编辑*//*
 function picture_edit(title,url,id) {
 	var status = $("#status" + id).text().trim();
 	if (status=='已下架') {
@@ -267,12 +251,12 @@ function picture_edit(title,url,id) {
 }else {
 		layer.msg('请先下架!',{icon:1,time:2000});
 }
-}
-/*图片-删除*/
+}*/
+/*图片-删除*//*
 function picture_del(obj,id){
 	layer.confirm('确认要创建任务吗？',function(index){
 
-	/*	var  dataJson={
+	/!*	var  dataJson={
 			status:1,
 			modular:"delete",
 			contentId:id
@@ -293,11 +277,11 @@ function picture_del(obj,id){
 				}
 			}
 		});
-*/
+*!/
 
 
 	});
-}
+}*/
 </script>
 
 </body>

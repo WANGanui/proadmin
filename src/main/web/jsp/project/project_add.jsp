@@ -57,7 +57,7 @@
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目负责人部门：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<%--<input type="text" class="input-text" value="${content.contentSummary}" placeholder="" id="contentSummary" name="contentSummary">--%>
-				<select class="select" id="department" style="width: 300px;"  name="department" size="1" onchange="department()">
+				<select class="select" id="department" style="width: 300px;"  name="department" size="1" onchange="departmentUser()">
 					<option value="0" > 请选择 </option>
 					<c:forEach items="${departmentList}" var="department">
 						<option value="${department.dataid}">${department.name}</option>
@@ -89,7 +89,7 @@
 			</div>
 		</div>--%>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">分配人员：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分配人员：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<select id="province_ids" name="province_ids" multiple="multiple" size="10" style="width: 150px;" onchange="queryTwoBarand()">
 					<option value="0" selected="">选择部门</option>
@@ -105,15 +105,34 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目开始时间：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目时间：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<%--<div id="tcPreview">
 					</div>
 				<input type="file" name="file" id="coverImg" onchange="previewImage(this,'tcPreview')" />--%>
-					<input id="hello" class="laydate-icon">
+					<input id="startTime" class="laydate-icon">——<input id="endTime" class="laydate-icon">
 
 			</div>
 		</div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目描述：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <%--<div id="tcPreview">
+                    </div>
+                <input type="file" name="file" id="coverImg" onchange="previewImage(this,'tcPreview')" />--%>
+              <textarea id="contect" cols="45" rows="10"></textarea>
+
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目进度：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+
+                <input type="text"  class="input-text" style="width: 300px;" value="0%" placeholder="" id="progress" name="progress">
+            </div>
+        </div>
 
 
 		<div class="row cl">
@@ -138,9 +157,14 @@
 <script type="text/javascript" src="<%=basePath%>static/h-ui.admin/js/H-ui.admin.js"></script>
 <script src="<%=basePath%>laydate/laydate.js"></script>
 <!--/_footer /作为公共模版分离出去-->
+<%--日期插件--%>
 <script>
     laydate({
-        elem: '#hello', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+        elem: '#startTime', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+        event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+    });
+    laydate({
+        elem: '#endTime', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
         event: 'focus' //响应事件。如果没有传入event，则按照默认的click
     });
 </script>
@@ -149,45 +173,83 @@
 function article_save(){
 	window.parent.location.reload();
 }
-/**分配人员*/
-function selectUser() {
-    layer.open({
-        type: 1,
-        title:"分配人员",
-        area: ['600px', '400px'],
-        content: $('#addUser') //这里content是一个DOM，这个元素要放在body根节点下
-    });
+/***
+ * 项目负责人
+ */
+function departmentUser() {
+
+    var province_ids = $("#department").val();
+    var dataJson = {
+        province_ids:province_ids
+    };
+    $.ajax({
+        url: 'selectUserListByDeptId',
+        type: 'post',
+        contentType: 'application/json;charset=utf-8',
+        dataType: 'json',
+        data: JSON.stringify(dataJson),
+        success: function (data) {
+            if (data.success) {
+                var listCarBrand = data.workerList;
+                var select = document.getElementById("departmentName");
+                // document.write(listRole.length);
+                //$("#carbrandPid").options.length=1;
+                $("#departmentName").find("option").remove();
+                select.options.add(new Option("请选择", 0));
+                for (var i = 0; i < listCarBrand.length; i++) {
+
+                    var id = listCarBrand[i].dataid;
+                    var name = listCarBrand[i].name;
+                    select.options.add(new Option(name, id));
+                }
+            } else {
+            }
+        }
+    })
 }
 /**
- * 品牌的onchange事件
+ * 分配人员onchange事件
  */
 function  queryTwoBarand() {
-	var carbrandId=$("#carbrandId").val();
-	$("#carSystemId").find("option").remove();
-	document.getElementById("carSystemId").options.add(new Option("请选择",0));//品牌变化一次。清空一次车型
 
-	var  dataJson= {
-		brandPid:carbrandId
-	};
+    var select = document.getElementById("province_ids");
+    var province_ids="";
+    //var province_ids="";
+    for(i=0;i<select.length;i++){
+        if(select.options[i].selected){
+            if (province_ids==""){
+                province_ids=select[i].value;
+            }else{
+                if(province_ids==0){
+                    layer.msg('部门选择错误');
+                    return false;
+                }
+                province_ids=province_ids+","+select[i].value;
+            }
+        }
+    }
+    var dataJson = {
+        province_ids:province_ids
+    };
 	$.ajax( {
-		url : 'getCarBrandByCarBrandPid.do',
+		url : 'selectUserList',
 		type : 'post',
 		contentType : 'application/json;charset=utf-8',
 		dataType : 'json',
 		data : JSON.stringify(dataJson),
 		success : function(data) {
 			if (data.success) {
-				var listCarBrand= data.listCarBrand;
-				var select = document.getElementById("carbrandPid");
+				var listCarBrand= data.workerList;
+				var select = document.getElementById("province_id");
 				// document.write(listRole.length);
 				//$("#carbrandPid").options.length=1;
-				$("#carbrandPid").find("option").remove();
+				$("#province_id").find("option").remove();
 				select.options.add(new Option("请选择",0));
 				for(var i = 0; i < listCarBrand.length; i++)
 				{
 
-					var id = listCarBrand[i].brandId;
-					var name = listCarBrand[i].brandName;
+					var id = listCarBrand[i].dataid;
+					var name = listCarBrand[i].name;
 					select.options.add(new Option(name,id));
 				}
 			} else {
@@ -197,60 +259,94 @@ function  queryTwoBarand() {
 }
 function article_save_submit() {
     var contentTitle= $("#contentTitle").val();
-	var index = layer.open();
 	if (contentTitle.length==0){
-		layer.msg('请输入案例标题' ,{time: 2000, icon:5});
+		layer.msg('请输入项目名称' ,{time: 2000, icon:5});
 		return false;
 	}
-	var carbrandId=$("#carbrandId").val();
-    if(carbrandId==0){
-		layer.msg('请选择品牌' ,{time: 2000, icon:5});
+
+	var departmentId=$("#departmentName").val();
+    var departmentName=$("#departmentName").find("option:selected").text();
+    if(departmentId==0){
+		layer.msg('请选择负责人' ,{time: 2000, icon:5});
 		return false;
 	}
-	var carbrandPid=$("#carbrandPid").val();
-	if(carbrandPid==0){
-		layer.msg('请选择车系' ,{time: 2000, icon:5});
+	var province_id_user=$("#province_id").val();
+	if(province_id_user==0){
+		layer.msg('请选择分配人员' ,{time: 2000, icon:5});
 		return false;
 	}
-	var carSystemId=$("#carSystemId").val();
-	if(carSystemId==0){
-		layer.msg('请选择车型' ,{time: 2000, icon:5});
+	var startTime=$("#startTime").val();
+	if(startTime.length==0){
+		layer.msg('请选择项目开始时间' ,{time: 2000, icon:5});
 		return false;
 	}
-	var categoryId=$("#categoryId").val();
-	if(categoryId==0){
-		layer.msg('请选择改装类型' ,{time: 2000, icon:5});
+	var endTime=$("#endTime").val();
+	if(endTime==0){
+		layer.msg('请选择项目结束时间' ,{time: 2000, icon:5});
 		return false;
 	}
-	var dndArea= $("#coverImg").val();
-	if(dndArea.length==0){
-		layer.msg('请选择封面图片' ,{time: 2000, icon:5});
+	var contect= $("#contect").val();
+	if(contect.length==0){
+		layer.msg('请输入项目描述' ,{time: 2000, icon:5});
 		return false;
 	};
 
-	var formData = new FormData($("#form-article-add")[0]);
-	$.ajax({
-		type: "POST",
-		url:"addCaseContent.do",
-		//data:$("#form-article-add").serialize(),// 你的formid
-		data:formData,
-		async: false,
-		contentType: false,
-		processData: false,
-		error: function(request) {
-			alert("Connection error");
-		},
-		success: function(data) {
-			layer.msg('提交成功' ,{time: 20000, icon:6});
-			window.parent.location.reload();
-			layer.full(index);
-		}
-	});
-	/*$("#form-article-add").submit();
-	layer.msg('提交成功' ,{time: 20000, icon:6});
+	var progress=$("#progress").val();
+	if (progress.length==0){
+        layer.msg('请填写项目进度' ,{time: 2000, icon:5});
+        return false;
+    }
 
-	window.parent.location.reload();
-	layer.full(index);*/
+    var select = document.getElementById("province_id");
+    var province_id="";
+    var province_name="";
+    for(i=0;i<select.length;i++){
+        var members=new Array();
+        if(select.options[i].selected){
+            if (province_id==""){
+                province_id=select[i].value;
+                province_name=select[i].text;
+
+            }else{
+                if(province_id==0){
+                    layer.msg('人员选择错误');
+                    return false;
+                }
+                province_id=province_id+","+select[i].value;
+                province_name=province_name+","+select[i].text;
+            }
+        }
+    }
+    var member=province_id+"+"+province_name;
+
+    var dataJson = {
+        name:contentTitle,//项目名称
+        leaderid:departmentId,//项目负责人
+        leader:departmentName,
+        member:member,//分配人员
+        starttime:startTime,//项目开始时间
+        endtime:endTime,//项目结束时间
+        contect:contect,//项目描述
+        progress:progress//项目 进度
+    };
+    $.ajax( {
+        url : 'addProject',
+        type : 'post',
+        contentType : 'application/json;charset=utf-8',
+        dataType : 'json',
+        data : JSON.stringify(dataJson),
+        success : function(data) {
+
+            if (data.success) {
+                layer.msg('新建项目成功' ,{time: 4000, icon:6});
+                window.location.reload();
+                layer.full(index);
+            } else {
+                layer.msg('新建项目失败' ,{time: 2000, icon:5});
+
+            }
+        }
+    });
 }
 
 
