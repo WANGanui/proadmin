@@ -135,11 +135,11 @@
         </div>
 
 
-		<div class="row cl">
+		<div id="but" class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button onClick="article_save_submit()" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
-				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
-			</div>
+				<button onClick="article_save_submit()"  class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
+				<%--<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			--%></div>
 		</div>
 	</form>
 </div>
@@ -338,9 +338,8 @@ function article_save_submit() {
         success : function(data) {
 
             if (data.success) {
-                layer.msg('新建项目成功' ,{time: 4000, icon:6});
-                window.location.reload();
-                layer.full(index);
+                layer.msg('新建项目成功' ,{time: 2000, icon:6});
+                $("#but").hide();
             } else {
                 layer.msg('新建项目失败' ,{time: 2000, icon:5});
 
