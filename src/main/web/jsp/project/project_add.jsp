@@ -89,7 +89,7 @@
 			</div>
 		</div>--%>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分配人员：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分配人员部门：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<select id="province_ids" name="province_ids" multiple="multiple" size="10" style="width: 150px;" onchange="queryTwoBarand()">
 					<option value="0" selected="">选择部门</option>
@@ -97,6 +97,18 @@
 						<option value="${department.dataid}">${department.name}</option>
 					</c:forEach>
 				</select>
+<%--
+				<select id="province_id" name="province_id" multiple="multiple" size="10" style="width: 150px;">
+					<option value="0" selected="">选择人员</option>
+
+				</select>--%>
+			</div>
+		</div>
+
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分配人员：</label>
+			<div class="formControls col-xs-8 col-sm-9">
 
 				<select id="province_id" name="province_id" multiple="multiple" size="10" style="width: 150px;">
 					<option value="0" selected="">选择人员</option>
@@ -104,6 +116,7 @@
 				</select>
 			</div>
 		</div>
+
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目时间：</label>
 			<div class="formControls col-xs-8 col-sm-9">
