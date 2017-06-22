@@ -46,8 +46,10 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span class="c-gray en">&gt;</span> 项目进度详情 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
+<form id="form" action="projectDetail" method="post">
 
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><select onchange="projectProgress()" id="dataId" class="select" style="width: 150px;"><c:forEach items="${projectList}" var="project"><option value="${project.dataid}">${project.name}</option></c:forEach></select></span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><select onchange="projectProgress()" id="dataId" name="name" class="select" style="width: 150px;"><c:forEach items="${projectList}" var="project"><option value="${project.dataid}" <c:if test="${selectId==project.dataid}">selected</c:if>>${project.name}</option></c:forEach></select></span> </div>
+</form>
 	<div class="mt-20">
 		<table id="tbody" class="table table-border table-bordered table-bg table-hover table-sort">
 			<thead>
@@ -118,9 +120,8 @@ function picture_add(title,url){
 
 function projectProgress() {
 
-	var dataId=$("#dataId").val();
-
-    var dataJson = {
+    $("#form").submit();
+    /*var dataJson = {
         dataId:dataId
     };
     $.ajax( {
@@ -135,12 +136,22 @@ function projectProgress() {
             } else {
                 var htm="";
                 for (var i=0;i<data.length;i++){
-                    htm=htm+"<tr> <td  style='text-align: center'>"+(i+1)+"</td><td style='text-align: center'>"+data[i].time+"</td><td style='text-align: center'>"+data[i].workername+"</td><td style='text-align: center'></td><td style='text-align: center'></td></tr>";
+                    var time = new Date(data[i].time);
+                    var y = time.getFullYear();//年
+                    var m = time.getMonth() + 1;//月
+                    var d = time.getDate();//日
+					if(m<=9){
+					    m=0+""+m;
+					}
+                    if(d<=9){
+                        d=0+""+d
+                    }
+                    htm=htm+"<tr> <td  style='text-align: center'>"+(i+1)+"</td><td style='text-align: center'>"+y+"-"+m+"-"+d+"</td><td style='text-align: center'>"+data[i].workername+"</td><td style='text-align: center'></td><td style='text-align: center'></td></tr>";
 				}
                 $("#tbody tbody").html(htm);
             }
         }
-    });
+    });*/
 }
 
 /*图片-查看*//*
