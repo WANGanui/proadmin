@@ -3,10 +3,9 @@ package com.hrg.module.mission;
 import com.hrg.enums.ErrorCode;
 import com.hrg.exception.ValidatorException;
 import com.hrg.global.ApiResult;
-import com.hrg.model.Mission;
-import com.hrg.model.MissionCriteria;
-import com.hrg.model.Worker;
+import com.hrg.model.*;
 import com.hrg.service.MissionService;
+import com.hrg.service.ProjectService;
 import com.hrg.util.JsonUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,8 @@ public class MissionController {
 
     @Autowired
     MissionService missionService;
+    @Autowired
+    ProjectService projectService;
 
     @RequestMapping("/missionList")
     public ModelAndView selectList(HttpServletRequest request, MissionCriteria example){
@@ -65,6 +66,19 @@ public class MissionController {
             v.printStackTrace();
         } catch (Exception e) {
             logger.info("============个人任务列表查询失败，系统异常=============");
+            e.printStackTrace();
+        }
+        return model;
+    }
+
+    @RequestMapping("/missionAdd")
+    public ModelAndView gotoAdd(){
+        ModelAndView model = new ModelAndView();
+        try {
+            List<Project> list = projectService.selectList(new ProjectCriteria());
+            model.addObject("list",list);
+            model.setViewName("mission/mission_add");
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return model;
