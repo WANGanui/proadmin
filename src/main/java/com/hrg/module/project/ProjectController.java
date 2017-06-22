@@ -140,35 +140,30 @@ logger.info("=================="+result);
 
     //查询项目进度详情
     @RequestMapping(value = "/projectDetail")
-    public  String projectDetail(HttpServletRequest request){
+    public  String projectDetail(HttpServletRequest request,String name){
         try {
             ProjectCriteria projectCriteria=new ProjectCriteria();
             List<Project> projectList= projectService.selectList(projectCriteria);
             request.setAttribute("projectList",projectList);//项目
+            String projectdataid="";
+            name=(name==null?"":name);
             if (projectList.size()>1){
-                String projectdataid=  projectList.get(0).getDataid();//项目Id
-                WorkdataCriteria workdataCriteria=new WorkdataCriteria();
-                workdataCriteria.setProjectdataid(projectdataid);
-                List<Workdata> workdataList= workDataService.queryList(workdataCriteria);
-                request.setAttribute("workdataList",workdataList);
+                if (name.equals("")||name==null){
+                    projectdataid=  projectList.get(0).getDataid();//项目Id
+                }else{
+                    projectdataid=name;
+                }
             }
+            WorkdataCriteria workdataCriteria=new WorkdataCriteria();
+            workdataCriteria.setProjectdataid(projectdataid);
+            List<Workdata> workdataList= workDataService.queryList(workdataCriteria);
+            request.setAttribute("workdataList",workdataList);
+
+            request.setAttribute("selectId",projectdataid);
         }catch (Exception e){
 
         }
         return "project/project_progress_list";
     }
-    @RequestMapping(value = "/queryDataId")
-    public @ResponseBody  Object queryDataId(@RequestBody Map map){
-        List<Workdata> workdataList=null;
-        try {
 
-            WorkdataCriteria workdataCriteria=new WorkdataCriteria();
-            workdataCriteria.setProjectdataid(map.get("dataId").toString());
-            workdataList= workDataService.queryList(workdataCriteria);
-
-        }catch (Exception e){
-
-        }
-    return workdataList;
-    }
 }
