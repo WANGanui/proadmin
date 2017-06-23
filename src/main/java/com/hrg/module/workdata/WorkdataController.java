@@ -72,7 +72,15 @@ public class WorkdataController {
     @RequestMapping("/workdataADdd")
     public ModelAndView addworkData(HttpServletRequest request){
         ModelAndView model = new ModelAndView();
-        List<Project> projectList = projectService.selectList()
+        HttpSession session = request.getSession();
+        Worker worker = (Worker) session.getAttribute("worker");
+        try {
+            List<Project> projectList = projectService.selectByWorker(worker.getDataid());
+            model.addObject("projects",projectList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return model;
     }
 }
