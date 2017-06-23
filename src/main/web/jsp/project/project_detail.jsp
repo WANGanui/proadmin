@@ -1,6 +1,7 @@
 <!--_meta 作为公共模版分离出去-->
 <%@ page language="java" import="java.util.*"	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -39,7 +40,7 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>新建项目</title>
+<title>项目详情</title>
 </head>
 <body>
 <div class="page-container">
@@ -47,16 +48,16 @@
 		<div class="row cl">
 
 
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目名称：</label>
+			<label class="form-label col-xs-4 col-sm-2">项目名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text"  class="input-text" style="width: 300px;" value="${content.contentTitle}" placeholder="" id="contentTitle" name="contentTitle">
+				<input type="text"  class="input-text" style='border-left:0px;border-top:0px;border-right:0px;border-bottom:1px ' readonly style="width: 300px;" value="${project.name}" placeholder="" id="contentTitle" name="contentTitle">
 			</div>
 		</div>
 
-		<div class="row cl">
+		<%--<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目负责人部门：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<%--<input type="text" class="input-text" value="${content.contentSummary}" placeholder="" id="contentSummary" name="contentSummary">--%>
+				&lt;%&ndash;<input type="text" class="input-text" value="${content.contentSummary}" placeholder="" id="contentSummary" name="contentSummary">&ndash;%&gt;
 				<select class="select" id="department" style="width: 300px;"  name="department" size="1" onchange="departmentUser()">
 					<option value="0" > 请选择 </option>
 					<c:forEach items="${departmentList}" var="department">
@@ -65,41 +66,14 @@
 				</select>
 			</div>
 		</div>
-
+--%>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目负责人：</label>
+			<label class="form-label col-xs-4 col-sm-2">项目负责人：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<%--<input type="text" class="input-text" value="${content.contentSummary}" placeholder="" id="contentSummary" name="contentSummary">--%>
-				<select class="select" style="width: 300px;" id="departmentName"  name="departmentName" size="1" >
+				<input type="text" style='border-left:0px;border-top:0px;border-right:0px;border-bottom:1px ' class="input-text" readonly value="${project.leader}" placeholder="" id="contentSummary" name="contentSummary">
+				<%--<select class="select" style="width: 300px;" id="departmentName"  name="departmentName" size="1" >
 					<option value="0"> 请选择 </option>
 
-
-				</select>
-			</div>
-		</div>
-		<%--<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>车型：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				&lt;%&ndash;<input type="text" class="input-text" value="${content.contentSummary}" placeholder="" id="contentSummary" name="contentSummary">&ndash;%&gt;
-					<select class="select" id="carSystemId"  name="carSystemId" size="1">
-						<option value="0"> 请选择 </option>
-
-
-					</select>
-			</div>
-		</div>--%>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分配人员部门：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<select id="province_ids" name="province_ids" multiple="multiple" size="10" style="width: 150px;" onchange="queryTwoBarand()">
-					<option value="0" selected="">选择部门</option>
-					<c:forEach items="${departmentList}" var="department">
-						<option value="${department.dataid}">${department.name}</option>
-					</c:forEach>
-				</select>
-<%--
-				<select id="province_id" name="province_id" multiple="multiple" size="10" style="width: 150px;">
-					<option value="0" selected="">选择人员</option>
 
 				</select>--%>
 			</div>
@@ -107,52 +81,56 @@
 
 
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分配人员：</label>
+			<label class="form-label col-xs-4 col-sm-2">分配人员：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 
+				<input type="text" style='border-left:0px;border-top:0px;border-right:0px;border-bottom:1px ' readonly class="input-text" value="${project.member}" placeholder="" >
+				<%--
 				<select id="province_id" name="province_id" multiple="multiple" size="10" style="width: 150px;">
 					<option value="0" selected="">选择人员</option>
 
-				</select>
+				</select>--%>
 			</div>
 		</div>
 
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目起始时间：</label>
+			<label class="form-label col-xs-4 col-sm-2">项目起始时间：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<%--<div id="tcPreview">
 					</div>
-				<input type="file" name="file" id="coverImg" onchange="previewImage(this,'tcPreview')" />--%>
-					<input id="startTime" class="laydate-icon">——<input id="endTime" class="laydate-icon">
-
+				<input type="file" name="file" id="coverImg" onchange="previewImage(this,'tcPreview')" />--%><%--
+					<input id="startTime" class="laydate-icon"><input id="endTime" class="laydate-icon">--%>
+					<input type="text" readonly style='border-left:0px;border-top:0px;border-right:0px;border-bottom:1px;width: 100px ' class="input-text"  value="<fmt:formatDate value="${project.starttime}" pattern="yyyy-MM-dd" />" placeholder="" >——
+					<input type="text"  readonly style='border-left:0px;border-top:0px;border-right:0px;border-bottom:1px;width: 100px ' class="input-text"  value="<fmt:formatDate value="${project.endtime}" pattern="yyyy-MM-dd" />" placeholder="" >
 			</div>
 		</div>
 
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目描述：</label>
+            <label class="form-label col-xs-4 col-sm-2">项目描述：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <%--<div id="tcPreview">
                     </div>
                 <input type="file" name="file" id="coverImg" onchange="previewImage(this,'tcPreview')" />--%>
-              <textarea id="contect" cols="45" rows="10"></textarea>
+              <textarea id="contect" cols="45" style='overflow:auto; background-attachment: fixed; background-repeat: no-repeat; border-style: solid;
+border-color: #FFFFFF' readonly rows="10">${project.contect}</textarea>
 
             </div>
         </div>
 
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目进度：</label>
+            <label class="form-label col-xs-4 col-sm-2">项目进度：</label>
             <div class="formControls col-xs-8 col-sm-9">
 
-                <input type="text"  class="input-text" style="width: 300px;" value="0%" placeholder="" id="progress" name="progress">
+                <input type="text"  class="input-text" style='border-left:0px;border-top:0px;border-right:0px;border-bottom:1px ' readonly style="width: 300px;" value="${project.progress}" placeholder="" id="progress" name="progress">
             </div>
         </div>
 
 
 		<div id="but" class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button onClick="article_save_submit()"  class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
-				<%--<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
-			--%></div>
+				<%--<button onClick="article_save_submit()"  class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
+				--%><button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;关闭&nbsp;&nbsp;</button>
+			</div>
 		</div>
 	</form>
 </div>

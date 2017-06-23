@@ -166,4 +166,24 @@ logger.info("=================="+result);
         return "project/project_progress_list";
     }
 
+    //查看项目详情
+    @RequestMapping(value = "/selectProjectDeatil")
+    public String selectProjectDeatil(HttpServletRequest request,String projectId){
+        try {
+            ProjectCriteria projectCriteria=new ProjectCriteria();
+            projectCriteria.setDataid(projectId);
+            List<Project> projectList= projectService.selectList(projectCriteria);
+            logger.info("=========================================:"+ projectList.size());
+            Project project=new Project();
+            if (projectList.size()>=1){
+                project=projectList.get(0);
+            }
+            request.setAttribute("project",project);/*
+            modelAndView.addObject("projectList",projectList);*/
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "project/project_detail";
+    }
+
 }
