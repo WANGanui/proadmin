@@ -4,8 +4,10 @@ import com.hrg.enums.ErrorCode;
 import com.hrg.exception.ValidatorException;
 import com.hrg.global.ApiResult;
 import com.hrg.model.*;
+import com.hrg.service.DepartmentService;
 import com.hrg.service.MissionService;
 import com.hrg.service.ProjectService;
+import com.hrg.service.WorkerService;
 import com.hrg.util.JsonUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,10 @@ public class MissionController {
     MissionService missionService;
     @Autowired
     ProjectService projectService;
+    @Autowired
+    DepartmentService departmentService;
+    @Autowired
+    WorkerService workerService;
 
     @RequestMapping("/missionList")
     public ModelAndView selectList(HttpServletRequest request, MissionCriteria example){
@@ -77,6 +83,10 @@ public class MissionController {
         try {
             List<Project> list = projectService.selectList(new ProjectCriteria());
             model.addObject("list",list);
+            List<Department> departmentList= departmentService.selectList(new DepartmentCriteria());
+            List<Worker> list1 = workerService.selectList(new WorkerCriteria());
+            model.addObject("partment",departmentList);
+            model.addObject("workers",list1);
             model.setViewName("mission/mission_add");
         } catch (Exception e) {
             e.printStackTrace();

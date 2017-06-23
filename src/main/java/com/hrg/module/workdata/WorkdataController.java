@@ -3,6 +3,8 @@ package com.hrg.module.workdata;
 import com.hrg.model.Workdata;
 import com.hrg.model.WorkdataCriteria;
 import com.hrg.model.Worker;
+import com.hrg.service.MissionService;
+import com.hrg.service.ProjectService;
 import com.hrg.service.WorkDataService;
 import com.hrg.util.JsonUtil;
 import org.apache.log4j.Logger;
@@ -24,6 +26,10 @@ public class WorkdataController {
 
     @Autowired
     WorkDataService workDataService;
+    @Autowired
+    ProjectService projectService;
+    @Autowired
+    MissionService missionService;
 
     @RequestMapping("/missionWorkdata")
     public ModelAndView selectList(WorkdataCriteria example, HttpServletRequest request){
@@ -59,6 +65,13 @@ public class WorkdataController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return model;
+    }
+
+    @RequestMapping("/workdataADdd")
+    public ModelAndView addworkData(HttpServletRequest request){
+        ModelAndView model = new ModelAndView();
+
         return model;
     }
 }
