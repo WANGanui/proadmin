@@ -271,7 +271,7 @@ function picture_del(obj,id){
 
         var index = layer.open({
             type: 2,
-            title: "项目详情",
+            title: "创建任务",
             content: "missionAdd"
         });
         layer.full(index);
