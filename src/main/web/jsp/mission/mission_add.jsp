@@ -63,7 +63,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">任务名称</label>
         <div class="layui-input-block">
-            <input type="text" name="name" lay-verify="title" width="200" autocomplete="off" onchange="_change(this.value)" placeholder="请输入标题" class="layui-input">
+            <input type="text" name="name" lay-verify="title" width="200" autocomplete="off"  placeholder="请输入标题" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">

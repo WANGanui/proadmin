@@ -1,5 +1,6 @@
 package com.hrg.module.workdata;
 
+import com.hrg.model.Project;
 import com.hrg.model.Workdata;
 import com.hrg.model.WorkdataCriteria;
 import com.hrg.model.Worker;
@@ -71,7 +72,7 @@ public class WorkdataController {
     @RequestMapping("/workdataADdd")
     public ModelAndView addworkData(HttpServletRequest request){
         ModelAndView model = new ModelAndView();
-
+        List<Project> projectList = projectService.selectList()
         return model;
     }
 }
