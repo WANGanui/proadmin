@@ -5,10 +5,7 @@ import com.hrg.exception.MessageException;
 import com.hrg.exception.ValidatorException;
 import com.hrg.global.ApiResult;
 import com.hrg.global.JsonResult;
-import com.hrg.model.Module;
-import com.hrg.model.ModuleCriteria;
-import com.hrg.model.Worker;
-import com.hrg.model.WorkerCriteria;
+import com.hrg.model.*;
 import com.hrg.service.ModuleService;
 import com.hrg.service.WorkerService;
 import com.hrg.util.JsonUtil;
@@ -47,6 +44,7 @@ public class WorkerController {
     private WorkerService workerService;
     @Autowired
     private ModuleService moduleService;
+    @Autowired
 
 
     private static Logger logger = Logger.getLogger("LoginController");
@@ -219,6 +217,20 @@ public class WorkerController {
             logger.error("=============查询员工列表失败，系统异常=============", e);
             model.addObject(ApiResult.returnFail(ErrorCode.UN_KNOWN_EXCEPTION.getMessage(),ErrorCode.UN_KNOWN_EXCEPTION.getCode()));
         }
+        return model;
+    }
+
+    @RequestMapping("/add")
+    public ModelAndView toaddWorker(){
+        ModelAndView model = new ModelAndView();
+        try {
+            Map map = workerService.selectRoleAndPartment();
+            model.addObject("map",map);
+            model.setViewName("worker/worker_add");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return model;
     }
 }

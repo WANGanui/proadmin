@@ -43,43 +43,49 @@
 </style>
 <script>
 
-    function _change() {
-        var count = $("input:radio:checked").val();
-        if(count==0){
-            $("#pro1").css({"display":"block"});
-        }else {
-            $("#pro1").css({"display":"none"});
-        }
-    };
+
 </script>
 <body>
 
 
 
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend>新增任务</legend>
+    <legend>工作日志</legend>
 </fieldset>
 <form class="layui-form layui-form-pane" action="">
-    <div class="layui-form-item">
-        <label class="layui-form-label">公告标题</label>
-        <div class="layui-input-block">
-            <input type="text" name="name" lay-verify="title" width="200" autocomplete="off"  placeholder="请输入标题" class="layui-input">
-        </div>
-    </div>
 
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">发布日期</label>
+            <label class="layui-form-label">选择日期</label>
             <div class="layui-input-inline">
-                <input type="text" name="starttime" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+                <input type="text" name="time" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
             </div>
         </div>
     </div>
+    <div class="layui-form-item" id="pro1" >
+        <div class="layui-inline">
+            <label class="layui-form-label">选择项目</label>
+            <div class="layui-input-inline">
+                <select name="prodataid"  lay-search="" lay-filter="sele" >
+                    <option value="">直接选择或搜索选择</option>
+                    <c:forEach items="${projects}" var="project" varStatus="projectIndex">
+                        <option value="${project.dataid}">${project.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
 
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择任务</label>
+        <div class="layui-input-block" id="province_id">
+
+        </div>
+    </div>
     <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">备注</label>
+        <label class="layui-form-label">工作内容描述</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入内容" name="remark" class="layui-textarea"></textarea>
+            <textarea placeholder="请输入内容" name="context" id="cont" class="layui-textarea"></textarea>
         </div>
     </div>
     <%--<div class="layui-form-item layui-form-text">
@@ -100,19 +106,13 @@
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
     function  queryTwoBarand() {
-
-        var select = document.getElementsByName("ment");
+        var select = document.getElementsByName("missionname");
         var province_ids="";
-        //var province_ids="";
         for(i=0;i<select.length;i++){
             if(select[i].checked){
                 if (province_ids==""){
                     province_ids=select[i].value;
                 }else{
-                    if(province_ids==0){
-                        layer.msg('部门选择错误');
-                        return false;
-                    }
                     province_ids=province_ids+","+select[i].value;
                 }
             }
@@ -121,7 +121,7 @@
             province_ids:province_ids
         };
         $.ajax( {
-            url : 'selectUserList',
+            url : 'selectMissionDd',
             type : 'post',
             async:true,
             contentType : 'application/json;charset=utf-8',
@@ -129,21 +129,16 @@
             data : JSON.stringify(dataJson),
             success : function(data) {
                 if (data.success) {
-                    var listCarBrand= data.workerList;
-                    var select = document.getElementById("province_id");
-                    // document.write(listRole.length);
-                    //$("#carbrandPid").options.length=1;
-                    var htm="";
+                    document.getElementById("cont").value="";
+                    var listCarBrand= data.missionList;
+                    var contextd = data.context;
+                    var val="";
                     for(var i = 0; i < listCarBrand.length; i++)
                     {
-                        var id = listCarBrand[i].dataid;
-                        var name = listCarBrand[i].name;
-                        htm+= "<input type=\"checkbox\" value="+id+" name=\"workername\" style=\"opacity: 1\" title="+name+">";
+                        val += listCarBrand[i].context;
 
                     }
-                    document.getElementById("province_id").innerHTML=htm;
-                    var form = layui.form();
-                    form.render("checkbox");
+                    document.getElementById("cont").value=contextd;
                 } else {
                 }
             }
@@ -177,6 +172,38 @@
                 title: '最终的提交信息'
             })
             return false;
+        });
+        form.on('select(sele)', function(data){
+            var dataJson = {
+                dataid:data.value
+            };
+            $.ajax( {
+                url : 'missionListByProject',
+                type : 'post',
+                async:true,
+                contentType : 'application/json;charset=utf-8',
+                dataType : 'json',
+                data : JSON.stringify(dataJson),
+                success : function(data) {
+                    if (data.success) {
+                        var listCarBrand= data.missionList;
+                        var select = document.getElementById("province_id");
+                        // document.write(listRole.length);
+                        //$("#carbrandPid").options.length=1;
+                        var htm="";
+                        for(var i = 0; i < listCarBrand.length; i++)
+                        {
+                            var id = listCarBrand[i].dataid;
+                            var name = listCarBrand[i].name;
+                            htm+= "<input type=\"checkbox\" value="+id+" name=\"missionname\" style=\"opacity: 1\" title="+name+">";
+                        }
+                        document.getElementById("province_id").innerHTML=htm+"<button class=\"layui-btn\" style='margin-left: 20px;' id=\"moren\" onclick=\"return queryTwoBarand()\">确认</button>";
+                        var form = layui.form();
+                        form.render("checkbox");
+                    } else {
+                    }
+                }
+            });
         });
     });
 </script>

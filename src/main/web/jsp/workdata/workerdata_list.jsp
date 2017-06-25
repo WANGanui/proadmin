@@ -44,14 +44,16 @@
     </style>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 个人管理 <span class="c-gray en">&gt;</span> 工作日志 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 个人管理 <span class="c-gray en">&gt;</span> 个人工作日志 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 
-    <div class="cl pd-5 bg-1 bk-gray mt-20">
-        <span class="l">
-            <a class="btn btn-primary radius" onclick="picture_add('添加案例','')" href="javascript:;">
-                <i class="Hui-iconfont">&#xe600;</i> 添加项目</a>
-</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
+    <%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%>
+        <a class="btn btn-primary radius" onclick="picture_add('添加日志','workdataADdd')" href="javascript:;">
+            <i class="Hui-iconfont">&#xe600;</i> 添加日志</a>
+       </span> </div>
+
+    </span> </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>

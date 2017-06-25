@@ -77,7 +77,7 @@ public class WorkdataController {
         try {
             List<Project> projectList = projectService.selectByWorker(worker.getDataid());
             model.addObject("projects",projectList);
-
+            model.setViewName("workdata/data_add");
         } catch (Exception e) {
             e.printStackTrace();
         }

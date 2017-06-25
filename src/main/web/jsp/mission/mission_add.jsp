@@ -99,10 +99,10 @@
         <div class="layui-inline">
             <label class="layui-form-label">选择责任人</label>
             <div class="layui-input-inline">
-                <select name="headerid" lay-verify="required" lay-search="">
+                <select name="header" lay-verify="required" lay-search="" lay-filter="header">
                     <option value="">直接选择或搜索选择</option>
                     <c:forEach items="${workers}" var="worker1" varStatus="projectIndex">
-                        <option value="${worker1.dataid}" name="projectname">${worker1.name}</option>
+                        <option value="${worker1.dataid}" name="headername" title="${worker1.name}">${worker1.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -110,10 +110,10 @@
         <div class="layui-inline">
             <label class="layui-form-label">选择审核人</label>
             <div class="layui-input-inline">
-                <select name="auditorid" lay-verify="required" lay-search="">
+                <select name="auditor" lay-verify="required" lay-search="" lay-filter="auditor">
                     <option value="">直接选择或搜索选择</option>
                     <c:forEach items="${workers}" var="worker2" varStatus="projectIndex">
-                        <option value="${worker2.dataid}" name="projectname">${worker2.name}</option>
+                        <option value="${worker2.dataid}" name="auditorame" title="${worker2.name}">${worker2.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -132,10 +132,10 @@
         <div class="layui-inline">
         <label class="layui-form-label">选择项目</label>
         <div class="layui-input-inline">
-            <select name="prodataid"  lay-search="">
+            <select name="prodataid"  lay-search="" lay-filter="project">
                 <option value="">直接选择或搜索选择</option>
                 <c:forEach items="${list}" var="project" varStatus="projectIndex">
-                    <option value="${project.name}" name="projectname">${project.name}</option>
+                    <option value="${project.dataid}" name="projectname" title="${project.name}">${project.name}</option>
                 </c:forEach>
             </select>
         </div>
@@ -145,18 +145,18 @@
             <div class="layui-input-inline">
                 <select name="level" multiple size="10" lay-verify="required" >
                     <option value=""></option>
-                    <option value="1" selected="">现场勘查</option>
-                    <option value="2">设备实测</option>
-                    <option value="3">产品方案</option>
-                    <option value="4">投资收益分析</option>
-                    <option value="4">项目立项</option>
-                    <option value="4">项目实施方案</option>
-                    <option value="4">项目招投标</option>
-                    <option value="4">项目合同签订</option>
-                    <option value="4">设备发货</option>
-                    <option value="4">设备交接</option>
-                    <option value="4">软件平台搭建</option>
-                    <option value="4">项目验收</option>
+                    <option value="现场勘查" selected="">现场勘查</option>
+                    <option value="设备实测">设备实测</option>
+                    <option value="产品方案">产品方案</option>
+                    <option value="投资收益分析">投资收益分析</option>
+                    <option value="项目立项">项目立项</option>
+                    <option value="项目实施方案">项目实施方案</option>
+                    <option value="项目招投标">项目招投标</option>
+                    <option value="项目合同签订">项目合同签订</option>
+                    <option value="设备发货">设备发货</option>
+                    <option value="设备交接">设备交接</option>
+                    <option value="软件平台搭建">软件平台搭建</option>
+                    <option value="项目验收">项目验收</option>
                 </select>
             </div>
         </div>
@@ -177,7 +177,12 @@
 
         </div>
     </div>
-
+    <div class="layui-form-item">
+        <label class="layui-form-label">任务进度</label>
+        <div class="layui-input-block">
+            <input type="text" name="percentage" lay-verify="title" width="200" autocomplete="off" value="0%" placeholder="" class="layui-input">
+        </div>
+    </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">任务内容描述</label>
         <div class="layui-input-block">
@@ -273,11 +278,89 @@
                 layedit.sync(editIndex);
             }
         });
+        var leaderid ="";
+        var leader="";
+        //任务负责人
+        form.on('select(header)', function(data){
+            // alert(data.value+";"+data.elem[data.elem.selectedIndex].title);
+            leaderid = data.value;
+            leader=data.elem[data.elem.selectedIndex].title;
+        });
+        //任务审核人
+        var auditorid = "";
+        var auditor = "";
+        form.on('select(auditor)', function(data){
+            // alert(data.value+";"+data.elem[data.elem.selectedIndex].title);
+            auditorid = data.value;
+            auditor=data.elem[data.elem.selectedIndex].title;
+        });
+        //选择项目
+        var project ="";
+        var projectid ="";
+        form.on('select(project)', function(data){
+            // alert(data.value+";"+data.elem[data.elem.selectedIndex].title);
+            projectid = data.value;
+            project=data.elem[data.elem.selectedIndex].title;
+        });
         //监听提交
         form.on('submit(demo1)', function(data){
-            layer.alert(JSON.stringify(data.field), {
+           /* layer.alert(JSON.stringify(data.field), {
                 title: '最终的提交信息'
-            })
+            })*/
+            var select = document.getElementsByName("workername");
+            var province_id="";
+            var  province_name="";
+            for(i=0;i<select.length;i++){
+                if(select[i].checked){
+                    if (province_id==""){
+                        province_id=select[i].value;
+                        province_name=select[i].title;
+                    }else{
+                        if(province_id==0){
+                            layer.msg('人员选择错误');
+                            return false;
+                        }
+                        province_id=province_id+","+select[i].value;
+                        province_name=province_name+","+select[i].title;
+                    }
+                }
+            }
+            var member=province_id+"+"+province_name;
+
+            var dataJson = {
+                name:data.field.name,//任务名称
+                proportion:data.field.proportion,//任务权重
+                headerid:leaderid,//任务负责人
+                headername:leader,
+                auditorid:auditorid,//任务审核人
+                auditorname:auditor,
+                prodataid:projectid,//项目
+                proname:project,
+                member:member,//分配人员
+                type:data.field.type,//任务类型
+                starttime:data.field.starttime,//任务开始时间
+                endtime:data.field.endtime,//任务结束时间
+                level:data.field.level,//项目任务阶段
+                context:data.field.context,//任务描述
+                percentage:data.field.percentage//任务 进度
+            };
+            alert(JSON.stringify(dataJson));
+            $.ajax( {
+                url : 'addMission',
+                type : 'post',
+                contentType : 'application/json;charset=utf-8',
+                dataType : 'json',
+                data : JSON.stringify(dataJson),
+                success : function(data) {
+                    if (data.success) {
+                        layer.msg('创建任务成功' ,{time: 2000, icon:6});
+                        $("#but").hide();
+                    } else {
+                        layer.msg('创建任务失败' ,{time: 2000, icon:5});
+
+                    }
+                }
+            });
             return false;
         });
     });

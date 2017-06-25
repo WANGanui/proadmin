@@ -12,11 +12,15 @@ import com.hrg.util.JsonUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -93,4 +97,74 @@ public class MissionController {
         }
         return model;
     }
+
+    @RequestMapping("/missionListByProject")
+    public @ResponseBody Object selectlistBypro(@RequestBody Map deptMap){
+        MissionCriteria example = new MissionCriteria();
+        example.setProdataid(deptMap.get("dataid").toString());
+        Map map = new HashMap();
+        try {
+            List<Mission> missionList = missionService.selectList(example);
+            map.put("missionList",missionList);
+            map.put("success",true);
+        } catch (Exception e) {
+            map.put("success",false);
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @RequestMapping("/selectMissionDd")
+    public @ResponseBody Object selectMissionDd(@RequestBody Map deptMap){
+        MissionCriteria example = new MissionCriteria();
+        String missionid =deptMap.get("province_ids").toString();
+        String[] missionidList= missionid.split(",");
+        List list=new ArrayList();
+        for (int i = 0; i < missionidList.length; i++) {
+            list.add(missionidList[i]);
+        }
+        Map map = new HashMap();
+        example.setDataidList(list);
+        try {
+            List<Mission> missionList = missionService.selectList(example);
+            String context = "";
+            for (Mission mission : missionList){
+                context += mission.getContext()+"。";
+            }
+            map.put("context",context);
+            map.put("missionList",missionList);
+            map.put("success",true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @RequestMapping("/addMission")
+    public @ResponseBody Object addmission(HttpSession session,@RequestBody Mission mission){
+        Map result=new HashMap();
+        try {
+            Worker worker = (Worker) session.getAttribute("worker");
+            mission.setCreator(worker.getName());
+            mission.setCreatordataid(worker.getDataid());
+            String members = mission.getMember();
+            String[] memberIdName=members.split("[+]");
+            String[] meberIds=memberIdName[0].split(",");
+            String[] meberNames=memberIdName[1].split(",");
+            List<Worker> workerList = new ArrayList<>();
+            for (int i = 0;i < meberIds.length; i++){
+                Worker relMission = new Worker();
+                relMission.setDataid(meberIds[i]);
+                relMission.setName(meberNames[i]);
+                workerList.add(relMission);
+            }
+            missionService.insert(mission,workerList);
+            result.put("success",true);
+        } catch (Exception e) {
+            result.put("success",false);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }

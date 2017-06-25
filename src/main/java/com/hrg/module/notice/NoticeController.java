@@ -41,4 +41,8 @@ public class NoticeController {
         }
         return model;
     }
+    @RequestMapping("/noticeAdd")
+    public String gotoaddnotice(){
+        return "notice/notice_add";
+    }
 }

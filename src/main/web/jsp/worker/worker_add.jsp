@@ -61,18 +61,66 @@
 </fieldset>
 <form class="layui-form layui-form-pane" action="">
     <div class="layui-form-item">
-        <label class="layui-form-label">公告标题</label>
+        <label class="layui-form-label">员工姓名</label>
         <div class="layui-input-block">
-            <input type="text" name="name" lay-verify="title" width="200" autocomplete="off"  placeholder="请输入标题" class="layui-input">
+            <input type="text" name="name" lay-verify="title" width="200" autocomplete="off"  placeholder="请输入姓名" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-block">
+            <label class="layui-form-label">电话号码</label>
+            <div class="layui-input-block">
+                <input type="tel" name="phone" lay-verify="phone" placeholder="请输入电话" autocomplete="off" class="layui-input">
+            </div>
         </div>
     </div>
 
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">发布日期</label>
+            <label class="layui-form-label">账号</label>
             <div class="layui-input-inline">
-                <input type="text" name="starttime" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+                <input type="tel" name="account" autocomplete="off" placeholder="请输入账号 " class="layui-input">
             </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="password" autocomplete="off" class="layui-input" value="123456">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">选择部门</label>
+            <div class="layui-input-inline">
+                <select name="departmentdataid" lay-verify="required" lay-search="">
+                    <option value="">直接选择或搜索选择</option>
+                    <c:forEach items="${map.daparts}" var="ment" varStatus="projectIndex">
+                        <option value="${ment.dataid}" name="projectname">${ment.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">选择角色</label>
+            <div class="layui-input-inline">
+                <select name="roleid" lay-verify="required" lay-search="">
+                    <option value="">直接选择或搜索选择</option>
+                    <c:forEach items="${map.roles}" var="role" varStatus="projectIndex">
+                        <option value="${role.dataid}" name="projectname">${role.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item" pane="">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+            <input type="checkbox" checked="" name="state" lay-skin="switch" lay-filter="switchTest" lay-value="0|1" lay-text="启用|禁用">
         </div>
     </div>
 

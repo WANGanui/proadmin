@@ -106,18 +106,8 @@
                             </c:if>
                         </td>
                         <td class="td-status">
-                            <c:if test="${mission1.level==1}">
-                            <span class="label label-success radius">	现场勘查 </span>
-                        </c:if>
-                            <c:if test="${mission1.level==2}">
-                                <span class="label label-success radius">设备实测</span>
-                            </c:if>
-                            <c:if test="${mission1.level==3}">
-                                <span class="label label-success radius">技术方案设计</span>
-                            </c:if>
-                            <c:if test="${mission1.level==4}">
-                                <span class="label label-success radius">成本核算</span>
-                            </c:if></td>
+                            <span class="label label-success radius">${mission1.level}</span>
+                        </td>
                         <td class="td-status"><c:if test="${mission1.state==0}">
                             <span class="label label-success radius">	已发布 </span>
                         </c:if>
