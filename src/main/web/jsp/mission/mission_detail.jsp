@@ -117,26 +117,28 @@
         </div>
     </div>
 
-    <div class="layui-form-item" id="pro1" >
-        <div class="layui-inline">
-            <label class="layui-form-label">选择项目</label>
-            <div class="layui-input-inline">
-                <input type="text" class="layui-input" disabled value="${map.mission.proname}">
+    <c:if test="${map.mission.proname!=''}">
+        <div class="layui-form-item" id="pro1" >
+            <div class="layui-inline">
+                <label class="layui-form-label">选择项目</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" disabled value="${map.mission.proname}">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" style="width:130px">项目任务阶段</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" disabled value="${map.mission.level}">
+                </div>
             </div>
         </div>
-        <div class="layui-inline">
-            <label class="layui-form-label" style="width:130px">项目任务阶段</label>
-            <div class="layui-input-inline">
-                <input type="text" class="layui-input" disabled value="${map.mission.level}">
-            </div>
-        </div>
-    </div>
+    </c:if>
 
     <div class="layui-form-item">
         <label class="layui-form-label">任务人员</label>
         <div class="layui-input-block" id="province_id">
             <c:forEach items="${map.relworker}" var="work">
-                <input type="checkbox" name="workername"  title="${work.workername}" checked>
+                <input type="checkbox" name="workername" disabled  title="${work.workername}" checked>
             </c:forEach>
         </div>
     </div>
