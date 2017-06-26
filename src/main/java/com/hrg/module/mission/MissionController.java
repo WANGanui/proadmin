@@ -204,10 +204,19 @@ logger.info("========================返回结果："+JsonUtil.encode(missions))
     }
 
     @RequestMapping("/toupdatemission")
-    public ModelAndView toupdatemission(HttpServletRequest request){
-        String dataid = request.getParameter("dataid");
+    public ModelAndView toupdatemission(String dataid){
         ModelAndView model = new ModelAndView();
-        return null;
+        Map map = new HashMap();
+        try {
+            List<Department> departmentList= departmentService.selectList(new DepartmentCriteria());
+            map = missionService.selectDetailById(dataid);
+            map.put("partment",departmentList);
+            model.addObject("map",map);
+            model.setViewName("mission/mission_edit");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
     }
 
     @RequestMapping("/missionDetail")
@@ -223,6 +232,8 @@ logger.info("========================返回结果："+JsonUtil.encode(missions))
         }
         return model;
     }
+
+
     @RequestMapping("/deleteMission")
     public @ResponseBody Object deleteMission(@RequestBody  Map remap){
         Map map = new HashMap();
@@ -239,5 +250,40 @@ logger.info("========================返回结果："+JsonUtil.encode(missions))
             e.printStackTrace();
         }
         return map;
+    }
+
+    @RequestMapping("/updateMission")
+    public @ResponseBody Object updateMission(HttpSession session,@RequestBody Mission mission){
+        Map result=new HashMap();
+        try {
+            Worker worker = (Worker) session.getAttribute("worker");
+            mission.setModify(worker.getName());
+            mission.setModifydataid(worker.getDataid());
+            String members = mission.getMember();
+            String[] memberIdName=members.split("[+]");
+            String[] meberIds=null;
+            String[] meberNames=null;
+            if (memberIdName.length>=1){
+                meberIds =memberIdName[0].split(",");
+            }
+            if (memberIdName.length>=2){
+                meberNames =memberIdName[1].split(",");
+            }
+            List<Worker> workerList = new ArrayList<>();
+            if (meberIds!=null){
+                for (int i = 0;i < meberIds.length; i++){
+                    Worker relMission = new Worker();
+                    relMission.setDataid(meberIds[i]);
+                    relMission.setName(meberNames[i]);
+                    workerList.add(relMission);
+                }
+            }
+            missionService.update(mission,workerList);
+            result.put("success",true);
+        } catch (Exception e) {
+            result.put("success",false);
+            e.printStackTrace();
+        }
+        return result;
     }
 }

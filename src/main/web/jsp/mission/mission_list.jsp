@@ -65,7 +65,6 @@
                 <tr class="text-c">
                     <th width="40">序号</th>
                     <th width="60">任务名称</th>
-                    <th width="150">任务内容</th>
                     <th width="80">开始时间</th>
                     <th width="80">计划结束时间</th>
                     <th  width="60">项目名称</th>
@@ -76,7 +75,8 @@
                     <th width="60">责任人</th>
                     <th width="60">类型</th>
                     <th width="60">项目阶段</th>
-                    <th width="70">状态</th>
+                    <th width="70">流程状态</th>
+                    <th width="70">任务状态</th>
                     <th width="100">操作</th>
                 </tr>
                 </thead>
@@ -87,7 +87,7 @@
 
                         <td>${missionIndex1.index+1}</td>
                         <td onclick="picture_query('任务详情','missionDetail?dataid=${mission1.dataid}')" style="text-decoration:underline">${mission1.name}</td>
-                        <td>${mission1.context}</td>
+
                         <td class="td-time"><fmt:formatDate value="${mission1.starttime}" pattern="yyyy-MM-dd" /></td>
                         <td class="td-time"><fmt:formatDate value="${mission1.endtime}" pattern="yyyy-MM-dd" /></td>
                         <td>${mission1.proname}</td>
@@ -107,13 +107,23 @@
                             <span class="label label-success radius">${mission1.level}</span>
                         </td>
                         <td class="td-status"><c:if test="${mission1.state==0}">
-                            <span class="label label-success radius" style="background-color: #985f0d">	已创建待审核 </span>
+                            <span class="label label-success radius">	未开始 </span>
                         </c:if>
                             <c:if test="${mission1.state==1}">
-                                <span class="label label-success radius" >进行中</span>
+                                <span class="label label-success radius">进行中</span>
                             </c:if>
                             <c:if test="${mission1.state==2}">
-                                <span class="label label-success radius" style="background-color: #985f0d">已完成待审核</span>
+                                <span class="label label-success radius">已完成</span>
+                            </c:if>
+                        </td>
+                        <td class="td-status"><c:if test="${mission1.missionstate==0}">
+                            <span class="label label-success radius">	已同意 </span>
+                        </c:if>
+                            <c:if test="${mission1.missionstate==1}">
+                                <span class="label label-success radius" style="background-color: #985f0d">已拒绝</span>
+                            </c:if>
+                            <c:if test="${mission1.missionstate==2}">
+                                <span class="label label-success radius">待审核</span>
                             </c:if>
                         </td>
                         <td class="td-manage">

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -38,7 +39,7 @@
         color:#fff;
         overflow:hidden;
         white-space:nowrap;
-        !important;
+    !important;
     }
 </style>
 <script>
@@ -57,21 +58,23 @@
 
 
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend>新增任务</legend>
+    <legend>修改任务</legend>
 </fieldset>
+
 <form class="layui-form layui-form-pane" action="">
     <div class="layui-form-item">
         <label class="layui-form-label">任务名称</label>
         <div class="layui-input-block">
-            <input type="text" name="name" lay-verify="title" width="200" autocomplete="off"  placeholder="请输入标题" class="layui-input">
+            <input type="text" name="name" lay-verify="title" width="200" autocomplete="off" value="${map.mission.name}" disabled class="layui-input">
         </div>
     </div>
+    <input type="hidden" value="${map.mission.dataid}" name="dataid">
     <div class="layui-form-item">
         <label class="layui-form-label">任务权重</label>
         <div class="layui-input-block">
             <select name="proportion" lay-filter="aihao">
-                <option value=""></option>
-                <option value="0" selected="">1级</option>
+                <option value="${map.mission.proportion}" selected="">${map.mission.proportion}级</option>
+                <option value="0">1级</option>
                 <option value="1">2级</option>
                 <option value="2">3级</option>
                 <option value="3">4级</option>
@@ -81,41 +84,33 @@
     </div>
 
     <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">开始日期</label>
-            <div class="layui-input-inline">
-                <input type="text" name="starttime" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">结束日期</label>
-            <div class="layui-input-inline">
-                <input type="text" name="endtime" id="date1" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
-            </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">开始日期</label>
+        <div class="layui-input-inline">
+            <input type="text" name="starttime"  id="date" lay-verify="date" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})" value=<fmt:formatDate value="${map.mission.starttime}" pattern="yyyy-MM-dd" /> >
         </div>
     </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">结束日期</label>
+        <div class="layui-input-inline">
+            <input type="text" name="endtime"  id="date1" lay-verify="date"  autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})" value=<fmt:formatDate value="${map.mission.endtime}" pattern="yyyy-MM-dd" /> >
+        </div>
+    </div>
+</div>
 
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">选择责任人</label>
             <div class="layui-input-inline">
-                <select name="header" lay-verify="required" lay-search="" lay-filter="header">
-                    <option value="">直接选择或搜索选择</option>
-                    <c:forEach items="${workers}" var="worker1" varStatus="projectIndex">
-                        <option value="${worker1.dataid}" name="headername" title="${worker1.name}">${worker1.name}</option>
-                    </c:forEach>
-                </select>
+                <input type="text" class="layui-input" disabled value="${map.mission.headername}">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">选择审核人</label>
             <div class="layui-input-inline">
-                <select name="auditor" lay-verify="required" lay-search="" lay-filter="auditor">
-                    <option value="">直接选择或搜索选择</option>
-                    <c:forEach items="${workers}" var="worker2" varStatus="projectIndex">
-                        <option value="${worker2.dataid}" name="auditorame" title="${worker2.name}">${worker2.name}</option>
-                    </c:forEach>
-                </select>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" disabled value="${map.mission.auditorname}">
+                </div>
             </div>
         </div>
     </div>
@@ -123,93 +118,100 @@
     <div class="layui-form-item " pane="">
         <label class="layui-form-label">任务类型</label>
         <div class="layui-input-block" onclick="_change()">
-            <input type="radio" name="type" value="1" change="show1()" title="个人任务" checked="">
-            <input type="radio" name="type" value="0" change="show2()" title="项目任务">
+
+            <c:if test="${map.mission.type==0}">
+                <input type="radio" name="type" value="0" title="项目任务" checked="checked">
+            </c:if>
+            <c:if test="${map.mission.type==1}">
+                <input type="radio" name="type" value="1" title="个人任务" checked="checked">
+            </c:if>
         </div>
     </div>
 
-    <div class="layui-form-item" id="pro1"  style="display: none">
-        <div class="layui-inline">
-        <label class="layui-form-label">选择项目</label>
-        <div class="layui-input-inline">
-            <select name="prodataid"  lay-search="" lay-filter="project">
-                <option value="">直接选择或搜索选择</option>
-                <c:forEach items="${list}" var="project" varStatus="projectIndex">
-                    <option value="${project.dataid}" name="projectname" title="${project.name}">${project.name}</option>
-                </c:forEach>
-            </select>
-        </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label" style="width:130px">项目任务阶段</label>
-            <div class="layui-input-inline">
-                <select name="level" multiple size="10" lay-verify="required" >
-                    <option value=""></option>
-                    <option value="现场勘查" selected="">现场勘查</option>
-                    <option value="设备实测">设备实测</option>
-                    <option value="产品方案">产品方案</option>
-                    <option value="投资收益分析">投资收益分析</option>
-                    <option value="项目立项">项目立项</option>
-                    <option value="项目实施方案">项目实施方案</option>
-                    <option value="项目招投标">项目招投标</option>
-                    <option value="项目合同签订">项目合同签订</option>
-                    <option value="设备发货">设备发货</option>
-                    <option value="设备交接">设备交接</option>
-                    <option value="软件平台搭建">软件平台搭建</option>
-                    <option value="项目验收">项目验收</option>
-                </select>
+    <c:if test="${map.mission.proname!=''}">
+        <div class="layui-form-item" id="pro1" >
+            <div class="layui-inline">
+                <label class="layui-form-label">选择项目</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" disabled value="${map.mission.proname}">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" style="width:130px">项目任务阶段</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" disabled value="${map.mission.level}">
+                </div>
             </div>
         </div>
-    </div>
+    </c:if>
+
     <div class="layui-form-item">
         <label class="layui-form-label" style="width: 130px" >任务人员部门</label>
         <div class="layui-input-block" id="province_ids">
-            <c:forEach items="${partment}" var="item" varStatus="itemIndex1" >
+            <c:forEach items="${map.partment}" var="item" varStatus="itemIndex1" >
                 <input type="checkbox" class="layui-span-ment" name="ment" value="${item.dataid}" title="${item.name}" >
             </c:forEach>
-                <button class="layui-btn" id="moren" onclick="return queryTwoBarand()">确认</button>
+            <button class="layui-btn" id="moren" onclick="return queryTwoBarand()">确认</button>
 
         </div>
     </div>
+
     <div class="layui-form-item" id="renyuan" style="display: none">
-        <label class="layui-form-label">任务人员</label>
+        <label class="layui-form-label" style="width: 130px">添加任务人员</label>
         <div class="layui-input-block" id="province_id">
 
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 130px">已选择任务人员</label>
+        <div class="layui-input-block" id="province">
+            <c:forEach items="${map.relworker}" var="work">
+                <input type="checkbox" name="workername" value="${work.dataid}" title="${work.workername}" checked>
+            </c:forEach>
+        </div>
+    </div>
+
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label" style="width: 120px">选择任务状态</label>
             <div class="layui-input-inline">
-                <select name="missionstate" lay-verify="required">
-                    <option value="2" name="headername">待审核</option>
-                    <option value="0" name="headername">已同意</option>
-                    <option value="1" name="headername">已拒绝</option>
-
-                </select>
+                <c:if test="${map.mission.missionstate==0}">
+                    <input type="text" class="layui-input" disabled value="已同意">
+                </c:if>
+                <c:if test="${map.mission.missionstate==1}">
+                    <input type="text" class="layui-input" disabled value="已拒绝">
+                </c:if>
+                <c:if test="${map.mission.missionstate==2}">
+                    <input type="text" class="layui-input" disabled value="待审核">
+                </c:if>
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label" style="width: 120px">选择流程状态</label>
             <div class="layui-input-inline">
-                <select name="state" lay-verify="required" >
-                    <option value="0" name="headername">未开始</option>
-                    <option value="1" name="headername">进行中</option>
-                    <option value="2" name="headername">已完成</option>
-                </select>
+                <c:if test="${map.mission.state==0}">
+                    <input type="text" class="layui-input" disabled value="未开始">
+                </c:if>
+                <c:if test="${map.mission.state==1}">
+                    <input type="text" class="layui-input" disabled value="进行中">
+                </c:if>
+                <c:if test="${map.mission.state==2}">
+                    <input type="text" class="layui-input" disabled value="已完成">
+                </c:if>
             </div>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">任务进度</label>
         <div class="layui-input-block">
-            <input type="text" name="percentage" lay-verify="title" width="200" autocomplete="off" value="0%" placeholder="" class="layui-input">
+            <input type="text" name="percentage" lay-verify="title" width="200" autocomplete="off" value="${map.mission.percentage}" placeholder="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">任务内容描述</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入内容" name="context" class="layui-textarea"></textarea>
+            <textarea name="context" class="layui-textarea">${map.mission.context}</textarea>
         </div>
     </div>
     <%--<div class="layui-form-item layui-form-text">
@@ -220,7 +222,7 @@
     </div>--%>
     <div class="layui-form-item">
         <div class="layui-input-block" id="but">
-            <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button class="layui-btn" lay-submit="" lay-filter="demo1">确认修改</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -303,7 +305,7 @@
         });
         var leaderid ="";
         var leader="";
-        //任务负责人
+       /* //任务负责人
         form.on('select(header)', function(data){
             // alert(data.value+";"+data.elem[data.elem.selectedIndex].title);
             leaderid = data.value;
@@ -324,12 +326,12 @@
             // alert(data.value+";"+data.elem[data.elem.selectedIndex].title);
             projectid = data.value;
             project=data.elem[data.elem.selectedIndex].title;
-        });
+        });*/
         //监听提交
         form.on('submit(demo1)', function(data){
-           /* layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })*/
+            /* layer.alert(JSON.stringify(data.field), {
+             title: '最终的提交信息'
+             })*/
             var select = document.getElementsByName("workername");
             var province_id="";
             var  province_name="";
@@ -351,26 +353,18 @@
             var member=province_id+"+"+province_name;
 
             var dataJson = {
-                name:data.field.name,//任务名称
+                dataid:data.field.dataid,//任务名称
                 proportion:data.field.proportion,//任务权重
-                headerid:leaderid,//任务负责人
-                headername:leader,
-                auditorid:auditorid,//任务审核人
-                auditorname:auditor,
-                prodataid:projectid,//项目
-                proname:project,
                 member:member,//分配人员
-                type:data.field.type,//任务类型
-                starttime:data.field.starttime,//任务开始时间
-                endtime:data.field.endtime,//任务结束时间
-                level:data.field.level,//项目任务阶段
                 context:data.field.context,//任务描述
                 percentage:data.field.percentage,//任务 进度
-                missionstate:data.field.missionstate,
-                state:data.field.state,
+                starttime:data.field.starttime,//任务开始时间
+                endtime:data.field.endtime,//任务结束时间
+                type:data.field.type,//任务类型
             };
+            alert(JSON.stringify(dataJson));
             $.ajax( {
-                url : 'addMission',
+                url : 'updateMission',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',

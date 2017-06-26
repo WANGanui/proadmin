@@ -142,6 +142,38 @@
             </c:forEach>
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width: 120px">选择任务状态</label>
+            <div class="layui-input-inline">
+                <c:if test="${map.mission.missionstate==0}">
+                    <input type="text" class="layui-input" disabled value="已同意">
+                </c:if>
+                <c:if test="${map.mission.missionstate==1}">
+                    <input type="text" class="layui-input" disabled value="已拒绝">
+                </c:if>
+                <c:if test="${map.mission.missionstate==2}">
+                    <input type="text" class="layui-input" disabled value="待审核">
+                </c:if>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width: 120px">选择流程状态</label>
+            <div class="layui-input-inline">
+                <c:if test="${map.mission.state==0}">
+                    <input type="text" class="layui-input" disabled value="未开始">
+                </c:if>
+                <c:if test="${map.mission.state==1}">
+                    <input type="text" class="layui-input" disabled value="进行中">
+                </c:if>
+                <c:if test="${map.mission.state==2}">
+                    <input type="text" class="layui-input" disabled value="已完成">
+                </c:if>
+            </div>
+        </div>
+    </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">任务进度</label>
         <div class="layui-input-block">
