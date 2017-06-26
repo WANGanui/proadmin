@@ -59,6 +59,33 @@ public class MissionController {
         return model;
     }
 
+    //查询待审核任务
+    @RequestMapping("/missionCheck")
+    public ModelAndView missionCheck(HttpServletRequest request, MissionCriteria example,String roleid,HttpSession session){
+        ModelAndView model = new ModelAndView();
+        try {
+            logger.info("============开始任务列表查询=============");
+          example.setMissionstate("2");
+            Worker worker=(Worker) session.getAttribute("worker");
+            String creatordataid= worker.getDataid();//创建人ID
+          example.setAuditorid(creatordataid);
+
+            logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
+            List<Mission> missions = missionService.selectList(example);
+logger.info("========================返回结果："+JsonUtil.encode(missions));
+            List<String> missList = permissionService.selectList("19",roleid);
+            logger.info("============任务列表查询成功=============");
+            model.addObject("roles",missList);
+            model.addObject("list",missions);
+            model.setViewName("mission/mission_audit_list");
+        } catch (Exception e) {
+            logger.info("============任务列表查询失败，系统异常=============");
+            model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.SYSTEM_EXCEPTION.getMessage(),ErrorCode.SYSTEM_EXCEPTION.getCode())));
+            e.printStackTrace();
+        }
+        return model;
+    }
+
     @RequestMapping("/workermission")
     public ModelAndView selectWokerMission(MissionCriteria example,HttpServletRequest request){
         ModelAndView model = new ModelAndView();
