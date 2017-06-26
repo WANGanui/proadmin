@@ -1,10 +1,7 @@
 package com.hrg.module.project;
 
 import com.hrg.model.*;
-import com.hrg.service.DepartmentService;
-import com.hrg.service.ProjectService;
-import com.hrg.service.WorkDataService;
-import com.hrg.service.WorkerService;
+import com.hrg.service.*;
 import com.hrg.util.JsonUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +34,17 @@ public class ProjectController {
     DepartmentService departmentService;//查询所有部门
     @Autowired
     WorkDataService workDataService; //查询项目进度详情
+    @Autowired
+    PermissionService permissionService;
     //查询项目列表
     @RequestMapping(value = "/projectList")
-    public String selectProject(HttpServletRequest request){
+    public String selectProject(HttpServletRequest request,String roleid){
         try {
             ProjectCriteria projectCriteria=new ProjectCriteria();
             List<Project> projectList= projectService.selectList(projectCriteria);
 logger.info("=========================================:"+ JsonUtil.encode(projectList));
+            List<String> missList = permissionService.selectList("2",roleid);
+            request.setAttribute("roles",missList);
             request.setAttribute("projectList",projectList);/*
             modelAndView.addObject("projectList",projectList);*/
         }catch (Exception e){

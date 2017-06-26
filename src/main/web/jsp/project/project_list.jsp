@@ -28,6 +28,7 @@
 <!--[if IE 6]>
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
+
 <![endif]-->
 
 	<title>项目列表</title>
@@ -43,11 +44,13 @@
 	}
 </style>
 </head>
-<body>
+<body onload="_onload()">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span class="c-gray en">&gt;</span> 项目列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%><a class="btn btn-primary radius" onclick="picture_add('新建项目','/projectAdd')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新建项目</a>  <%--<a class="btn btn-primary radius" onclick="picture_query('精选案例','getAllContentPickup.do?contentType=2')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i> 查看精选案例</a>--%></span> </div>
+	<c:forEach items="${roles}" var="list">
+		<input type="hidden" id="${list}" value="${list}">
+	</c:forEach>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%><a class="btn btn-primary radius add" onclick="picture_add('新建项目','/projectAdd')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新建项目</a>  <%--<a class="btn btn-primary radius" onclick="picture_query('精选案例','getAllContentPickup.do?contentType=2')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i> 查看精选案例</a>--%></span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort">
 			<thead>
@@ -91,7 +94,7 @@
 					<td class="td-time">${projectAll.progress}</td>
 					<td class="td-manage">
 						<%--<a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${project.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-						--%><a style="text-decoration:none" class="ml-5" onClick="picture_del('创建任务','${project.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
+						--%><a style="text-decoration:none" class="ml-5 add" onClick="picture_del('创建任务','${project.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
 					</td>
 				</tr>
 </c:forEach>
@@ -99,7 +102,7 @@
 		</table>
 	</div>
 </div>
-
+<script src="<%=basePath%>/jsp/role.js"></script>
 <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="lib/layer/2.1/layer.js"></script> 
 <script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script> 
