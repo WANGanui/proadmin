@@ -11,12 +11,16 @@ import com.hrg.util.JsonUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 82705 on 2017/6/21.
@@ -82,5 +86,21 @@ public class WorkdataController {
             e.printStackTrace();
         }
         return model;
+    }
+
+    @RequestMapping("/addWorkdata")
+    public @ResponseBody Object addWorkdata(HttpSession session, @RequestBody Workdata workdata){
+        Map map = new HashMap();
+        Worker worker = (Worker)session.getAttribute("worker");
+        workdata.setWorkerdataid(worker.getDataid());
+        workdata.setWorkername(worker.getName());
+        try {
+            workDataService.insert(workdata);
+            map.put("success",true);
+        } catch (Exception e) {
+            map.put("success",false);
+            e.printStackTrace();
+        }
+        return map;
     }
 }

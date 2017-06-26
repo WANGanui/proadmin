@@ -4,15 +4,21 @@ import com.hrg.enums.ErrorCode;
 import com.hrg.global.ApiResult;
 import com.hrg.model.Notice;
 import com.hrg.model.NoticeCriteria;
+import com.hrg.model.Worker;
 import com.hrg.service.NoticeService;
 import com.hrg.util.JsonUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 82705 on 2017/6/20.
@@ -44,5 +50,23 @@ public class NoticeController {
     @RequestMapping("/noticeAdd")
     public String gotoaddnotice(){
         return "notice/notice_add";
+    }
+
+    @RequestMapping("/addNotice")
+    public @ResponseBody Object addNotice(HttpSession session, @RequestBody Notice notice){
+        Map map = new HashMap<>();
+        try {
+            Worker worker = (Worker) session.getAttribute("worker");
+            notice.setWorkerdataid(worker.getDataid());
+            notice.setWorker(worker.getName());
+            notice.setDepartmentdataid(worker.getDepartmentdataid());
+            notice.setDepartment(worker.getDepartment());
+            noticeService.insert(notice);
+            map.put("success",true);
+        } catch (Exception e) {
+            map.put("success",false);
+            e.printStackTrace();
+        }
+        return map;
     }
 }

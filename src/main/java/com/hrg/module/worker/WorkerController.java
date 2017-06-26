@@ -7,6 +7,7 @@ import com.hrg.global.ApiResult;
 import com.hrg.global.JsonResult;
 import com.hrg.model.*;
 import com.hrg.service.ModuleService;
+import com.hrg.service.PermissionService;
 import com.hrg.service.WorkerService;
 import com.hrg.util.JsonUtil;
 import com.hrg.util.PageUtil;
@@ -20,6 +21,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,10 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by 82705 on 2017/6/6.
@@ -45,7 +44,7 @@ public class WorkerController {
     @Autowired
     private ModuleService moduleService;
     @Autowired
-
+    PermissionService permissionService;
 
     private static Logger logger = Logger.getLogger("LoginController");
 
@@ -198,14 +197,16 @@ public class WorkerController {
 
     @ResponseBody
     @RequestMapping(value = "/list" ,method = RequestMethod.GET)
-    public ModelAndView workerList(PageUtil pageUtil, WorkerCriteria example){
+    public ModelAndView workerList( WorkerCriteria example,String roleid){
         ModelAndView model = new ModelAndView();
 
         try {
             logger.info("============查询员工列表入参：【"+JsonUtil.encode(example)+"】==============");
             List<Worker> workerList = workerService.selectList(example);
             logger.info("=============查询员工列表成功,结果:【 " + JsonUtil.encode(workerList) + "】=============");
+            List<String> missList = permissionService.selectList("14",roleid);
             model.addObject("list",workerList);
+            model.addObject("roles",missList);
             model.setViewName("worker/worker_list");
         } catch (ValidatorException e) {
             logger.warn("=============查询员工列表失败，验证异常=============");
@@ -232,5 +233,23 @@ public class WorkerController {
         }
 
         return model;
+    }
+
+    @RequestMapping("/addWorker")
+    public @ResponseBody Object addWorker(@RequestBody Worker worker){
+        Map map = new HashMap();
+        try {
+            if (worker.getState().equals("on"))
+                worker.setState("1");
+            else {
+                worker.setState("0");
+            }
+            workerService.insert(worker,worker.getRoleid());
+            map.put("success",true);
+        } catch (Exception e) {
+            map.put("success",false);
+            e.printStackTrace();
+        }
+        return map;
     }
 }

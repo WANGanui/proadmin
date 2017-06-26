@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="<%=basePath%>lib/icheck/icheck.css" />
     <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" href="<%=basePath%>css/layui.css"  media="all">
     <!--[if IE 6]>
     <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
@@ -50,15 +51,14 @@
             color: #666464;
             height: auto;
         }
+        .Hui-iconfont{
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 任务管理 <span class="c-gray en">&gt;</span> 任务列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-            <a class="btn btn-primary radius" onclick="picture_add('添加任务','getContentCaseByContentId.do')" href="javascript:;">
-                <i class="Hui-iconfont">&#xe600;</i> 添加任务</a>
-           </span> </div>
 
     <div class="mt-20">
         <div id="div1" >
@@ -122,8 +122,8 @@
                             </c:if>
                         </td>
                         <td class="td-manage">
-                            <a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${mission1.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-                            <a style="text-decoration:none" class="ml-5" onClick="picture_del('创建任务列表','${mission1.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
+                            <a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','/missiondetail','${mission1.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont" style="font-size: 20px" >&#xe61d;</i></a>
+                            <a style="text-decoration:none" class="ml-5" onClick="picture_query('编辑任务','/toupdatemission?dataid=${mission1.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
                         </td>
                     </tr>
                 </c:forEach>

@@ -47,7 +47,11 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 公告管理 <span class="c-gray en">&gt;</span> 公告列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%><a class="btn btn-primary radius" onclick="picture_add('添加案例','getContentCaseByContentId.do')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加项目</a>  <%--<a class="btn btn-primary radius" onclick="picture_query('精选案例','getAllContentPickup.do?contentType=2')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i> 查看精选案例</a>--%></span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+         --%><a class="btn btn-primary radius" onclick="picture_add('添加公告','<%=basePath%>jsp/notice/notice_add.jsp')" href="javascript:;">
+            <i class="Hui-iconfont">&#xe600;</i> 添加公告</a>
+           </span> </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
@@ -72,7 +76,7 @@
                     <td class="td-time"><fmt:formatDate value="${notice.createtime}" pattern="yyyy-MM-dd" /></td>
                     <td>${notice.worker}</td>
                     <td>${notice.department}</td>
-                    <td class="td-time"><fmt:formatDate value="${mission.time}" pattern="yyyy-MM-dd" /></td>
+                    <td class="td-time"><fmt:formatDate value="${notice.time}" pattern="yyyy-MM-dd" /></td>
                     <td class="td-manage">
                         <a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${notice.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
                         <a style="text-decoration:none" class="ml-5" onClick="picture_del('创建任务列表','${notice.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>

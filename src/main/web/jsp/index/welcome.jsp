@@ -23,5 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body style="position:absolute; z-index:-1 ; text-align: center;">
+  <center><h1>欢迎使用HRG项目管理系统</h1></center>
   </body>
 </html>

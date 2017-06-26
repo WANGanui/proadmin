@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<ul>
 							<c:forEach items="${map.menus}" var="menutwo">
 								 <c:if test="${menutwo.modulepid==menu.datatid}">
-									    <li><a data-href="${menutwo.moduleurl}" data-title="${menutwo.modulename}" href="javascript:void(0)">${menutwo.modulename}</a></li>
+									    <li><a data-href="${menutwo.moduleurl}?roleid=${map.roleid}" data-title="${menutwo.modulename}" href="javascript:void(0)">${menutwo.modulename}${permissions.permissionid}</a></li>
 								 </c:if>
 							</c:forEach>
 					</ul>
@@ -147,7 +147,7 @@ $(function(){
 	});
 });
 	function updatePwe() {
-		layer_show("修改密码","password-update.jsp",800,600);
+		layer_show("修改密码","<%=basePath%>jsp/index/password-update.jsp",800,600);
 	}
 </script> 
 

@@ -344,7 +344,6 @@
                 context:data.field.context,//任务描述
                 percentage:data.field.percentage//任务 进度
             };
-            alert(JSON.stringify(dataJson));
             $.ajax( {
                 url : 'addMission',
                 type : 'post',

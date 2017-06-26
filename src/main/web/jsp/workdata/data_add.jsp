@@ -42,7 +42,11 @@
     }
 </style>
 <script>
-
+document.ready(function () {
+    var laydate = layui.laydate;
+    var data = new Date();
+    $("#date").val(date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate());
+})
 
 </script>
 <body>
@@ -58,7 +62,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">选择日期</label>
             <div class="layui-input-inline">
-                <input type="text" name="time" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+                <input type="text" name="time" id="date" lay-verify="date"  autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
             </div>
         </div>
     </div>
@@ -66,10 +70,10 @@
         <div class="layui-inline">
             <label class="layui-form-label">选择项目</label>
             <div class="layui-input-inline">
-                <select name="prodataid"  lay-search="" lay-filter="sele" >
+                <select name="project"  lay-search="" lay-filter="sele" >
                     <option value="">直接选择或搜索选择</option>
                     <c:forEach items="${projects}" var="project" varStatus="projectIndex">
-                        <option value="${project.dataid}">${project.name}</option>
+                        <option value="${project.dataid}" title="${project.name}">${project.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -166,17 +170,67 @@
                 layedit.sync(editIndex);
             }
         });
+
+        //选择项目
+        var project ="";
+        var projectid ="";
+
         //监听提交
         form.on('submit(demo1)', function(data){
-            layer.alert(JSON.stringify(data.field), {
+
+            /*layer.alert(JSON.stringify(data.field+project+projectid), {
                 title: '最终的提交信息'
-            })
+            })*/
+            var select = document.getElementsByName("missionname");
+            var province_id="";
+            var  province_name="";
+            for(i=0;i<select.length;i++){
+                if(select[i].checked){
+                    if (province_id==""){
+                        province_id=select[i].value;
+                        province_name=select[i].title;
+                    }else{
+                        if(province_id==0){
+                            layer.msg('人员选择错误');
+                            return false;
+                        }
+                        province_id=province_id+","+select[i].value;
+                        province_name=province_name+","+select[i].title;
+                    }
+                }
+            }
+            var dataJson = {
+                time:data.field.time,
+                projectdataid:projectid,
+                projectname:project,
+                missiondataid:province_id,
+                missionname:province_name,
+                workcontext:data.field.context,
+            };
+            $.ajax( {
+                url : 'addWorkdata',
+                type : 'post',
+                contentType : 'application/json;charset=utf-8',
+                dataType : 'json',
+                data : JSON.stringify(dataJson),
+                success : function(data) {
+                    if (data.success) {
+                        layer.msg('添加日志成功' ,{time: 2000, icon:6});
+                        $("#but").hide();
+                    } else {
+                        layer.msg('添加日志失败' ,{time: 2000, icon:5});
+
+                    }
+                }
+            });
             return false;
         });
         form.on('select(sele)', function(data){
             var dataJson = {
                 dataid:data.value
             };
+            projectid = data.value;
+            project=data.elem[data.elem.selectedIndex].title;
             $.ajax( {
                 url : 'missionListByProject',
                 type : 'post',

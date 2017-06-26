@@ -29,7 +29,7 @@
     <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-
+    <script src="<%=basePath%>/jsp/role.js"></script>
     <title>图片列表</title>
     <style>
         textarea{
@@ -43,11 +43,15 @@
         }
     </style>
 </head>
-<body>
+<body onload="_onload()">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 员工管理 <span class="c-gray en">&gt;</span> 员工列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%><a class="btn btn-primary radius" onclick="picture_add('添加员工','getContentCaseByContentId.do')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加员工</a>  <%--<a class="btn btn-primary radius" onclick="picture_query('精选案例','getAllContentPickup.do?contentType=2')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i> 查看精选案例</a>--%></span> <span class="r"></span> </div>
+<%--<input type="hidden" id="${roles.add}" value="${roles.add}">
+    <input type="hidden" id="${roles.update}" value="${roles.update}">
+    <input type="hidden" id="${roles.delete}" value="${roles.delete}">--%>
+    <c:forEach items="${roles}" var="list">
+        <input type="hidden" id="${list}" value="${list}">
+    </c:forEach>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
@@ -81,8 +85,8 @@
                     <td>${worker.remark}</td>
                     <td class="td-time"><fmt:formatDate value="${worker.createtime}" pattern="yyyy-MM-dd" /></td>
                     <td class="td-manage">
-                        <a style="text-decoration:none" class="ml-5" onClick="picture_edit('案例编辑','getContentCaseByContentId.do','${worker.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
-                        <a style="text-decoration:none" class="ml-5" onClick="picture_del(this,'${worker.dataid}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                        <a style="text-decoration:none" class="ml-5 update" onClick="picture_edit('案例编辑','getContentCaseByContentId.do','${worker.dataid}')" id=""  href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+                        <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del(this,'${worker.dataid}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
                     </td>
                 </tr>
             </c:forEach>

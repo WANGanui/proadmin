@@ -57,7 +57,7 @@
 
 
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend>新增任务</legend>
+    <legend>新增员工</legend>
 </fieldset>
 <form class="layui-form layui-form-pane" action="">
     <div class="layui-form-item">
@@ -96,10 +96,10 @@
         <div class="layui-inline">
             <label class="layui-form-label">选择部门</label>
             <div class="layui-input-inline">
-                <select name="departmentdataid" lay-verify="required" lay-search="">
+                <select name="department" lay-verify="required" lay-search="" lay-filter="department">
                     <option value="">直接选择或搜索选择</option>
                     <c:forEach items="${map.daparts}" var="ment" varStatus="projectIndex">
-                        <option value="${ment.dataid}" name="projectname">${ment.name}</option>
+                        <option value="${ment.dataid}" name="projectname" title="${ment.name}">${ment.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -107,7 +107,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">选择角色</label>
             <div class="layui-input-inline">
-                <select name="roleid" lay-verify="required" lay-search="">
+                <select name="role" lay-verify="required" lay-search="" lay-filter="role">
                     <option value="">直接选择或搜索选择</option>
                     <c:forEach items="${map.roles}" var="role" varStatus="projectIndex">
                         <option value="${role.dataid}" name="projectname">${role.name}</option>
@@ -219,11 +219,43 @@
                 layedit.sync(editIndex);
             }
         });
+        //部门
+        var departmentdataid = "";
+        var department = "";
+        form.on('select(department)', function(data){
+            // alert(data.value+";"+data.elem[data.elem.selectedIndex].title);
+            departmentdataid = data.value;
+            department=data.elem[data.elem.selectedIndex].title;
+        });
         //监听提交
         form.on('submit(demo1)', function(data){
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
+            var dataJson = {
+                name:data.field.name,
+                phone:data.field.phone,
+                account:data.field.account,
+                password:data.field.password,
+                roleid:data.field.role,
+                state:data.field.state,
+                departmentdataid:departmentdataid,
+                department:department,
+                remark:data.field.remark,
+            };
+            $.ajax( {
+                url : 'addWorker',
+                type : 'post',
+                contentType : 'application/json;charset=utf-8',
+                dataType : 'json',
+                data : JSON.stringify(dataJson),
+                success : function(data) {
+                    if (data.success) {
+                        layer.msg('添加日志成功' ,{time: 2000, icon:6});
+                        $("#but").hide();
+                    } else {
+                        layer.msg('添加日志失败' ,{time: 2000, icon:5});
+
+                    }
+                }
+            });
             return false;
         });
     });
