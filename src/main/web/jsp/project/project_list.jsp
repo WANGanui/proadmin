@@ -94,7 +94,8 @@
 					<td class="td-time">${projectAll.progress}</td>
 					<td class="td-manage">
 						<%--<a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${project.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-						--%><a style="text-decoration:none" class="ml-5 add" onClick="picture_del('创建任务','${project.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
+						--%><a style="text-decoration:none" class="ml-5 add" onClick="picture_del('创建任务','${projectAll.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
+							<a style="text-decoration:none" class="ml-5 add" onClick="picture_delte('删除项目','${projectAll.dataid}')" href="javascript:;" title="删除项目"><i class="Hui-iconfont" style="font-size: 20px;">&#xe6e2;</i></a>
 					</td>
 				</tr>
 </c:forEach>
@@ -269,22 +270,16 @@ function queryDetaila(id) {
 
 }
 /*图片-删除*/
-function picture_del(obj,id){
-	layer.confirm('确认要创建任务吗？',function(index){
+function picture_delte(obj,id){
+	layer.confirm('确认要删除项目吗？',function(index){
 
-        var index = layer.open({
-            type: 2,
-            title: "创建任务",
-            content: "missionAdd"
-        });
-        layer.full(index);
-	/*	var  dataJson={
+		var  dataJson={
 			status:1,
 			modular:"delete",
 			contentId:id
 		}
 		$.ajax( {
-			url : 'updateStatusOrDeleteByContent.do',
+			url : 'deleteProject',
 			type : 'post',
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json',
@@ -299,10 +294,46 @@ function picture_del(obj,id){
 				}
 			}
 		});
-*/
+
 
 
 	});
+}
+
+function picture_del(obj,id){
+    layer.confirm('确认要创建任务吗？',function(index){
+
+        var index = layer.open({
+            type: 2,
+            title: "创建任务",
+            content: "missionAdd"
+        });
+        layer.full(index);
+		/*	var  dataJson={
+		 status:1,
+		 modular:"delete",
+		 contentId:id
+		 }
+		 $.ajax( {
+		 url : 'updateStatusOrDeleteByContent.do',
+		 type : 'post',
+		 contentType : 'application/json;charset=utf-8',
+		 dataType : 'json',
+		 data : JSON.stringify(dataJson),
+		 success : function(data) {
+		 if (data.success) {
+		 //$(obj).parents("tr").remove();
+		 location.replace(location.href)
+		 layer.msg('已删除!',{icon:1,time:1000});
+		 } else {
+
+		 }
+		 }
+		 });
+		 */
+
+
+    });
 }
 </script>
 

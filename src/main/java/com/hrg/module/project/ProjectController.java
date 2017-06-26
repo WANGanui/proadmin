@@ -187,4 +187,25 @@ logger.info("=================="+result);
         return "project/project_detail";
     }
 
+    @RequestMapping(value = "deleteProject")
+    public @ResponseBody Object deleteProject( @RequestBody Map map,HttpSession session){
+        Map resultMap=new HashMap();
+        try {
+            Project project=new Project();
+            project.setDataid(map.get("contentId").toString());
+            project.setState("5");
+            Worker worker=(Worker) session.getAttribute("worker");
+            String creatordataid= worker.getDataid();//创建人ID
+            String creator=worker.getName();//创建人
+            project.setModify(creator);
+            project.setModifydataid(creatordataid);
+            //逻辑删除
+             projectService.update(project);
+            resultMap.put("success",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.put("success",false);
+        }
+        return resultMap;
+    }
 }
