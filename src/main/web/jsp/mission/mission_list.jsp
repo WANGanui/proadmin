@@ -29,11 +29,7 @@
     <!--[if IE 6]>
     <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
-    <![endif]-->
-    <![endif]-->
-    <!--[if IE 6]>
-    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js"></script>
-    <script>DD_belatedPNG.fix('*');</script>
+
     <![endif]-->
     <style type="text/css">
         .background{
@@ -56,10 +52,12 @@
         }
     </style>
 </head>
-<body>
+<body onload="_onload()">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 任务管理 <span class="c-gray en">&gt;</span> 任务列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-
+    <c:forEach items="${roles}" var="list">
+        <input type="hidden" id="${list}" value="${list}">
+    </c:forEach>
     <div class="mt-20">
         <div id="div1" >
             <table class="table table-border table-bordered table-bg table-hover table-sort" id="table1">
@@ -78,7 +76,7 @@
                     <th width="60">责任人</th>
                     <th width="60">类型</th>
                     <th width="60">项目阶段</th>
-                    <th width="60">状态</th>
+                    <th width="70">状态</th>
                     <th width="100">操作</th>
                 </tr>
                 </thead>
@@ -88,7 +86,7 @@
                     <tr class="text-c">
 
                         <td>${missionIndex1.index+1}</td>
-                        <td>${mission1.name}</td>
+                        <td onclick="picture_query('任务详情','missionDetail?dataid=${mission1.dataid}')" style="text-decoration:underline">${mission1.name}</td>
                         <td>${mission1.context}</td>
                         <td class="td-time"><fmt:formatDate value="${mission1.starttime}" pattern="yyyy-MM-dd" /></td>
                         <td class="td-time"><fmt:formatDate value="${mission1.endtime}" pattern="yyyy-MM-dd" /></td>
@@ -109,21 +107,21 @@
                             <span class="label label-success radius">${mission1.level}</span>
                         </td>
                         <td class="td-status"><c:if test="${mission1.state==0}">
-                            <span class="label label-success radius">	已发布 </span>
+                            <span class="label label-success radius">	已创建待审核 </span>
                         </c:if>
                             <c:if test="${mission1.state==1}">
                                 <span class="label label-success radius">进行中</span>
                             </c:if>
                             <c:if test="${mission1.state==2}">
-                                <span class="label label-success radius">待审核</span>
+                                <span class="label label-success radius">已完成待审核</span>
                             </c:if>
                             <c:if test="${mission1.state==3}">
-                                <span class="label label-success radius">已完成</span>
+                                <span class="label label-success radius">已结束</span>
                             </c:if>
                         </td>
                         <td class="td-manage">
-                            <a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','/missiondetail','${mission1.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont" style="font-size: 20px" >&#xe61d;</i></a>
-                            <a style="text-decoration:none" class="ml-5" onClick="picture_query('编辑任务','/toupdatemission?dataid=${mission1.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
+                            <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del(${mission1.dataid})" href="javascript:;" title="删除"><i class="Hui-iconfont" style="font-size: 20px" >&#xe6e2;</i></a>
+                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('编辑任务','/toupdatemission?dataid=${mission1.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -150,6 +148,7 @@
 <script type="text/javascript" src="<%=basePath%>lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="<%=basePath%>static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="<%=basePath%>jsp/role.js"/>
 <%--
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.min.js" ></script>--%>
 <script type="text/javascript">
@@ -357,23 +356,20 @@
     }
 
     /*图片-删除*/
-    function picture_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
+    function picture_del(id){
+        layer.confirm('确认要删除吗？',function(){
 
             var  dataJson={
-                status:1,
-                modular:"delete",
-                contentId:id
+                dataid:id
             }
             $.ajax( {
-                url : 'updateStatusOrDeleteByContent.do',
+                url : 'deleteMission',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',
                 data : JSON.stringify(dataJson),
                 success : function(data) {
                     if (data.success) {
-                        //$(obj).parents("tr").remove();
                         location.replace(location.href)
                         layer.msg('已删除!',{icon:1,time:1000});
                     } else {
@@ -381,9 +377,6 @@
                     }
                 }
             });
-
-
-
         });
     }
 </script>

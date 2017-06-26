@@ -4,10 +4,7 @@ import com.hrg.enums.ErrorCode;
 import com.hrg.exception.ValidatorException;
 import com.hrg.global.ApiResult;
 import com.hrg.model.*;
-import com.hrg.service.DepartmentService;
-import com.hrg.service.MissionService;
-import com.hrg.service.ProjectService;
-import com.hrg.service.WorkerService;
+import com.hrg.service.*;
 import com.hrg.util.JsonUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,15 +36,19 @@ public class MissionController {
     DepartmentService departmentService;
     @Autowired
     WorkerService workerService;
+    @Autowired
+    PermissionService permissionService;
 
     @RequestMapping("/missionList")
-    public ModelAndView selectList(HttpServletRequest request, MissionCriteria example){
+    public ModelAndView selectList(HttpServletRequest request, MissionCriteria example,String roleid){
         ModelAndView model = new ModelAndView();
         try {
             logger.info("============开始任务列表查询=============");
             logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
             List<Mission> missions = missionService.selectList(example);
+            List<String> missList = permissionService.selectList("6",roleid);
             logger.info("============任务列表查询成功=============");
+            model.addObject("roles",missList);
             model.addObject("list",missions);
             model.setViewName("mission/mission_list");
         } catch (Exception e) {
@@ -174,4 +175,34 @@ public class MissionController {
         return null;
     }
 
+    @RequestMapping("/missionDetail")
+    public ModelAndView selectMissionDetail(String dataid){
+        ModelAndView model = new ModelAndView();
+        Map map = new HashMap();
+        try {
+            map = missionService.selectDetailById(dataid);
+            model.addObject("map",map);
+            model.setViewName("mission/mission_detail");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
+    }
+    @RequestMapping("/deleteMission")
+    public @ResponseBody Object deleteMission(@RequestBody  Map remap){
+        Map map = new HashMap();
+        boolean bool;
+        try {
+            String dataid = remap.get("dataid").toString();
+            bool = missionService.deleteMission(dataid);
+            if (bool){
+                map.put("success",true);
+            }else {
+                map.put("success",false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
 }

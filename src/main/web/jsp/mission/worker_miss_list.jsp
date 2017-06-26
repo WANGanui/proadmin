@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/css/style.css"/>
     <!--[if IE 6]>
     <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js"></script>
+
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <style type="text/css">
@@ -58,7 +59,9 @@
  </th>--%>
 
 <div class="page-container" style="padding-top: 10px;">
-
+    <c:forEach items="${roles}" var="list">
+        <input type="hidden" id="${list}" value="${list}">
+    </c:forEach>
     <div class="cl mt-20">
         <div id="auction1" style="border: 1px solid #DCDCDC ;float:left; width: 150px;height: 40px;text-align:center;line-height: 40px ;font-size: 16px; "class="background" onclick="show1()" ><span  ><b>个人任务</b></span></div>
         <div id="auction"  style="border: 1px solid #DCDCDC;float:left; width: 150px;height: 40px;text-align:center;line-height: 40px; font-size: 16px;"   onclick="show2()"><b>项目任务</b></div>
@@ -90,7 +93,7 @@
                     <tr class="text-c">
 
                         <td>${missionIndex1.index+1}</td>
-                        <td>${mission1.name}</td>
+                        <td onclick="picture_query('任务详情','missionDetail?dataid=${mission1.dataid}')" style="text-decoration:underline">${mission1.name}</td>
                         <td>${mission1.context}</td>
                         <td class="td-time"><fmt:formatDate value="${mission1.starttime}" pattern="yyyy-MM-dd" /></td>
                         <td class="td-time"><fmt:formatDate value="${mission1.endtime}" pattern="yyyy-MM-dd" /></td>
@@ -121,8 +124,7 @@
                             </c:if>
                         </td>
                         <td class="td-manage">
-                            <a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${mission1.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-                            <a style="text-decoration:none" class="ml-5" onClick="picture_del('创建任务列表','${mission1.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
+                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_edit('详情','getContentCaseByContentId.do','${mission1.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -156,7 +158,7 @@
                     <tr class="text-c">
 
                         <td>${missionIndex2.index+1}</td>
-                        <td>${mission2.name}</td>
+                        <td onclick="picture_query('任务详情','missionDetail?dataid=${mission1.dataid}')" style="text-decoration:underline">${mission2.name}</td>
                         <td>${mission2.context}</td>
                         <td class="td-time"><fmt:formatDate value="${mission2.starttime}" pattern="yyyy-MM-dd" /></td>
                         <td class="td-time"><fmt:formatDate value="${mission2.endtime}" pattern="yyyy-MM-dd" /></td>
@@ -187,8 +189,7 @@
                             </c:if>
                         </td>
                         <td class="td-manage">
-                            <a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${mission2.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-                            <a style="text-decoration:none" class="ml-5" onClick="picture_del('创建任务列表','${mission2.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
+                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_edit('详情','getContentCaseByContentId.do','${mission2.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -199,7 +200,7 @@
     </div>
 </div>
 
-
+<script src="<%=basePath%>jsp/role.js"></script>
 <script type="text/javascript" src="<%=basePath%>lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
 <script type="text/javascript" src="<%=basePath%>lib/My97DatePicker/WdatePicker.js"></script>
@@ -235,7 +236,14 @@
         $("#auction").addClass('background');
 
     }
-
+    function picture_query(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
 </script>
 
 </body>

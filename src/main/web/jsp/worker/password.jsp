@@ -76,8 +76,8 @@
 </body>
 <script type="text/javascript" src="<%=basePath%>js/webpro.dialog.js"></script>
 <script type="text/javascript">
-    var url = "<%=basePath%>worker/editPass";
+    /*var url = "<%=basePath%>worker/editPass";
     console.warn("JSON对象.当前注入的数据为:",${data});
-    var WebPro_dialogPage = WebPro_dialogPage(window.parent,${data},url);
+    var WebPro_dialogPage = WebPro_dialogPage(window.parent,${data},url);*/
 </script>
 </html>

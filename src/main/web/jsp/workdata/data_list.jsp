@@ -58,7 +58,6 @@
                 <th width="200">工作内容</th>
                 <th width="80">日期</th>
                 <th  width="60">项目负责人</th>
-                <th width="100">操作</th>
             </tr>
             </thead>
             <tbody>
@@ -73,10 +72,6 @@
 
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
                     <td>${data.projectleader}</td>
-                    <td class="td-manage">
-                        <a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${notice.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-                        <a style="text-decoration:none" class="ml-5" onClick="picture_del('创建日志列表','${notice.dataid}')" href="javascript:;" title="创建日志"><i class="Hui-iconfont">&#xe61f;</i></a>
-                    </td>
                 </tr>
             </c:forEach>
             </tbody>
