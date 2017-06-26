@@ -1,83 +1,146 @@
 <%--
   Created by IntelliJ IDEA.
   User: 82705
-  Date: 2017/6/12
-  Time: 15:18
+  Date: 2017/6/22
+  Time: 9:18
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-    <link rel="stylesheet" href="<%=basePath%>css/public.css" />
-    <link rel="stylesheet" href="<%=basePath%>css/bootstrap.css" />
-    <link rel="stylesheet" href="<%=basePath%>css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/wangEditor.min.css">
-
-    <link href="<%=basePath%>css/font-awesome.min.css" rel="stylesheet" />
-    <link href="<%=basePath%>css/webpro.dialoginfo.css" rel="stylesheet" />
-
-    <script type="text/javascript" src="<%=basePath%>js/jquery1.11.3.min.js" ></script>
-    <script type="text/javascript" src="<%=basePath%>js/wangEditor.js" ></script>
-    <script type="text/javascript" src="<%=basePath%>js/bootstrap.min.js" ></script>
-    <script type="text/javascript" src="<%=basePath%>js/lyz.calendar.min.js" ></script>
-    <script type="text/javascript" src="<%=basePath%>js/jquery.validate.js"></script>
-
-    <script type="text/javascript" src="<%=basePath%>js/mock-min.js" ></script>
-    <script type="text/javascript" src="<%=basePath%>js/webpro.debug.js" ></script>
-
-    <style>
-        /**可以自定义富文本高度**/
-        .textareaDiv textarea{height: 225px;	}
-    </style>
-    <%--<script>
-        var webPro=window.parent.webpro;
-        var url = "<%=basePath%>worker/editPass";
-        $("#okBtn").click(function () {
-            var pwd = $(".input-sm name").val();
-            var newpwd = $(".input-sm password").val();
-            var userID = ${data}.worker.dataid;
-            $.ajax({
-                type:"POST",
-                url:url,
-                data:{"userID":userID,"password":pwd,"newPassword":newpwd},
-                dataType:"json",
-                success:function (data) {
-                    if (data.status=="200"){
-                        msg.alertInfo("请求成功！");
-                        webPro.mainDialog.closeDialogDiv();
-                    }else{
-                        msg.alertErr(data.msg+",错误代码："+data.status);
-                    }
-                }
-            });
-        });
-    </script>--%>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<%=basePath%>css/layui.css"  media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <script src="<%=basePath%>js/jquery1.11.3.min.js"></script>
 </head>
+<style>
+    form{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .layui-span-ment
+    {
+        width:70px;
+        padding:0 10px;
+        height:100%;
+        font-size:14px;
+        background-color:#d2d2d2;
+        color:#fff;
+        overflow:hidden;
+        white-space:nowrap;
+    !important;
+    }
+</style>
+<script>
 
-<body>
-<div class="dialog-body-center">
-    <form>
-        <ul class="double-td">
-            <li><span class="title">原密码</span><input name="password" type="password" class="input-sm name"></li>
-            <li><span class="title">新密码</span><input name="newPassword" type="password" class="input-sm password"></li>
-            <li><span class="title">确认密码</span><input name="newPassword1" type="password" class="input-sm"/></li>
-        </ul>
-    </form>
-</div>
-<div class="bottom-bar">
-    <button id="closeBtn" class="button-rounded button-royal">关闭</button>
-    <button id="okBtn" class="button-rounded button-royal">确定</button>
-</div>
-</body>
-<script type="text/javascript" src="<%=basePath%>js/webpro.dialog.js"></script>
-<script type="text/javascript">
-    /*var url = "<%=basePath%>worker/editPass";
-    console.warn("JSON对象.当前注入的数据为:",${data});
-    var WebPro_dialogPage = WebPro_dialogPage(window.parent,${data},url);*/
+    function _change() {
+        var count = $("input:radio:checked").val();
+        if(count==0){
+            $("#pro1").css({"display":"block"});
+        }else {
+            $("#pro1").css({"display":"none"});
+        }
+    };
 </script>
+<body>
+
+
+
+<form class="layui-form layui-form-pane" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">原密码</label>
+        <div class="layui-input-block">
+            <input type="text" name="password" lay-verify="pass" width="200" autocomplete="off"  placeholder="请输入原密码" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-block">
+            <label class="layui-form-label">新密码</label>
+            <div class="layui-input-block">
+                <input type="text" name="newPassword" lay-verify="pass" placeholder="请输入新密码"  autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-block">
+            <label class="layui-form-label">确认新密码</label>
+            <div class="layui-input-block">
+                <input type="text" name="newPassword1" lay-verify="pass" placeholder="确认新密码"  autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<div id="div2"></div>
+<script src="<%=basePath%>js/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form()
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 1){
+                    return '标题不能为空';
+                }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,content: function(value){
+            }
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            var newPassword = data.field.newPassword;
+            var newPassword1 = data.field.newPassword1;
+            if (newPassword1 != newPassword){
+                layer.msg('两次输入的新密码不一样' ,{time: 2000, icon:6});
+            }else {
+                $.ajax( {
+                    url : '<%=basePath%>worker/editPass',
+                    type : 'post',
+                    contentType : 'application/json;charset=utf-8',
+                    dataType : 'json',
+                    data : JSON.stringify(data.field),
+                    success : function(data) {
+                        if (data.success) {
+                            layer.msg('修改密码成功' ,{time: 2000, icon:6});
+                            $("#but").hide();
+                        } else {
+                            layer.msg('修改密码失败' ,{time: 2000, icon:5});
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+</script>
+
+</body>
 </html>

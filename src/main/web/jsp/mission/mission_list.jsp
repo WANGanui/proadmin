@@ -107,16 +107,16 @@
                             <span class="label label-success radius">${mission1.level}</span>
                         </td>
                         <td class="td-status"><c:if test="${mission1.state==0}">
-                            <span class="label label-success radius">	已创建待审核 </span>
+                            <span class="label label-success radius" style="background-color: #985f0d">	已创建待审核 </span>
                         </c:if>
                             <c:if test="${mission1.state==1}">
-                                <span class="label label-success radius">进行中</span>
+                                <span class="label label-success radius" >进行中</span>
                             </c:if>
                             <c:if test="${mission1.state==2}">
-                                <span class="label label-success radius">已完成待审核</span>
+                                <span class="label label-success radius" style="background-color: #985f0d">已完成待审核</span>
                             </c:if>
                             <c:if test="${mission1.state==3}">
-                                <span class="label label-success radius">已结束</span>
+                                <span class="label label-success radius" >已结束</span>
                             </c:if>
                         </td>
                         <td class="td-manage">

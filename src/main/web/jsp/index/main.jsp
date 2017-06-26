@@ -147,7 +147,7 @@ $(function(){
 	});
 });
 	function updatePwe() {
-		layer_show("修改密码","<%=basePath%>jsp/worker/password.jsp",600,400);
+		layer_show("修改密码","<%=basePath%>jsp/worker/password.jsp",400,300);
 	}
 </script> 
 

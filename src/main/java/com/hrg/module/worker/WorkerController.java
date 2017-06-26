@@ -171,25 +171,26 @@ public class WorkerController {
 
     @ResponseBody
     @RequestMapping(value = "/editPass" ,method = RequestMethod.POST)
-    public ModelAndView editPass(String userID,String password,String newPassword){
-        ModelAndView model = new ModelAndView();
-        Worker worker = new Worker();
+    public Object editPass(HttpSession session,@RequestBody Map map){
+        Map model = new HashMap();
+        Worker worker = (Worker)session.getAttribute("worker");
         try {
+            String password = map.get("password").toString();
+            String newPassword = map.get("newPassword").toString();
             logger.info("===========进入修改密码===========");
-            worker.setDataid(userID);
-            Worker worker1 = workerService.selectDetail(userID);
+            Worker worker1 = workerService.selectDetail(worker.getDataid());
             logger.info("===========开始验证旧密码===========");
             if (!password.equals(worker1.getPassword())){
                 logger.error("============原密码不匹配============");
+                model.put("success",false);
             }else {
                 worker.setPassword(newPassword);
                 workerService.update(worker);
                 logger.info("=========密码修改成功=========");
-                model.addObject(JsonUtil.encode(ApiResult.returnSuccess()));
+                model.put("success",true);
             }
         } catch (Exception e) {
             logger.info("===========密码修改失败，系统异常===========");
-            model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.MESSAGE_EXCEPTION.getMessage(),ErrorCode.MESSAGE_EXCEPTION.getCode())));
             e.printStackTrace();
         }
         return model;

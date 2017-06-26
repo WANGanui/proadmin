@@ -47,8 +47,12 @@
         var count = $("input:radio:checked").val();
         if(count==0){
             $("#pro1").css({"display":"block"});
+            $("#bumen").css({"display":"block"});
+            $("#renyuan").css({"display":"block"});
         }else {
             $("#pro1").css({"display":"none"});
+            $("#bumen").css({"display":"none"});
+            $("#renyuan").css({"display":"none"});
         }
     };
 </script>
@@ -161,8 +165,8 @@
             </div>
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 130px">任务人员部门</label>
+    <div class="layui-form-item" id="bumen" style="display: none">
+        <label class="layui-form-label" style="width: 130px" >任务人员部门</label>
         <div class="layui-input-block" id="province_ids">
             <c:forEach items="${partment}" var="item" varStatus="itemIndex1" >
                 <input type="checkbox" class="layui-span-ment" name="ment" value="${item.dataid}" title="${item.name}" >
@@ -171,7 +175,7 @@
 
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="renyuan" style="display: none">
         <label class="layui-form-label">任务人员</label>
         <div class="layui-input-block" id="province_id">
 
@@ -196,7 +200,7 @@
         </div>
     </div>--%>
     <div class="layui-form-item">
-        <div class="layui-input-block">
+        <div class="layui-input-block" id="but">
             <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
