@@ -78,15 +78,15 @@
 						<span class="label label-success radius">	通过审核 </span>
 					</c:if>
 						<c:if test="${projectAll.state==0}">
-							<span class="label label-success radius">	待审核</span>
+							<span class="label radius" style="background-color:red">	待审核</span>
 						</c:if>
 
 					<c:if test="${projectAll.state==2}">
-						<span class="label label-success radius">	进行中</span>
+						<span class="label radius" style="background-color: #9effff">	进行中</span>
 					</c:if>
 
 						<c:if test="${projectAll.state==3}">
-							<span class="label label-success radius">	已经成</span>
+							<span class="label  radius" style="background-color: #17ff2e">	已经成</span>
 						</c:if>
 					</td>
 
