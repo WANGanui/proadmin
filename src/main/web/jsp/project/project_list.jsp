@@ -95,7 +95,7 @@
 					<td class="td-manage">
 						<%--<a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${project.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
 						--%><a style="text-decoration:none" class="ml-5 add" onClick="picture_del('创建任务','${projectAll.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
-							<a style="text-decoration:none" class="ml-5 add" onClick="picture_delte('删除项目','${projectAll.dataid}')" href="javascript:;" title="删除项目"><i class="Hui-iconfont" style="font-size: 20px;">&#xe6e2;</i></a>
+							<a style="text-decoration:none" class="ml-5 delete" onClick="picture_delte('删除项目','${projectAll.dataid}')" href="javascript:;" title="删除项目"><i class="Hui-iconfont" style="font-size: 20px;">&#xe6e2;</i></a>
 					</td>
 				</tr>
 </c:forEach>
