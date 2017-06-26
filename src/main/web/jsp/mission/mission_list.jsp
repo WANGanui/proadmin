@@ -115,17 +115,13 @@
                             <c:if test="${mission1.state==2}">
                                 <span class="label label-success radius" style="background-color: #985f0d">已完成待审核</span>
                             </c:if>
-                            <c:if test="${mission1.state==3}">
-                                <span class="label label-success radius" >已结束</span>
-                            </c:if>
                         </td>
                         <td class="td-manage">
-                            <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del(${mission1.dataid})" href="javascript:;" title="删除"><i class="Hui-iconfont" style="font-size: 20px" >&#xe6e2;</i></a>
-                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('编辑任务','/toupdatemission?dataid=${mission1.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
+                            <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('${mission1.dataid}')" title="删除"><i class="Hui-iconfont" style="font-size: 20px" >&#xe6e2;</i></a>
+                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('编辑任务','/toupdatemission?dataid=${mission1.dataid}')" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
                         </td>
                     </tr>
                 </c:forEach>
-
                 </tbody>
             </table>
         </div>
@@ -358,7 +354,6 @@
     /*图片-删除*/
     function picture_del(id){
         layer.confirm('确认要删除吗？',function(){
-
             var  dataJson={
                 dataid:id
             }
@@ -373,7 +368,7 @@
                         location.replace(location.href)
                         layer.msg('已删除!',{icon:1,time:1000});
                     } else {
-
+                        layer.msg('删除失败',{icon:1,time:1000});
                     }
                 }
             });

@@ -177,14 +177,22 @@ logger.info("========================返回结果："+JsonUtil.encode(missions))
             mission.setCreatordataid(worker.getDataid());
             String members = mission.getMember();
             String[] memberIdName=members.split("[+]");
-            String[] meberIds=memberIdName[0].split(",");
-            String[] meberNames=memberIdName[1].split(",");
+            String[] meberIds=null;
+            String[] meberNames=null;
+            if (memberIdName.length>=1){
+                meberIds =memberIdName[0].split(",");
+            }
+            if (memberIdName.length>=2){
+                meberNames =memberIdName[1].split(",");
+            }
             List<Worker> workerList = new ArrayList<>();
-            for (int i = 0;i < meberIds.length; i++){
-                Worker relMission = new Worker();
-                relMission.setDataid(meberIds[i]);
-                relMission.setName(meberNames[i]);
-                workerList.add(relMission);
+            if (meberIds!=null){
+                for (int i = 0;i < meberIds.length; i++){
+                    Worker relMission = new Worker();
+                    relMission.setDataid(meberIds[i]);
+                    relMission.setName(meberNames[i]);
+                    workerList.add(relMission);
+                }
             }
             missionService.insert(mission,workerList);
             result.put("success",true);

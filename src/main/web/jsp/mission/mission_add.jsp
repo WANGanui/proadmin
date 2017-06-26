@@ -182,6 +182,30 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width: 120px">选择任务状态</label>
+            <div class="layui-input-inline">
+                <select name="missionstate" lay-verify="required">
+                    <option value="">请选择</option>
+                    <option value="0" name="headername">已同意</option>
+                    <option value="1" name="headername">已拒绝</option>
+                    <option value="2" name="headername">待审核</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width: 120px">选择流程状态</label>
+            <div class="layui-input-inline">
+                <select name="state" lay-verify="required" >
+                    <option value="">请选择</option>
+                    <option value="0" name="headername">未开始</option>
+                    <option value="1" name="headername">进行中</option>
+                    <option value="2" name="headername">已完成</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">任务进度</label>
         <div class="layui-input-block">
             <input type="text" name="percentage" lay-verify="title" width="200" autocomplete="off" value="0%" placeholder="" class="layui-input">
@@ -346,7 +370,9 @@
                 endtime:data.field.endtime,//任务结束时间
                 level:data.field.level,//项目任务阶段
                 context:data.field.context,//任务描述
-                percentage:data.field.percentage//任务 进度
+                percentage:data.field.percentage,//任务 进度
+                missionstate:data.field.missionstate,
+                state:data.field.state,
             };
             $.ajax( {
                 url : 'addMission',
