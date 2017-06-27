@@ -86,6 +86,25 @@ logger.info("========================返回结果："+JsonUtil.encode(missions))
         return model;
     }
 
+    @RequestMapping(value = "/updateState")
+    public @ResponseBody Object updateState(@RequestBody Map map){
+       Map resultMap=new HashMap();
+         try {
+
+             Mission mission=new Mission();
+             mission.setDataid(map.get("dataId").toString());
+             mission.setMissionstate(map.get("missionState").toString());
+             mission.setRemark(map.get("remark").toString());
+             missionService.updateState(mission);
+
+             resultMap.put("success",true);
+         }catch (Exception e){
+            e.printStackTrace();
+            resultMap.put("success",false);
+         }
+        return resultMap;
+    }
+
     @RequestMapping("/workermission")
     public ModelAndView selectWokerMission(MissionCriteria example,HttpServletRequest request){
         ModelAndView model = new ModelAndView();

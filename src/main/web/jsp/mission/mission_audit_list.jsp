@@ -38,15 +38,15 @@
     </style>
     <title>项目列表</title>
     <style>
-        textarea{
+      /*  textarea{
             border:0;
             background-color:transparent;
-            /*scrollbar-arrow-color:yellow;
+            !*scrollbar-arrow-color:yellow;
             scrollbar-base-color:lightsalmon;
-            overflow: hidden;*/
+            overflow: hidden;*!
             color: #666464;
             height: auto;
-        }
+        }*/
         .Hui-iconfont{
             font-size: 20px;
         }
@@ -141,7 +141,22 @@
 
 </div>
 </div>
-
+<div  id="mark" style="display: none">
+<div class="row cl">
+    <input type="hidden" value="" id="dataId"/>
+    <label class="form-label col-xs-4 col-sm-4" style="text-align: right"><span class="c-red">*</span>拒绝原因：</label>
+    <div class="formControls col-xs-8 col-sm-6">
+        <textarea id="remake" rows="10"cols="25">1</textarea>
+    </div>
+</div>
+    <br/>
+<div id="but" class="row cl">
+    <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-5">
+        <button onClick="article_save_submit()"  class="btn btn-primary radius" type="button">保存并提交</button>
+        <%--<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+    --%></div>
+</div>
+</div>
 <script type="text/javascript" src="<%=basePath%>lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
 <script type="text/javascript" src="<%=basePath%>lib/My97DatePicker/WdatePicker.js"></script>
@@ -202,87 +217,7 @@
 
 
 
-    /*图片-下架*/
-    function picture_stop(obj,id){
-        layer.confirm('确认要下架吗？',function(index){
 
-            var  dataJson={
-                status:0,
-                modular:"update",
-                contentId:id
-            }
-
-            $.ajax( {
-                url : 'updateStatusOrDeleteByContent.do',
-                type : 'post',
-                contentType : 'application/json;charset=utf-8',
-                dataType : 'json',
-                data : JSON.stringify(dataJson),
-                success : function(data) {
-                    if (data.success) {
-                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="picture_start(this,'+id+')" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
-                        $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
-                        $(obj).remove();
-                        layer.msg('已下架!',{icon: 5,time:1000});
-                    } else {
-
-                    }
-                }
-            });
-
-
-
-        });
-    }
-
-    /*图片-发布*/
-    function picture_start(obj,id){
-        layer.confirm('确认要发布吗？',function(index){
-            var  dataJson={
-                status:1,
-                modular:"update",
-                contentId:id
-            }
-            $.ajax( {
-                url : 'updateStatusOrDeleteByContent.do',
-                type : 'post',
-                contentType : 'application/json;charset=utf-8',
-                dataType : 'json',
-                data : JSON.stringify(dataJson),
-                success : function(data) {
-                    if (data.success) {
-                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick=picture_stop(this,'+id+') href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
-                        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-                        $(obj).remove();
-                        layer.msg('已发布!',{icon: 6,time:1000});
-                    } else {
-
-                    }
-                }
-            });
-
-        });
-    }
-    /*图片-申请上线*/
-    function picture_shenqing(obj,id){
-        $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
-        $(obj).parents("tr").find(".td-manage").html("");
-        layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
-    }
-    /*图片-编辑*/
-    function picture_edit(title,url,id) {
-        var status = $("#status" + id).text().trim();
-        if (status=='已下架') {
-            var index = layer.open({
-                type: 2,
-                title: title,
-                content: url+"?contentId="+id
-            });
-            layer.full(index);
-        }else {
-            layer.msg('请先下架!',{icon:1,time:2000});
-        }
-    }
 
     function show1() {
         document.getElementById("div1").style.display = "";
@@ -338,6 +273,37 @@
         }
 
         layer.confirm('确认'+sta+'该任务审核吗？',function(){
+            if(state==0) {
+                var  dataJson={
+                    dataId:id,
+                    missionState:0,
+                    remark:""
+                }
+                $.ajax( {
+                    url : 'updateState',
+                    type : 'post',
+                    contentType : 'application/json;charset=utf-8',
+                    dataType : 'json',
+                    data : JSON.stringify(dataJson),
+                    success : function(data) {
+                        if (data.success) {
+                            window.location.reload();
+                            layer.msg('已同意!',{icon:1,time:3000});
+                        } else {
+
+                        }
+                    }
+                });
+            }
+            if(state==1) {
+                $('#dataId').val(id);
+                layer.open({
+                    type: 1,
+                    title:"拒绝原因",
+                    area: ['600px', '360px'],
+                    content: $('#mark')
+                })
+            }
 
        /*     var  dataJson={
                 dataid:id
@@ -359,6 +325,34 @@
             });
        */ });
         return false;
+    }
+    function  article_save_submit() {
+var id=$('#dataId').val();
+var remaek=$("#remake").val();
+if (remaek.length==0){
+    layer.msg('请输入拒绝原因!',{icon:1,time:3000});
+    return false;
+}
+        var  dataJson={
+            dataId:id,
+            missionState:1,
+            remark:remaek
+        }
+        $.ajax( {
+            url : 'updateState',
+            type : 'post',
+            contentType : 'application/json;charset=utf-8',
+            dataType : 'json',
+            data : JSON.stringify(dataJson),
+            success : function(data) {
+                if (data.success) {
+                    window.location.reload();
+                    layer.msg('已拒绝!',{icon:1,time:1000});
+                } else {
+
+                }
+            }
+        });
     }
 </script>
 
