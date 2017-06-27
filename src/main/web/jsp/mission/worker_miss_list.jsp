@@ -84,7 +84,6 @@
                     <th width="60">责任人</th>
                     <th width="60">类型</th>
                     <th width="60">状态</th>
-                    <th width="100">操作</th>
                 </tr>
                 </thead>
 
@@ -123,9 +122,7 @@
                                 <span class="label label-success radius">已完成</span>
                             </c:if>
                         </td>
-                        <td class="td-manage">
-                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_edit('详情','getContentCaseByContentId.do','${mission1.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-                        </td>
+
                     </tr>
                 </c:forEach>
 
@@ -149,7 +146,6 @@
                     <th width="60">责任人</th>
                     <th width="60">类型</th>
                     <th width="60">状态</th>
-                    <th width="100">操作</th>
                 </tr>
                 </thead>
 
@@ -188,9 +184,7 @@
                                 <span class="label label-success radius">已完成</span>
                             </c:if>
                         </td>
-                        <td class="td-manage">
-                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_edit('详情','getContentCaseByContentId.do','${mission2.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-                        </td>
+
                     </tr>
                 </c:forEach>
                 </tbody>

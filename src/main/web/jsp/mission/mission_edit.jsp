@@ -74,11 +74,11 @@
         <div class="layui-input-block">
             <select name="proportion" lay-filter="aihao">
                 <option value="${map.mission.proportion}" selected="">${map.mission.proportion}级</option>
-                <option value="0">1级</option>
-                <option value="1">2级</option>
-                <option value="2">3级</option>
-                <option value="3">4级</option>
-                <option value="4">5级</option>
+                <option value="1">1级</option>
+                <option value="2">2级</option>
+                <option value="3">3级</option>
+                <option value="4">4级</option>
+                <option value="5">5级</option>
             </select>
         </div>
     </div>
@@ -167,7 +167,7 @@
         <label class="layui-form-label" style="width: 130px">已选择任务人员</label>
         <div class="layui-input-block" id="province">
             <c:forEach items="${map.relworker}" var="work">
-                <input type="checkbox" name="workername" value="${work.dataid}" title="${work.workername}" checked>
+                <input type="checkbox" name="workername" value="${work.workerdataid}" title="${work.workername}" checked>
             </c:forEach>
         </div>
     </div>
@@ -214,16 +214,15 @@
             <textarea name="context" class="layui-textarea">${map.mission.context}</textarea>
         </div>
     </div>
-    <%--<div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">编辑器</label>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
-            <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+            <textarea  name="remark"  class="layui-textarea" disabled>${map.mission.remark}</textarea>
         </div>
-    </div>--%>
+    </div>
     <div class="layui-form-item">
         <div class="layui-input-block" id="but">
             <button class="layui-btn" lay-submit="" lay-filter="demo1">确认修改</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
@@ -361,8 +360,9 @@
                 starttime:data.field.starttime,//任务开始时间
                 endtime:data.field.endtime,//任务结束时间
                 type:data.field.type,//任务类型
+                remark:data.field.remark,
             };
-            alert(JSON.stringify(dataJson));
+            /*alert(JSON.stringify(dataJson));*/
             $.ajax( {
                 url : 'updateMission',
                 type : 'post',
@@ -371,11 +371,17 @@
                 data : JSON.stringify(dataJson),
                 success : function(data) {
                     if (data.success) {
-                        layer.msg('创建任务成功' ,{time: 2000, icon:6});
-                        $("#but").hide();
+                        layer.confirm('修改任务成功', {
+                            btn: ['确定'], //按钮
+                        }, function(){
+                            window.parent.location.reload();
+                        });
                     } else {
-                        layer.msg('创建任务失败' ,{time: 2000, icon:5});
-
+                        layer.confirm('修改任务失败', {
+                            btn: ['确定'], //按钮
+                        }, function(){
+                            window.parent.location.reload();
+                        });
                     }
                 }
             });

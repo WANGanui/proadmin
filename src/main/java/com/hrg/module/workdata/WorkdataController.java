@@ -95,10 +95,41 @@ public class WorkdataController {
         workdata.setWorkerdataid(worker.getDataid());
         workdata.setWorkername(worker.getName());
         try {
-            workDataService.insert(workdata);
-            map.put("success",true);
+            boolean bool = workDataService.insert(workdata);
+            if (bool)
+                map.put("success",true);
+            else
+                map.put("success",false);
         } catch (Exception e) {
             map.put("success",false);
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @RequestMapping("/editWorkdata")
+    public ModelAndView editWorkdata(String dataid){
+        ModelAndView model = new ModelAndView();
+        try {
+            Workdata workdata = workDataService.selectDetail(dataid);
+            model.setViewName("workdata/data_detail");
+            model.addObject("data",workdata);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
+    }
+
+    @RequestMapping("/updateWorkdata")
+    public @ResponseBody Object updatedata(@RequestBody Workdata workdata){
+        Map map = new HashMap();
+        try {
+            boolean bool = workDataService.update(workdata);
+            if (bool)
+                map.put("success",true);
+            else
+                map.put("success",false);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return map;

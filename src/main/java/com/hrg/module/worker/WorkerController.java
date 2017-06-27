@@ -245,12 +245,83 @@ public class WorkerController {
             else {
                 worker.setState("0");
             }
-            workerService.insert(worker,worker.getRoleid());
-            map.put("success",true);
+           boolean bool = workerService.insert(worker,worker.getRoleid());
+            if (bool)
+                map.put("success",true);
+            else
+                map.put("success",false);
         } catch (Exception e) {
             map.put("success",false);
             e.printStackTrace();
         }
         return map;
+    }
+
+    @RequestMapping("/editWorker")
+    public ModelAndView editworker(String dataid){
+        ModelAndView model = new ModelAndView();
+        try {
+            Worker worker = workerService.selectDetail(dataid);
+            Map map = workerService.selectRoleAndPartment();
+            Map map1 = workerService.selectWorkerRole(dataid);
+            model.addObject("mmp",map1);
+            model.addObject("map",map);
+            model.addObject("user",worker);
+            model.setViewName("worker/worker_edit");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
+    }
+
+    @RequestMapping("/updataWorker")
+    public @ResponseBody Object updateWorker(@RequestBody Worker worker){
+        Map map = new HashMap();
+        try {
+            if (worker.getState().equals("on"))
+                worker.setState("1");
+            else {
+                worker.setState("0");
+            }
+            boolean bool = workerService.updateWorkerandRole(worker,worker.getRoleid());
+            if (bool)
+                map.put("success",true);
+            else
+                map.put("success",false);
+        } catch (Exception e) {
+            map.put("success",false);
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @RequestMapping("/deleteWorker")
+    public @ResponseBody Object deleteWorker(@RequestBody Map remap) {
+        Map map = new HashMap();
+        try {
+            String dataid = remap.get("dataid").toString();
+            boolean bool = workerService.delete(dataid);
+            if (bool)
+                map.put("success",true);
+            else
+                map.put("success",false);
+        } catch (Exception e) {
+            map.put("success",false);
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @RequestMapping("/selectIndex")
+    public ModelAndView selectIndex(String dataid){
+        ModelAndView model = new ModelAndView();
+        try {
+            Map map = workerService.selectIndex(dataid);
+            model.addObject("map",map);
+            model.setViewName("index/welcome");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
     }
 }

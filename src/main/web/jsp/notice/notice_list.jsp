@@ -85,8 +85,9 @@
                     <td>${notice.department}</td>
                     <td class="td-time"><fmt:formatDate value="${notice.time}" pattern="yyyy-MM-dd" /></td>
                     <td class="td-manage">
-                        <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del(${notice.dataid})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6df;</i></a>
-                        <a style="text-decoration:none" class="ml-5 update" onClick="picture_edit('创建任务列表','${notice.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe61f;</i></a>
+                        <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('${notice.dataid}')" href="javascript:;" title="修改"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                        <a style="text-decoration:none" class="ml-5 delete" onClick="picture_query('修改公告','toeditNotice?dataid=${notice.dataid}')" href="javascript:;" title="修改"><i class="Hui-iconfont">&#xe60c;</i></a>
+
                     </td>
                 </tr>
             </c:forEach>
@@ -249,19 +250,13 @@
         $(obj).parents("tr").find(".td-manage").html("");
         layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
     }
-    /*图片-编辑*/
+    /*编辑*/
     function picture_edit(title,url,id) {
-        var status = $("#status" + id).text().trim();
-        if (status=='已下架') {
             var index = layer.open({
-                type: 2,
                 title: title,
-                content: url+"?contentId="+id
+                content: url+"?dataid="+id
             });
             layer.full(index);
-        }else {
-            layer.msg('请先下架!',{icon:1,time:2000});
-        }
     }
     /*图片-删除*/
     function picture_del(id){
@@ -285,9 +280,6 @@
                     }
                 }
             });
-
-
-
         });
     }
 </script>

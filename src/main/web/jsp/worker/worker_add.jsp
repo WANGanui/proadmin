@@ -137,7 +137,7 @@
         </div>
     </div>--%>
     <div class="layui-form-item">
-        <div class="layui-input-block">
+        <div class="layui-input-block" id="but">
             <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
@@ -248,10 +248,10 @@
                 data : JSON.stringify(dataJson),
                 success : function(data) {
                     if (data.success) {
-                        layer.msg('添加日志成功' ,{time: 2000, icon:6});
+                        layer.msg('添加员工成功' ,{time: 2000, icon:6});
                         $("#but").hide();
                     } else {
-                        layer.msg('添加日志失败' ,{time: 2000, icon:5});
+                        layer.msg('添加员工失败' ,{time: 2000, icon:5});
 
                     }
                 }

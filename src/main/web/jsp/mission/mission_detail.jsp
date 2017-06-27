@@ -68,7 +68,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">任务权重</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" disabled value="${map.mission.proportion}">
+            <input type="text" class="layui-input" disabled value="${map.mission.proportion}级">
         </div>
     </div>
 
@@ -138,7 +138,7 @@
         <label class="layui-form-label">任务人员</label>
         <div class="layui-input-block" id="province_id">
             <c:forEach items="${map.relworker}" var="work">
-                <input type="checkbox" name="workername" disabled  title="${work.workername}" checked>
+                <input type="checkbox" name="workername" readonly  title="${work.workername}" checked>
             </c:forEach>
         </div>
     </div>
@@ -184,6 +184,12 @@
         <label class="layui-form-label">任务内容描述</label>
         <div class="layui-input-block">
             <textarea  name="context"  class="layui-textarea" disabled>${map.mission.context}</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <textarea  name="remark"  class="layui-textarea" disabled>${map.mission.remark}</textarea>
         </div>
     </div>
     <%--<div class="layui-form-item layui-form-text">

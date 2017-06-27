@@ -56,30 +56,70 @@
 
 
 
-<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend>添加公告</legend>
-</fieldset>
 <form class="layui-form layui-form-pane" action="">
+    <input type="hidden" value="${user.dataid}" name="dataid">
     <div class="layui-form-item">
-        <label class="layui-form-label">公告标题</label>
+        <label class="layui-form-label">员工姓名</label>
         <div class="layui-input-block">
-            <input type="text" name="title" lay-verify="title" width="200" autocomplete="off"  placeholder="请输入标题" class="layui-input">
+            <input type="text" name="name" lay-verify="title" width="200"  autocomplete="off" value="${user.name}" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-block">
+            <label class="layui-form-label">电话号码</label>
+            <div class="layui-input-block">
+                <input type="tel" name="phone" lay-verify="phone" value="${user.phone}" autocomplete="off" class="layui-input">
+            </div>
         </div>
     </div>
 
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">发布日期</label>
+            <label class="layui-form-label">账号</label>
             <div class="layui-input-inline">
-                <input type="text" name="time" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+                <input type="tel" name="account" autocomplete="off" readonly value="${user.account}" class="layui-input">
             </div>
         </div>
     </div>
 
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">公告内容</label>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">选择部门</label>
+            <div class="layui-input-inline">
+                <select name="department" lay-verify="required" lay-search="" lay-filter="department">
+                    <option value="${user.departmentdataid}" selected>${user.department}</option>
+                    <c:forEach items="${map.daparts}" var="ment" varStatus="projectIndex">
+                        <option value="${ment.dataid}" name="projectname" title="${ment.name}">${ment.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">选择角色</label>
+            <div class="layui-input-inline">
+                <select name="role" lay-verify="required" lay-search="" lay-filter="role">
+                    <option value="${mmp.workerroleid}" selected>${mmp.workerrolename}</option>
+                    <c:forEach items="${map.roles}" var="role" varStatus="projectIndex">
+                        <option value="${role.dataid}" name="projectname">${role.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item" pane="">
+        <label class="layui-form-label">状态</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入内容" name="context" class="layui-textarea"></textarea>
+            <input type="checkbox" checked="" name="state" lay-skin="switch" lay-filter="switchTest" lay-text="启用|禁用">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入内容" name="remark" class="layui-textarea">${user.remark}</textarea>
         </div>
     </div>
     <%--<div class="layui-form-item layui-form-text">
@@ -90,8 +130,8 @@
     </div>--%>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" id="btn" lay-submit="" lay-filter="demo1">立即提交</button>
-            <button type="reset"  class="layui-btn layui-btn-primary">重置</button>
+            <button class="layui-btn" lay-submit="" lay-filter="demo1">确认修改</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
@@ -99,7 +139,6 @@
 <script src="<%=basePath%>js/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-
     function  queryTwoBarand() {
 
         var select = document.getElementsByName("ment");
@@ -172,28 +211,45 @@
                 layedit.sync(editIndex);
             }
         });
-        form.on('button(set)',function () {
-
+        //部门
+        var departmentdataid = "";
+        var department = "";
+        form.on('select(department)', function(data){
+            // alert(data.value+";"+data.elem[data.elem.selectedIndex].title);
+            departmentdataid = data.value;
+            department=data.elem[data.elem.selectedIndex].title;
         });
         //监听提交
         form.on('submit(demo1)', function(data){
-            /*layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })*/
-            $("#btn").css({"display":"none"});
+            var dataJson = {
+                dataid:data.field.dataid,
+                name:data.field.name,
+                phone:data.field.phone,
+                roleid:data.field.role,
+                state:data.field.state,
+                departmentdataid:departmentdataid,
+                department:department,
+                remark:data.field.remark,
+            };
             $.ajax( {
-                url : '<%=basePath%>addNotice',
+                url : 'updataWorker',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',
-                data : JSON.stringify(data.field),
+                data : JSON.stringify(dataJson),
                 success : function(data) {
                     if (data.success) {
-                        layer.msg('添加日志成功' ,{time: 2000, icon:6});
-                        $("#but").hide();
+                        layer.confirm('修改员工成功', {
+                            btn: ['确定'], //按钮
+                        }, function(){
+                            window.parent.location.reload();
+                        });
                     } else {
-                        layer.msg('添加日志失败' ,{time: 2000, icon:5});
-
+                        layer.confirm('修改员工失败', {
+                            btn: ['确定'], //按钮
+                        }, function(){
+                            layer.msg('修改员工失败' ,{time: 2000, icon:5});
+                        });
                     }
                 }
             });

@@ -79,8 +79,7 @@
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
                     <td>${data.projectleader}</td>
                     <td class="td-manage">
-                        <a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${notice.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-                        <a style="text-decoration:none" class="ml-5" onClick="picture_del('创建日志列表','${notice.dataid}')" href="javascript:;" title="创建日志"><i class="Hui-iconfont">&#xe61f;</i></a>
+                        <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('修改日志','editWorkdata?dataid=${data.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
                     </td>
                 </tr>
             </c:forEach>
@@ -131,6 +130,7 @@
 
     /*案例-查看*/
     function picture_query(title,url){
+        /*alert(url);*/
         var index = layer.open({
             type: 2,
             title: title,

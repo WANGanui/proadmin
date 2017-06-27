@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -60,10 +61,11 @@
     <legend>添加公告</legend>
 </fieldset>
 <form class="layui-form layui-form-pane" action="">
+    <input type="hidden" value="${notice.dataid}" name="dataid">
     <div class="layui-form-item">
         <label class="layui-form-label">公告标题</label>
         <div class="layui-input-block">
-            <input type="text" name="title" lay-verify="title" width="200" autocomplete="off"  placeholder="请输入标题" class="layui-input">
+            <input type="text" name="title" lay-verify="title" width="200" autocomplete="off" value="${notice.title}"   class="layui-input">
         </div>
     </div>
 
@@ -71,7 +73,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">发布日期</label>
             <div class="layui-input-inline">
-                <input type="text" name="time" id="date" lay-verify="date" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+                <input type="text" name="time"  id="date1" lay-verify="date"  autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})" value=<fmt:formatDate value="${notice.time}" pattern="yyyy-MM-dd" /> >
             </div>
         </div>
     </div>
@@ -79,19 +81,13 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">公告内容</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入内容" name="context" class="layui-textarea"></textarea>
+            <textarea name="context"  class="layui-textarea">${notice.context} </textarea>
         </div>
     </div>
-    <%--<div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">编辑器</label>
-        <div class="layui-input-block">
-            <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
-        </div>
-    </div>--%>
+
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" id="btn" lay-submit="" lay-filter="demo1">立即提交</button>
-            <button type="reset"  class="layui-btn layui-btn-primary">重置</button>
+            <button class="layui-btn" id="btn" lay-submit="" lay-filter="demo1">确认修改</button>
         </div>
     </div>
 </form>
@@ -177,23 +173,28 @@
         });
         //监听提交
         form.on('submit(demo1)', function(data){
-            /*layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })*/
             $("#btn").css({"display":"none"});
+            /*alert(JSON.stringify(data.field));*/
             $.ajax( {
-                url : '<%=basePath%>addNotice',
+                url : 'updateNotice',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',
                 data : JSON.stringify(data.field),
                 success : function(data) {
                     if (data.success) {
-                        layer.msg('添加日志成功' ,{time: 2000, icon:6});
-                        $("#but").hide();
+                        /*layer.msg('修改公告成功' ,{time: 2000, icon:6});*/
+                        layer.confirm('修改公告成功', {
+                            btn: ['确定'], //按钮
+                        }, function(){
+                            window.parent.location.reload();
+                        });
                     } else {
-                        layer.msg('添加日志失败' ,{time: 2000, icon:5});
-
+                        layer.confirm('修改公告失败', {
+                            btn: ['确定'], //按钮
+                        }, function(){
+                            layer.msg('修改公告失败' ,{time: 2000, icon:5});
+                        });
                     }
                 }
             });

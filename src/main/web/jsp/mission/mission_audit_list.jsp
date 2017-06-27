@@ -92,7 +92,7 @@
                         <td class="td-time"><fmt:formatDate value="${mission1.endtime}" pattern="yyyy-MM-dd" /></td>
                         <td>${mission1.proname}</td>
                         <td>${mission1.percentage}</td>
-                        <td>${mission1.proportion}</td>
+                        <td>${mission1.proportion}级</td>
                         <td>${mission1.creator}</td>
                         <td>${mission1.auditorname}</td>
                         <td>${mission1.headername}</td>
@@ -107,7 +107,7 @@
                             <span class="label label-success radius">${mission1.level}</span>
                         </td>
                         <td class="td-status"><c:if test="${mission1.state==0}">
-                            <span class="label label-success radius">	未开始 </span>
+                            <span class="label label-success radius" style="background-color: #00a0e9">	未开始 </span>
                         </c:if>
                             <c:if test="${mission1.state==1}">
                                 <span class="label label-success radius">进行中</span>
@@ -123,7 +123,7 @@
                                 <span class="label label-success radius">已拒绝</span>
                             </c:if>
                             <c:if test="${mission1.missionstate==2}">
-                                <span class="label label-success radius">待审核</span>
+                                <span class="label label-success radius" style="background-color: #00a0e9">待审核</span>
                             </c:if>
                         </td>
                         <td class="td-manage">

@@ -85,8 +85,8 @@
                     <td>${worker.remark}</td>
                     <td class="td-time"><fmt:formatDate value="${worker.createtime}" pattern="yyyy-MM-dd" /></td>
                     <td class="td-manage">
-                        <a style="text-decoration:none" class="ml-5 update" onClick="picture_edit('案例编辑','getContentCaseByContentId.do','${worker.dataid}')" id=""  href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
-                        <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del(this,'${worker.dataid}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                        <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('修改员工','editWorker?dataid=${worker.dataid}')"  href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
+                        <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('${worker.dataid}')"  href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
                     </td>
                 </tr>
             </c:forEach>
@@ -264,16 +264,14 @@
         }
     }
     /*图片-删除*/
-    function picture_del(obj,id){
+    function picture_del(id){
         layer.confirm('确认要删除吗？',function(index){
 
             var  dataJson={
-                status:1,
-                modular:"delete",
-                contentId:id
+                dataid:id,
             }
             $.ajax( {
-                url : 'updateStatusOrDeleteByContent.do',
+                url : 'deleteWorker',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',

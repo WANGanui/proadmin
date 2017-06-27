@@ -71,11 +71,11 @@
         <div class="layui-input-block">
             <select name="proportion" lay-filter="aihao">
                 <option value=""></option>
-                <option value="0" selected="">1级</option>
-                <option value="1">2级</option>
-                <option value="2">3级</option>
-                <option value="3">4级</option>
-                <option value="4">5级</option>
+                <option value="1" selected="">1级</option>
+                <option value="2">2级</option>
+                <option value="3">3级</option>
+                <option value="4">4级</option>
+                <option value="5">5级</option>
             </select>
         </div>
     </div>
@@ -207,9 +207,15 @@
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">任务内容描述</label>
+    <label class="layui-form-label">任务内容描述</label>
+    <div class="layui-input-block">
+        <textarea placeholder="请输入内容" name="context" class="layui-textarea"></textarea>
+    </div>
+</div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入内容" name="context" class="layui-textarea"></textarea>
+            <textarea placeholder="请输入内容" name="remark" class="layui-textarea"></textarea>
         </div>
     </div>
     <%--<div class="layui-form-item layui-form-text">
@@ -368,6 +374,7 @@
                 percentage:data.field.percentage,//任务 进度
                 missionstate:data.field.missionstate,
                 state:data.field.state,
+                remark:data.field.remark,
             };
             $.ajax( {
                 url : 'addMission',
