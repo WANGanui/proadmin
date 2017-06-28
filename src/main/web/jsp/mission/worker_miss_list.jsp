@@ -83,7 +83,8 @@
                     <th width="60">审核人</th>
                     <th width="60">责任人</th>
                     <th width="60">类型</th>
-                    <th width="60">状态</th>
+                    <th width="70">流程状态</th>
+                    <th width="70">任务状态</th>
                 </tr>
                 </thead>
 
@@ -110,16 +111,23 @@
                             </c:if>
                         </td>
                         <td class="td-status"><c:if test="${mission1.state==0}">
-                            <span class="label label-success radius">	已发布 </span>
+                            <span class="label label-success radius" style="background-color: #00a0e9">	未开始 </span>
                         </c:if>
                             <c:if test="${mission1.state==1}">
-                                <span class="label label-success radius">进行中</span>
+                                <span class="label label-success radius" style="background-color: #985f0d">进行中</span>
                             </c:if>
                             <c:if test="${mission1.state==2}">
-                                <span class="label label-success radius">待审核</span>
-                            </c:if>
-                            <c:if test="${mission1.state==3}">
                                 <span class="label label-success radius">已完成</span>
+                            </c:if>
+                        </td>
+                        <td class="td-status"><c:if test="${mission1.missionstate==0}">
+                            <span class="label label-success radius">	已同意 </span>
+                        </c:if>
+                            <c:if test="${mission1.missionstate==1}">
+                                <span class="label label-success radius" style="background-color: #985f0d">已拒绝</span>
+                            </c:if>
+                            <c:if test="${mission1.missionstate==2}">
+                                <span class="label label-success radius" style="background-color: #00a0e9">待审核</span>
                             </c:if>
                         </td>
 
@@ -145,7 +153,8 @@
                     <th width="60">审核人</th>
                     <th width="60">责任人</th>
                     <th width="60">类型</th>
-                    <th width="60">状态</th>
+                    <th width="70">流程状态</th>
+                    <th width="70">任务状态</th>
                 </tr>
                 </thead>
 
@@ -172,16 +181,23 @@
                             </c:if>
                         </td>
                         <td class="td-status"><c:if test="${mission2.state==0}">
-                            <span class="label label-success radius">	已发布 </span>
+                            <span class="label label-success radius" style="background-color: #00a0e9">	未开始 </span>
                         </c:if>
                             <c:if test="${mission2.state==1}">
-                                <span class="label label-success radius">进行中</span>
+                                <span class="label label-success radius" style="background-color: #985f0d">进行中</span>
                             </c:if>
                             <c:if test="${mission2.state==2}">
-                                <span class="label label-success radius">待审核</span>
-                            </c:if>
-                            <c:if test="${mission2.state==3}">
                                 <span class="label label-success radius">已完成</span>
+                            </c:if>
+                        </td>
+                        <td class="td-status"><c:if test="${mission2.missionstate==0}">
+                            <span class="label label-success radius">	已同意 </span>
+                        </c:if>
+                            <c:if test="${mission2.missionstate==1}">
+                                <span class="label label-success radius" style="background-color: #985f0d">已拒绝</span>
+                            </c:if>
+                            <c:if test="${mission2.missionstate==2}">
+                                <span class="label label-success radius" style="background-color: #00a0e9">待审核</span>
                             </c:if>
                         </td>
 
