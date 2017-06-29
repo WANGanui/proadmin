@@ -196,7 +196,7 @@ function departmentUser() {
         province_ids:province_ids
     };
     $.ajax({
-        url: 'selectUserListByDeptId',
+        url: '<%=basePath%>selectUserListByDeptId',
         type: 'post',
         contentType: 'application/json;charset=utf-8',
         dataType: 'json',
@@ -245,7 +245,7 @@ function  queryTwoBarand() {
         province_ids:province_ids
     };
 	$.ajax( {
-		url : 'selectUserList',
+		url : '<%=basePath%>selectUserList',
 		type : 'post',
 		contentType : 'application/json;charset=utf-8',
 		dataType : 'json',
@@ -343,7 +343,7 @@ function article_save_submit() {
         progress:progress//项目 进度
     };
     $.ajax( {
-        url : 'addProject',
+        url : '<%=basePath%>addProject',
         type : 'post',
         contentType : 'application/json;charset=utf-8',
         dataType : 'json',

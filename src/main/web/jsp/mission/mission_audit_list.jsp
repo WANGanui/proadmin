@@ -86,7 +86,7 @@
                     <tr class="text-c">
 
                         <td>${missionIndex1.index+1}</td>
-                        <td onclick="picture_query('任务详情','missionDetail?dataid=${mission1.dataid}')" style="text-decoration:underline">${mission1.name}</td>
+                        <td onclick="picture_query('任务详情','<%=basePath%>missionDetail?dataid=${mission1.dataid}')" style="text-decoration:underline">${mission1.name}</td>
 
                         <td class="td-time"><fmt:formatDate value="${mission1.starttime}" pattern="yyyy-MM-dd" /></td>
                         <td class="td-time"><fmt:formatDate value="${mission1.endtime}" pattern="yyyy-MM-dd" /></td>
@@ -280,7 +280,7 @@
                     remark:""
                 }
                 $.ajax( {
-                    url : 'updateState',
+                    url : '<%=basePath%>updateState',
                     type : 'post',
                     contentType : 'application/json;charset=utf-8',
                     dataType : 'json',
@@ -339,7 +339,7 @@ if (remaek.length==0){
             remark:remaek
         }
         $.ajax( {
-            url : 'updateState',
+            url : '<%=basePath%>updateState',
             type : 'post',
             contentType : 'application/json;charset=utf-8',
             dataType : 'json',

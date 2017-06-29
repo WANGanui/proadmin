@@ -252,7 +252,7 @@
             province_ids:province_ids
         };
         $.ajax( {
-            url : 'selectUserList',
+            url : '<%=basePath%>selectUserList',
             type : 'post',
             async:true,
             contentType : 'application/json;charset=utf-8',
@@ -364,7 +364,7 @@
             };
             /*alert(JSON.stringify(dataJson));*/
             $.ajax( {
-                url : 'updateMission',
+                url : '<%=basePath%>updateMission',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',

@@ -264,7 +264,7 @@ function queryDetaila(id) {
 	var index = layer.open({
 		type: 2,
 		title: "项目详情",
-		content: "selectProjectDeatil?projectId="+id
+		content: "<%=basePath%>selectProjectDeatil?projectId="+id
 	});
 	layer.full(index);
 
@@ -279,7 +279,7 @@ function picture_delte(obj,id){
 			contentId:id
 		}
 		$.ajax( {
-			url : 'deleteProject',
+			url : '<%=basePath%>deleteProject',
 			type : 'post',
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json',
@@ -306,7 +306,7 @@ function picture_del(obj,id){
         var index = layer.open({
             type: 2,
             title: "创建任务",
-            content: "missionAdd"
+            content: "<%=basePath%>missionAdd"
         });
         layer.full(index);
 		/*	var  dataJson={

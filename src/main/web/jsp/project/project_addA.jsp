@@ -226,7 +226,7 @@
             province_ids:province_ids
         };
         $.ajax( {
-            url : 'selectUserList',
+            url : '<%=basePath%>selectUserList',
             type : 'post',
             async:true,
             contentType : 'application/json;charset=utf-8',
@@ -313,7 +313,7 @@
                 progress:data.field.progress//项目 进度
             };
             $.ajax( {
-                url : 'addProject',
+                url : '<%=basePath%>addProject',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',
@@ -347,7 +347,7 @@
                 province_ids:province_ids
             };
             $.ajax({
-                url: 'selectUserListByDeptId',
+                url: '<%=basePath%>selectUserListByDeptId',
                 type: 'post',
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'json',
@@ -385,7 +385,7 @@
             province_ids:province_ids
         };
         $.ajax({
-            url: 'selectUserListByDeptId',
+            url: '<%=basePath%>selectUserListByDeptId',
             type: 'post',
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',

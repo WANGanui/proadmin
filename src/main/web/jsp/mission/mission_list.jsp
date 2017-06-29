@@ -86,7 +86,7 @@
                     <tr class="text-c">
 
                         <td>${missionIndex1.index+1}</td>
-                        <td onclick="picture_query('任务详情','missionDetail?dataid=${mission1.dataid}')" style="text-decoration:underline">${mission1.name}</td>
+                        <td onclick="picture_query('任务详情','<%=basePath%>missionDetail?dataid=${mission1.dataid}')" style="text-decoration:underline">${mission1.name}</td>
 
                         <td class="td-time"><fmt:formatDate value="${mission1.starttime}" pattern="yyyy-MM-dd" /></td>
                         <td class="td-time"><fmt:formatDate value="${mission1.endtime}" pattern="yyyy-MM-dd" /></td>
@@ -128,7 +128,7 @@
                         </td>
                         <td class="td-manage">
                             <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('${mission1.dataid}')" title="删除"><i class="Hui-iconfont" style="font-size: 20px" >&#xe6e2;</i></a>
-                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('编辑任务','/toupdatemission?dataid=${mission1.dataid}')" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
+                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('编辑任务','<%=basePath%>/toupdatemission?dataid=${mission1.dataid}')" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -368,7 +368,7 @@
                 dataid:id
             }
             $.ajax( {
-                url : 'deleteMission',
+                url : '<%=basePath%>deleteMission',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',

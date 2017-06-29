@@ -122,7 +122,7 @@
             province_ids:province_ids
         };
         $.ajax( {
-            url : 'selectUserList',
+            url : '<%=basePath%>selectUserList',
             type : 'post',
             async:true,
             contentType : 'application/json;charset=utf-8',

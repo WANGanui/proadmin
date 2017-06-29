@@ -49,7 +49,7 @@
 
     <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
     <%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%>
-        <a class="btn btn-primary radius" onclick="picture_add('添加日志','workdataADdd')" href="javascript:;">
+        <a class="btn btn-primary radius" onclick="picture_add('添加日志','<%=basePath%>workdataADdd')" href="javascript:;">
             <i class="Hui-iconfont">&#xe600;</i> 添加日志</a>
        </span> </div>
 
@@ -79,7 +79,7 @@
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
                     <td>${data.projectleader}</td>
                     <td class="td-manage">
-                        <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('修改日志','editWorkdata?dataid=${data.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
+                        <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('修改日志','<%=basePath%>editWorkdata?dataid=${data.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
                     </td>
                 </tr>
             </c:forEach>

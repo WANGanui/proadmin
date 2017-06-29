@@ -257,7 +257,7 @@
             province_ids:province_ids
         };
         $.ajax( {
-            url : 'selectUserList',
+            url : '<%=basePath%>selectUserList',
             type : 'post',
             async:true,
             contentType : 'application/json;charset=utf-8',
@@ -377,7 +377,7 @@
                 remark:data.field.remark,
             };
             $.ajax( {
-                url : 'addMission',
+                url : '<%=basePath%>addMission',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',

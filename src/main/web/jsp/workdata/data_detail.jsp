@@ -120,7 +120,7 @@
             province_ids:province_ids
         };
         $.ajax( {
-            url : 'selectMissionDd',
+            url : '<%=basePath%>selectMissionDd',
             type : 'post',
             async:true,
             contentType : 'application/json;charset=utf-8',
@@ -195,7 +195,7 @@
                 }
             }*/
             $.ajax( {
-                url : 'updateWorkdata',
+                url : '<%=basePath%>updateWorkdata',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',
@@ -225,7 +225,7 @@
             projectid = data.value;
             project=data.elem[data.elem.selectedIndex].title;
             $.ajax( {
-                url : 'missionListByProject',
+                url : '<%=basePath%>missionListByProject',
                 type : 'post',
                 async:true,
                 contentType : 'application/json;charset=utf-8',

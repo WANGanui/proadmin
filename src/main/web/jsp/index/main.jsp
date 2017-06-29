@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<ul>
 							<c:forEach items="${map.menus}" var="menutwo">
 								 <c:if test="${menutwo.modulepid==menu.datatid}">
-									    <li><a data-href="${menutwo.moduleurl}?roleid=${map.roleid}" data-title="${menutwo.modulename}" href="javascript:void(0)">${menutwo.modulename}${permissions.permissionid}</a></li>
+									    <li><a data-href="<%=basePath%>${menutwo.moduleurl}?roleid=${map.roleid}" data-title="${menutwo.modulename}" href="javascript:void(0)">${menutwo.modulename}${permissions.permissionid}</a></li>
 								 </c:if>
 							</c:forEach>
 					</ul>

@@ -86,7 +86,7 @@
                     <td class="td-time"><fmt:formatDate value="${notice.time}" pattern="yyyy-MM-dd" /></td>
                     <td class="td-manage">
                         <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('${notice.dataid}')" href="javascript:;" title="修改"><i class="Hui-iconfont">&#xe6e2;</i></a>
-                        <a style="text-decoration:none" class="ml-5 delete" onClick="picture_query('修改公告','toeditNotice?dataid=${notice.dataid}')" href="javascript:;" title="修改"><i class="Hui-iconfont">&#xe60c;</i></a>
+                        <a style="text-decoration:none" class="ml-5 delete" onClick="picture_query('修改公告','<%=basePath%>toeditNotice?dataid=${notice.dataid}')" href="javascript:;" title="修改"><i class="Hui-iconfont">&#xe60c;</i></a>
 
                     </td>
                 </tr>
@@ -266,7 +266,7 @@
                 dataid:id
             }
             $.ajax( {
-                url : 'deleteNotice',
+                url : '<%=basePath%>deleteNotice',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',
