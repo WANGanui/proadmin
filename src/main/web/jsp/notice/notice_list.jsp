@@ -54,7 +54,7 @@
     <input type="hidden" id="${list}" value="${list}">
     </c:forEach>
 
-    <div class="cl pd-5 bg-1 bk-gray mt-20">
+    <div class="cl pd-5 bg-1 bk-gray mt-20 add">
         <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
          --%><a class="btn btn-primary radius" onclick="picture_add('添加公告','<%=basePath%>jsp/notice/notice_add.jsp')" href="javascript:;">
             <i class="Hui-iconfont">&#xe600;</i> 添加公告</a>

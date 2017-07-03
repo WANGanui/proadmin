@@ -40,7 +40,7 @@ public class NoticeController {
             logger.info("==============开始查询公告列表=============");
             logger.info("==============入参【"+ JsonUtil.encode(example)+"】==============");
             List<Notice> noticeList = noticeService.selectList(example);
-            List<String> missList = permissionService.selectList("7",roleid);
+            List<String> missList = permissionService.selectList("13",roleid);
             logger.info("==============查询公告列表成功==============");
             model.addObject("roles",missList);
             model.addObject("list",noticeList);

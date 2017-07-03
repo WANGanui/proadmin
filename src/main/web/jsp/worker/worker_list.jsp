@@ -271,7 +271,7 @@
                 dataid:id,
             }
             $.ajax( {
-                url : '<%=basePath%>deleteWorker',
+                url : '<%=basePath%>worker/deleteWorker',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',
