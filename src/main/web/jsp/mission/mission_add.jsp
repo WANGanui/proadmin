@@ -182,9 +182,8 @@
             <div class="layui-input-inline">
                 <select name="missionstate" lay-verify="required">
                     <option value="2" name="headername">待审核</option>
-                    <option value="0" name="headername">已同意</option>
-                    <option value="1" name="headername">已拒绝</option>
-
+                   <%-- <option value="0" name="headername">已同意</option>
+                    <option value="1" name="headername">已拒绝</option>--%>
                 </select>
             </div>
         </div>
@@ -211,12 +210,12 @@
         <textarea placeholder="请输入内容" name="context" class="layui-textarea"></textarea>
     </div>
 </div>
-    <div class="layui-form-item layui-form-text">
+   <%-- <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
             <textarea placeholder="请输入内容" name="remark" class="layui-textarea"></textarea>
         </div>
-    </div>
+    </div>--%>
     <%--<div class="layui-form-item layui-form-text">
         <label class="layui-form-label">编辑器</label>
         <div class="layui-input-block">
@@ -226,7 +225,6 @@
     <div class="layui-form-item">
         <div class="layui-input-block" id="but">
             <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
@@ -402,7 +400,7 @@
                 percentage:data.field.percentage,//任务 进度
                 missionstate:data.field.missionstate,
                 state:data.field.state,
-                remark:data.field.remark,
+                /*remark:data.field.remark,*/
             };
             $.ajax( {
                 url : '<%=basePath%>addMission',
