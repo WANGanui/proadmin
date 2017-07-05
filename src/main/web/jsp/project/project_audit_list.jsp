@@ -185,7 +185,7 @@ function picture_del(obj,projectId,auditId){
     $("#auditState").val(obj);
 	layer.open({
         type: 1,
-        title:"拒绝原因",
+        title:"备注",
         area: ['600px', '360px'],
         content: $('#mark')
     })

@@ -64,7 +64,7 @@
 					<td class="td-time"><fmt:formatDate value="${projectAll.endtime}" pattern="yyyy-MM-dd" /></td>
 					<td>${projectAll.leader}</td>
 					<td class="td-status"><c:if test="${projectAll.state==1}">
-						<span class="label label-success radius">	通过审核 </span>
+						<span class="label label-success radius">	审核完成 </span>
 					</c:if>
 						<c:if test="${projectAll.state==0}">
 							<span class="label radius" style="background-color:red">	待审核</span>
@@ -74,9 +74,6 @@
 						<span class="label radius" style="background-color: #9effff">	审核中</span>
 					</c:if>
 
-						<c:if test="${projectAll.state==3}">
-							<span class="label  radius" style="background-color: #17ff2e">	已经成</span>
-						</c:if>
 					</td>
 
 
