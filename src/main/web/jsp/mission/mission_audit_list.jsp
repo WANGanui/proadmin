@@ -127,8 +127,8 @@
                             </c:if>
                         </td>
                         <td class="td-manage">
-                            <a style="text-decoration:none" class="ml-5 delete" onClick="return picture_del(0,'${mission1.dataid}')" href="javascript:;" title="同意">同意</a>
-                            <a style="text-decoration:none" class="ml-5 update" onClick="return picture_del(1,'${mission1.dataid}')" href="javascript:;" title="拒绝">拒绝</a>
+                            <a style="text-decoration:none" class="ml-5 delete" onClick="return picture_del(0,'${mission1.dataid}',${mission1.state})" href="javascript:;" title="同意">同意</a>
+                            <a style="text-decoration:none" class="ml-5 update" onClick="return picture_del(1,'${mission1.dataid}',${mission1.state})" href="javascript:;" title="拒绝">拒绝</a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -263,7 +263,7 @@
     }
 
     /*图片-删除*/
-    function picture_del(state,id){
+    function picture_del(state,id,mes){
         sta="";
         if(state==0) {
             sta="同意";
@@ -277,7 +277,8 @@
                 var  dataJson={
                     dataId:id,
                     missionState:0,
-                    remark:""
+                    remark:"",
+                    mes:mes
                 }
                 $.ajax( {
                     url : '<%=basePath%>updateState',
@@ -336,7 +337,8 @@ if (remaek.length==0){
         var  dataJson={
             dataId:id,
             missionState:1,
-            remark:remaek
+            remark:remaek,
+            mes:8
         }
         $.ajax( {
             url : '<%=basePath%>updateState',

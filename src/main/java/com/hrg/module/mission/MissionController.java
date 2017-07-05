@@ -95,6 +95,9 @@ logger.info("========================返回结果："+JsonUtil.encode(missions))
              mission.setDataid(map.get("dataId").toString());
              mission.setMissionstate(map.get("missionState").toString());
              mission.setRemark(map.get("remark").toString());
+             if ("0".equals(map.get("mes").toString())){
+                 mission.setState("1");
+             }
              missionService.updateState(mission);
 
              resultMap.put("success",true);
