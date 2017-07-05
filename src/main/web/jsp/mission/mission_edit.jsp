@@ -183,13 +183,13 @@
             <label class="layui-form-label" style="width: 120px">选择流程状态</label>
             <div class="layui-input-inline">
                 <c:if test="${map.mission.state==0}">
-                    <input type="text" class="layui-input" name="state"  value="未开始">
+                    <input type="text" class="layui-input" name="state"  value="0" title="未开始">
                 </c:if>
                 <c:if test="${map.mission.state==1}">
-                    <input type="text" class="layui-input" name="state"  value="进行中">
+                    <input type="text" class="layui-input" name="state"  value="1" title="进行中">
                 </c:if>
                 <c:if test="${map.mission.state==2}">
-                    <input type="text" class="layui-input" name="state"  value="已完成">
+                    <input type="text" class="layui-input" name="state"  value="2" title="已完成">
                 </c:if>
             </div>
         </div>

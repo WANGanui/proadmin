@@ -99,7 +99,6 @@ logger.info("========================返回结果："+JsonUtil.encode(missions))
                  mission.setState("1");
              }
              missionService.updateState(mission);
-
              resultMap.put("success",true);
          }catch (Exception e){
             e.printStackTrace();
