@@ -32,17 +32,7 @@
 <![endif]-->
 
 	<title>项目列表</title>
-<style>
-	textarea{
-		border:0;
-		background-color:transparent;
-		/*scrollbar-arrow-color:yellow;
-        scrollbar-base-color:lightsalmon;
-        overflow: hidden;*/
-		color: #666464;
-		height: auto;
-	}
-</style>
+
 </head>
 <body onload="_onload()">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span class="c-gray en">&gt;</span> 项目列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
