@@ -41,6 +41,9 @@
 <!--/meta 作为公共模版分离出去-->
 
 <title>项目详情</title>
+	<style>
+		table,table tr th, table tr td { border:1px solid #0094ff; }
+	</style>
 </head>
 <body>
 <div class="page-container">
@@ -124,6 +127,40 @@ border-color: #FFFFFF' readonly rows="10">${project.contect}</textarea>
                 <input type="text"  class="input-text" style='border-left:0px;border-top:0px;border-right:0px;border-bottom:1px ' readonly style="width: 300px;" value="${project.progress}" placeholder="" id="progress" name="progress">
             </div>
         </div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">审核详情：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<table>
+					<thead>
+					 <tr>
+						 <th>审核人</th>
+						 <th>审核状态</th>
+						 <th>审核备注</th>
+					 </tr>
+					</thead>
+					<tbody>
+					<c:forEach items="${projectAudits}" var="projectAudit">
+						<tr >
+							<td>${projectAudit.name}</td>
+							<td><c:if test="${projectAudit.auditstate==1}">
+								<span class="label label-success radius">	已同意 </span>
+							</c:if>
+								<c:if test="${projectAudit.auditstate==2}">
+									<span class="label label-success radius">	已拒绝 </span>
+								</c:if>
+								<c:if test="${projectAudit.auditstate==0}">
+									<span class="label radius" style="background-color:red">待审核</span>
+								</c:if></td>
+
+							<td>${projectAudit.remark}</td>
+						</tr>
+
+					</c:forEach>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
 
 
 		<div id="but" class="row cl">

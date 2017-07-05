@@ -41,6 +41,12 @@ public class ProjectController {
     public String selectProject(HttpServletRequest request,String roleid){
         try {
             ProjectCriteria projectCriteria=new ProjectCriteria();
+            List<String> list=new ArrayList<>();
+            list.add("4");
+            list.add("3");
+            list.add("2");
+            list.add("1"); list.add("0");
+            projectCriteria.setStateList(list);
             List<Project> projectList= projectService.selectList(projectCriteria);
 logger.info("=========================================:"+ JsonUtil.encode(projectList));
             List<String> missList = permissionService.selectList("2",roleid);
@@ -188,8 +194,10 @@ logger.info("=================="+result);
             if (projectList.size()>=1){
                 project=projectList.get(0);
             }
-            request.setAttribute("project",project);/*
-            modelAndView.addObject("projectList",projectList);*/
+            request.setAttribute("project",project);
+            List<Map> list= projectService.selectByExample(projectId);
+            request.setAttribute("projectAudits",list);
+            /*modelAndView.addObject("projectList",projectList);*/
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -203,6 +211,7 @@ logger.info("=================="+result);
             Project project=new Project();
             project.setDataid(map.get("contentId").toString());
             project.setState("5");
+            project.setRemark(map.get("remake").toString());
             Worker worker=(Worker) session.getAttribute("worker");
             String creatordataid= worker.getDataid();//创建人ID
             String creator=worker.getName();//创建人
@@ -230,5 +239,58 @@ logger.info("=================="+result);
             e.printStackTrace();
         }
         return "project/project_audit_list";
+    }
+
+
+    @RequestMapping(value = "/updateProjectAuditState")
+    public @ResponseBody Object updateProjectAuditState(@RequestBody Map map,HttpSession session){
+        Map resultMap=new HashMap();
+        try {
+            ProjectAudit projectAudit=new ProjectAudit();
+            projectAudit.setRemark(map.get("remark").toString());
+            projectAudit.setAuditstate(map.get("auditState").toString());
+            projectAudit.setId(Integer.parseInt(map.get("auditId").toString()));
+            projectService.updateByPrimaryKeySelective(projectAudit);
+            Map mapInt=new HashMap();
+            mapInt.put("auditstate","0");
+            mapInt.put("projectid",map.get("projectId").toString());
+            int auditInt= projectService.selectAuditInt(mapInt);
+            Project project=new Project();
+            if (auditInt>0){
+                project.setState("2");
+            }
+            if (auditInt==0){
+                project.setState("1");
+            }
+            project.setDataid(map.get("projectId").toString());
+
+            Worker worker=(Worker) session.getAttribute("worker");
+            String creatordataid= worker.getDataid();//创建人ID
+            String creator=worker.getName();//创建人
+            project.setModify(creator);
+            project.setModifydataid(creatordataid);
+            projectService.update(project);
+            resultMap.put("success",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.put("success",false);
+        }
+        return resultMap;
+    }
+
+    //查询废弃项目列表
+    @RequestMapping(value = "/selectDeleteProject")
+    public String selectDeleteProject(HttpServletRequest request,String roleid){
+        try {
+            ProjectCriteria projectCriteria=new ProjectCriteria();
+
+            projectCriteria.setState("5");
+            List<Project> projectList= projectService.selectList(projectCriteria);
+            logger.info("=========================================:"+ JsonUtil.encode(projectList));
+            request.setAttribute("projectList",projectList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "project/project_delete_list";
     }
 }

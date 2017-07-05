@@ -61,7 +61,6 @@
 					<th width="60">项目负责人</th>
 					<th  width="60">状态</th>
 					<th width="60">项目进度</th>
-					<th width="100">操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -73,29 +72,15 @@
 					<td class="td-time"><fmt:formatDate value="${projectAll.starttime}" pattern="yyyy-MM-dd" /></td>
 					<td class="td-time"><fmt:formatDate value="${projectAll.endtime}" pattern="yyyy-MM-dd" /></td>
 					<td>${projectAll.leader}</td>
-					<td class="td-status"><c:if test="${projectAll.state==1}">
-						<span class="label label-success radius">	通过审核 </span>
-					</c:if>
-						<c:if test="${projectAll.state==0}">
-							<span class="label radius" style="background-color:red">	待审核</span>
-						</c:if>
-
-					<c:if test="${projectAll.state==2}">
-						<span class="label radius" style="background-color: #9effff">	进行中</span>
+					<td class="td-status"><c:if test="${projectAll.state==5}">
+						<span class="label label-success radius">	已废弃 </span>
 					</c:if>
 
-						<c:if test="${projectAll.state==3}">
-							<span class="label  radius" style="background-color: #17ff2e">	已经成</span>
-						</c:if>
 					</td>
 
 
 					<td class="td-time">${projectAll.progress}</td>
-					<td class="td-manage">
-						<%--<a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${project.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-						--%><a style="text-decoration:none" class="ml-5 add" onClick="picture_del('创建任务','${projectAll.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
-							<a style="text-decoration:none" class="ml-5 delete" onClick="picture_delte('删除项目','${projectAll.dataid}')" href="javascript:;" title="删除项目"><i class="Hui-iconfont" style="font-size: 20px;">&#xe6e2;</i></a>
-					</td>
+
 				</tr>
 </c:forEach>
 			</tbody>
