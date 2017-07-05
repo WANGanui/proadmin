@@ -95,7 +95,7 @@
 		<input type="hidden" value="" id="dataId"/>
 		<input type="hidden" value="" id="projectId"/>
 		<input type="hidden" value="" id="auditState" />
-		<label class="form-label col-xs-4 col-sm-4" style="text-align: right"><span class="c-red">*</span>拒绝原因：</label>
+		<label class="form-label col-xs-4 col-sm-4" style="text-align: right"><span class="c-red">*</span>原因：</label>
 		<div class="formControls col-xs-8 col-sm-6">
 			<textarea id="remake" rows="10"cols="25"></textarea>
 		</div>
