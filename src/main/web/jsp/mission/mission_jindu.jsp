@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="<%=basePath%>lib/icheck/icheck.css" />
     <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" href="<%=basePath%>css/layui.css"  media="all">
     <!--[if IE 6]>
     <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
@@ -44,43 +45,33 @@
     </style>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 个人管理 <span class="c-gray en">&gt;</span> 个人工作日志 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 任务管理 <span class="c-gray en">&gt;</span> 任务进度详情 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-    <%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%>
-        <a class="btn btn-primary radius" onclick="picture_add('添加日志','<%=basePath%>workdataADdd')" href="javascript:;">
-            <i class="Hui-iconfont">&#xe600;</i> 添加日志</a>
-       </span>
-    </div>
-    </div>
+    <form class="layui-form layui-form-pane" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="border-bottom-color: #1e66a4;width: auto">任务：${map.mission.name}</label>
+            <label class="layui-form-label" style="margin-left: 20px;border-bottom-color: #1e66a4;width: auto">项目：${map.mission.proname}</label>
+            <label class="layui-form-label" style="margin-left: 20px;border-bottom-color: #1e66a4;width: auto">时间节点：<fmt:formatDate value="${map.mission.starttime}" pattern="yyyy-MM-dd" />&nbsp;-----&nbsp;<fmt:formatDate value="${map.mission.endtime}" pattern="yyyy-MM-dd" /></label>
+        </div>
+    </form>
     <div class="mt-20">
-        <table class="table table-border table-bordered table-bg table-hover table-sort" >
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
             <tr class="text-c">
                 <th width="40">序号</th>
-                <th width="60">项目名称</th>
-                <th width="60">任务名称</th>
+                <th width="60">日期</th>
+                <th width="60">任务人员</th>
                 <th width="200">工作内容</th>
-                <th width="80">日期</th>
-                <th  width="60">项目负责人</th>
-                <th width="100">操作</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${list}" var="data" varStatus="dataIndex">
+            <c:forEach items="${map.workdatas}" var="data" varStatus="dataIndex">
                 <tr class="text-c">
 
                     <td>${dataIndex.index+1}</td>
-                    <td>${data.projectname}</td>
-                    <td>${data.missionname}</td>
-                    <td>${data.workcontext}</td>
-
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
-                    <td>${data.projectleader}</td>
-                    <td class="td-manage">
-                        <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('修改日志','<%=basePath%>editWorkdata?dataid=${data.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
-                    </td>
+                    <td>${data.workername}</td>
+                    <td>${data.workcontext}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -130,7 +121,6 @@
 
     /*案例-查看*/
     function picture_query(title,url){
-        /*alert(url);*/
         var index = layer.open({
             type: 2,
             title: title,

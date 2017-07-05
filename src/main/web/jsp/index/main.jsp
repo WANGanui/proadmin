@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<ul>
 							<c:forEach items="${map.menus}" var="menutwo">
 								 <c:if test="${menutwo.modulepid==menu.datatid}">
-									    <li><a data-href="<%=basePath%>${menutwo.moduleurl}?roleid=${map.roleid}" data-title="${menutwo.modulename}" href="javascript:void(0)">${menutwo.modulename}${permissions.permissionid}</a></li>
+									    <li><a data-href="<%=basePath%>${menutwo.moduleurl}?roleid=${map.roleid}" onclick="_ssow()" data-title="${menutwo.modulename}" href="javascript:void(0)">${menutwo.modulename}${permissions.permissionid}</a></li>
 								 </c:if>
 							</c:forEach>
 					</ul>
@@ -99,16 +99,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
-				<li class="active"><span title="我的桌面" data-href="/jsp/index/welcome.jsp">我的桌面</span><em></em></li>
+				<li class="active"><span title="我的桌面" onclick="_ssow2()" data-href="/jsp/index/testJsp.jsp">我的桌面</span><em></em></li>
 			</ul>
 		</div>
 		<div class="Hui-tabNav-more btn-group"><a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d4;</i></a><a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d7;</i></a></div>
 	</div>
-	<div id="iframe_box" class="Hui-article">
+	<div id="iframe_box" class="Hui-article" style="width: 60%">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="<%=basePath%>worker/selectIndex?dataid=${worker.dataid}"></iframe>
+			<%--<iframe scrolling="yes" frameborder="0" src="<%=basePath%>worker/selectIndex?dataid=${worker.dataid}"></iframe>--%>
+			<iframe scrolling="yes" frameborder="0" src="/jsp/index/testJsp.jsp"></iframe>
 		</div>
+	</div>
+	<div id="iframe_box1"  style="width: 40%;margin-left: 60%;height: 720px;" >
+		<%--<div class="show_iframe"style="height: 720px;">
+			&lt;%&ndash;<div style="display:none" class="loading"></div>
+			<iframe scrolling="yes" frameborder="0" src="<%=basePath%>worker/selectIndex?dataid=${worker.dataid}"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="/jsp/index/demo2.jsp"></iframe>&ndash;%&gt;
+
+		</div>--%>
+		<jsp:include page="demo2.jsp" flush="true"></jsp:include>
 	</div>
 </section>
 
@@ -149,6 +159,13 @@ $(function(){
 	function updatePwe() {
 		layer_show("修改密码","<%=basePath%>jsp/worker/password.jsp",400,300);
 	}
+	function _ssow() {
+		$("#iframe_box1").css({"display":"none"});
+        $("#iframe_box").css({"width":"100%"});
+    }
+function _ssow2() {
+    $("#iframe_box1").css({"display":"block"});
+}
 </script> 
 
 </body>

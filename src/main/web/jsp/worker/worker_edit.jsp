@@ -232,7 +232,7 @@
                 remark:data.field.remark,
             };
             $.ajax( {
-                url : '<%=basePath%>updataWorker',
+                url : '<%=basePath%>worker/updataWorker',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',

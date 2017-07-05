@@ -110,7 +110,7 @@
                             <span class="label label-success radius" style="background-color: #00a0e9">	未开始 </span>
                         </c:if>
                             <c:if test="${mission1.state==1}">
-                                <span class="label label-success radius" style="background-color: #985f0d">进行中</span>
+                                <span class="label label-success radius" style="background-color: #13DAEC">进行中</span>
                             </c:if>
                             <c:if test="${mission1.state==2}">
                                 <span class="label label-success radius">已完成</span>
@@ -129,6 +129,7 @@
                         <td class="td-manage">
                             <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('${mission1.dataid}')" title="删除"><i class="Hui-iconfont" style="font-size: 20px" >&#xe6e2;</i></a>
                             <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('编辑任务','<%=basePath%>/toupdatemission?dataid=${mission1.dataid}')" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
+                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('进度详情','<%=basePath%>/missionjindu?dataid=${mission1.dataid}')" title="进度详情"><i class="Hui-iconfont">&#xe667;</i></a>
                         </td>
                     </tr>
                 </c:forEach>

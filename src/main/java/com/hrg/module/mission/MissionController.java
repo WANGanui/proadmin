@@ -129,10 +129,11 @@ logger.info("========================返回结果："+JsonUtil.encode(missions))
     }
 
     @RequestMapping("/missionAdd")
-    public ModelAndView gotoAdd(){
+    public ModelAndView gotoAdd(HttpSession session){
+        Worker worker = (Worker)session.getAttribute("worker");
         ModelAndView model = new ModelAndView();
         try {
-            List<Project> list = projectService.selectList(new ProjectCriteria());
+            List<Project> list = projectService.selectByWorker(worker.getDataid());
             model.addObject("list",list);
             List<Department> departmentList= departmentService.selectList(new DepartmentCriteria());
             List<Worker> list1 = workerService.selectList(new WorkerCriteria());
@@ -304,5 +305,33 @@ logger.info("========================返回结果："+JsonUtil.encode(missions))
             e.printStackTrace();
         }
         return result;
+    }
+
+    @RequestMapping("/selectPartmentBypro")
+    public @ResponseBody Object selectPartmentBypro(String dataid){
+        Map map = new HashMap();
+        try {
+            List<Department> departmentList = departmentService.selectPartmentBypro(dataid);
+            map.put("partmentList",departmentList);
+            map.put("success",true);
+        } catch (Exception e) {
+            map.put("success",false);
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @RequestMapping("/missionjindu")
+    public ModelAndView missionjindu(String dataid){
+        ModelAndView model = new ModelAndView();
+        Map map = new HashMap();
+        try {
+            map = missionService.selectMissionJindu(dataid);
+            model.addObject("map",map);
+            model.setViewName("mission/mission_jindu");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
     }
 }

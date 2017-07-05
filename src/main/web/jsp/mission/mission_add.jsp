@@ -161,13 +161,12 @@
             </div>
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 130px" >任务人员部门</label>
+    <div class="layui-form-item" style="display: none" id="workerment" >
+        <label class="layui-form-label" style="width: 130px;" >任务人员部门</label>
         <div class="layui-input-block" id="province_ids">
-            <c:forEach items="${partment}" var="item" varStatus="itemIndex1" >
+            <%--<c:forEach items="${partment}" var="item" varStatus="itemIndex1" >
                 <input type="checkbox" class="layui-span-ment" name="ment" value="${item.dataid}" title="${item.name}" >
-            </c:forEach>
-                <button class="layui-btn" id="moren" onclick="return queryTwoBarand()">确认</button>
+            </c:forEach>--%>
 
         </div>
     </div>
@@ -235,6 +234,7 @@
 <script src="<%=basePath%>js/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
+
     function  queryTwoBarand() {
         $("#renyuan").css({"display":"block"});
         var select = document.getElementsByName("ment");
@@ -328,8 +328,36 @@
         var projectid ="";
         form.on('select(project)', function(data){
             // alert(data.value+";"+data.elem[data.elem.selectedIndex].title);
+            $("#province_id").removeClass();
+            $("#workerment").css({"display":"block"})
             projectid = data.value;
             project=data.elem[data.elem.selectedIndex].title;
+            $.ajax({
+                url:'<%=basePath%>selectPartmentBypro?dataid='+projectid,
+                type : 'post',
+                contentType : 'application/json;charset=utf-8',
+                dataType : 'json',
+                success:function (data) {
+                    if(data.success){
+                        var listCarBrand= data.partmentList;
+                        var htm="";
+                        if (listCarBrand!=null){
+                            $("#province_ids").css({"display":"block"});
+                            for(var i = 0; i < listCarBrand.length; i++)
+                            {
+                                var id = listCarBrand[i].dataid;
+                                var name = listCarBrand[i].name;
+                                htm+= "<input type=\"checkbox\" value="+id+" name=\"ment\" style=\"opacity: 1\" title="+name+">";
+                            }
+                            document.getElementById("province_ids").innerHTML=htm+"<button class=\"layui-btn\" id=\"moren\" style='margin-left: 10px' onclick=\"return queryTwoBarand()\">确认</button>";
+                            var form = layui.form();
+                            form.render("checkbox");
+                        }else {
+                            $("#province_ids").css({"display":"none"});
+                        }
+                    }
+                }
+            })
         });
         //监听提交
         form.on('submit(demo1)', function(data){
