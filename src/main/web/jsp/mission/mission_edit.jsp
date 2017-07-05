@@ -176,21 +176,28 @@
         <div class="layui-inline">
             <label class="layui-form-label" style="width: 120px">选择任务状态</label>
             <div class="layui-input-inline">
-                    <input type="text" name="missionstate" class="layui-input" disabled value="2" title="待审核">
+                    <select name="missionstate">
+                        <option value="2" selected>待审核</option>
+                    </select>
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label" style="width: 120px">选择流程状态</label>
             <div class="layui-input-inline">
-                <c:if test="${map.mission.state==0}">
-                    <input type="text" class="layui-input" name="state"  value="0" title="未开始">
-                </c:if>
-                <c:if test="${map.mission.state==1}">
-                    <input type="text" class="layui-input" name="state"  value="1" title="进行中">
-                </c:if>
-                <c:if test="${map.mission.state==2}">
-                    <input type="text" class="layui-input" name="state"  value="2" title="已完成">
-                </c:if>
+                <select name="state" lay-verify="required" lay-search="">
+                    <c:if test="${map.mission.state==0}">
+                        <option value="${map.mission.state}" selected>未开始</option>
+                    </c:if>
+                    <c:if test="${map.mission.state==1}">
+                        <option value="${map.mission.state}" selected>进行中</option>
+                    </c:if>
+                    <c:if test="${map.mission.state==2}">
+                        <option value="${map.mission.state}" selected>已完成</option>
+                    </c:if>
+                    <option value="0">未开始</option>
+                    <option value="1">进行中</option>
+                    <option value="2">已完成</option>
+                </select>
             </div>
         </div>
     </div>
