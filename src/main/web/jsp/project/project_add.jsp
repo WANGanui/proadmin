@@ -65,8 +65,8 @@
 				</select>
 			</div>
 		</div>
-
 		<div class="row cl">
+
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目负责人：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<%--<input type="text" class="input-text" value="${content.contentSummary}" placeholder="" id="contentSummary" name="contentSummary">--%>
@@ -89,7 +89,7 @@
 			</div>
 		</div>--%>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分配人员部门：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>审核人部门：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<select id="province_ids" name="province_ids" multiple="multiple" size="10" style="width: 150px;" onchange="queryTwoBarand()">
 					<option value="0" selected="">选择部门</option>
@@ -107,13 +107,41 @@
 
 
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分配人员：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择审核人：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 
 				<select id="province_id" name="province_id" multiple="multiple" size="10" style="width: 150px;">
-					<option value="0" selected="">选择人员</option>
+					<option value="0" selected="">选择审核人</option>
 
 				</select>
+			</div>
+		</div>
+
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>最终审核人：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+
+				<select id="auditorid" name="auditorid" readonly="readonly" multiple="multiple" size="5" style="width: 150px;">
+
+				</select>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目参与部门：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<select id="projectDept" name="projectDept" multiple="multiple" size="10" style="width: 150px;" onchange="queryTwoBarand()">
+					<option value="0" selected="">选择部门</option>
+					<c:forEach items="${departmentList}" var="department">
+						<option value="${department.dataid}">${department.name}</option>
+					</c:forEach>
+				</select>
+				<%--
+                                <select id="province_id" name="province_id" multiple="multiple" size="10" style="width: 150px;">
+                                    <option value="0" selected="">选择人员</option>
+
+                                </select>--%>
 			</div>
 		</div>
 
@@ -183,9 +211,29 @@
 </script>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript">
-function article_save(){
-	window.parent.location.reload();
+function article_save(id,name){
+	alert("1");
 }
+$("#province_id").change(function(){
+    var opt=$("#province_id option:selected").val();
+    if (opt==0){
+
+	}else {
+        var optname=$("#province_id option:selected").text();
+        $("#auditorid").append("<option value='"+opt+"'>"+optname+"</option>");
+	}
+  //  $("#select_id option[value='3']").remove()
+});
+$("#auditorid").change(function(){
+    var opt=$("#auditorid option:selected").val("删除");
+    var checkIndex=$("#auditorid").get(0).selectedIndex;
+   // alert(checkIndex);
+    //$("#auditorid option[index='0']").val("删除");
+
+     $("#auditorid option[value='删除']").remove();
+});
+
+
 /***
  * 项目负责人
  */
@@ -263,7 +311,8 @@ function  queryTwoBarand() {
 
 					var id = listCarBrand[i].dataid;
 					var name = listCarBrand[i].name;
-					select.options.add(new Option(name,id));
+					//select.options.add(new Option(name,id));
+                    $("#province_id").append("<option value='"+id+"'>"+name+"</option>");
 				}
 			} else {
 			}
@@ -310,28 +359,41 @@ function article_save_submit() {
         return false;
     }
 
-    var select = document.getElementById("province_id");
-    var province_id="";
-    var province_name="";
+    var select = document.getElementById("projectDept");
+    var projectDeptId="";
     for(i=0;i<select.length;i++){
-        var members=new Array();
         if(select.options[i].selected){
-            if (province_id==""){
-                province_id=select[i].value;
-                province_name=select[i].text;
+            if (projectDeptId==""){
+                projectDeptId=select[i].value;
 
             }else{
-                if(province_id==0){
-                    layer.msg('人员选择错误');
-                    return false;
-                }
-                province_id=province_id+","+select[i].value;
-                province_name=province_name+","+select[i].text;
+                projectDeptId=projectDeptId+","+select[i].value;
             }
         }
     }
-    var member=province_id+"+"+province_name;
+    var member="";
+    var txt="";
+    $("#auditorid option").each(function(){ //遍历全部option
+	if (txt == ""){
+        //获取option的内容
 
+            txt= $(this).val();
+
+	}else{
+        //获取option的内容
+
+            txt=txt+","+$(this).val();
+
+	}
+
+
+		 });
+    if (txt==""){
+        layer.msg('请选择审核人' ,{time: 2000, icon:5});
+	}
+    if (projectDeptId==""){
+        layer.msg('请选择参与部门' ,{time: 2000, icon:5});
+    }
     var dataJson = {
         name:contentTitle,//项目名称
         leaderid:departmentId,//项目负责人
@@ -340,7 +402,9 @@ function article_save_submit() {
         starttime:startTime,//项目开始时间
         endtime:endTime,//项目结束时间
         contect:contect,//项目描述
-        progress:progress//项目 进度
+        progress:progress,//项目 进度
+        departmentid:projectDeptId,//参与部门
+        auditorid:txt//审核人
     };
     $.ajax( {
         url : '<%=basePath%>addProject',

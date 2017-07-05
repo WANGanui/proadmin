@@ -50,7 +50,7 @@
 	<c:forEach items="${roles}" var="list">
 		<input type="hidden" id="${list}" value="${list}">
 	</c:forEach>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%><%--<a class="btn btn-primary radius add" onclick="picture_add('新建项目','/projectAdd')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新建项目</a>  --%><%--<a class="btn btn-primary radius" onclick="picture_query('精选案例','getAllContentPickup.do?contentType=2')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i> 查看精选案例</a>--%></span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%><%--<a class="btn btn-primary radius add" onclick="picture_add('新建项目','/projectAdd')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新建项目</a> --%> <%--<a class="btn btn-primary radius" onclick="picture_query('精选案例','getAllContentPickup.do?contentType=2')" href="javascript:;"><i class="Hui-iconfont">&#xe695;</i> 查看精选案例</a>--%></span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort">
 			<thead>
@@ -74,19 +74,14 @@
 					<td class="td-time"><fmt:formatDate value="${projectAll.starttime}" pattern="yyyy-MM-dd" /></td>
 					<td class="td-time"><fmt:formatDate value="${projectAll.endtime}" pattern="yyyy-MM-dd" /></td>
 					<td>${projectAll.leader}</td>
-					<td class="td-status"><c:if test="${projectAll.state==1}">
-						<span class="label label-success radius">	通过审核 </span>
+					<td class="td-status"><c:if test="${projectAll.auditstate==1}">
+						<span class="label label-success radius">	已同意 </span>
 					</c:if>
-						<c:if test="${projectAll.state==0}">
-							<span class="label radius" style="background-color:red">	待审核</span>
+						<c:if test="${projectAll.auditstate==2}">
+							<span class="label label-success radius">	已拒绝 </span>
 						</c:if>
-
-					<c:if test="${projectAll.state==2}">
-						<span class="label radius" style="background-color: #9effff">	进行中</span>
-					</c:if>
-
-						<c:if test="${projectAll.state==3}">
-							<span class="label  radius" style="background-color: #17ff2e">	已经成</span>
+						<c:if test="${projectAll.auditstate==0}">
+							<span class="label radius" style="background-color:red">待审核</span>
 						</c:if>
 					</td>
 
@@ -94,8 +89,8 @@
 					<td class="td-time">${projectAll.progress}</td>
 					<td class="td-manage">
 						<%--<a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${project.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-						--%><a style="text-decoration:none" class="ml-5 add" onClick="picture_del('创建任务','${projectAll.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
-							<a style="text-decoration:none" class="ml-5 delete" onClick="picture_delte('删除项目','${projectAll.dataid}')" href="javascript:;" title="删除项目"><i class="Hui-iconfont" style="font-size: 20px;">&#xe6e2;</i></a>
+						--%><a style="text-decoration:none" class="ml-5 add" onClick="picture_del('0','${projectAll.dataid}')" href="javascript:;" title="同意">同意</a>
+							<a style="text-decoration:none" class="ml-5 delete" onClick="picture_delte('1','${projectAll.dataid}')" href="javascript:;" title="拒绝">拒绝</a>
 					</td>
 				</tr>
 </c:forEach>
@@ -172,99 +167,14 @@ function picture_show(title,url,id){
 	});
 	layer.full(index);
 }
-/*图片-审核*/
-function picture_shenhe(obj,id){
-	layer.confirm('审核文章？', {
-		btn: ['通过','不通过'], 
-		shade: false
-	},
-	function(){
-		$(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="picture_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-		$(obj).remove();
-		layer.msg('已发布', {icon:6,time:1000});
-	},
-	function(){
-		$(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="picture_shenqing(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
-		$(obj).remove();
-    	layer.msg('未通过', {icon:5,time:1000});
-	});	
-}
-/*图片-下架*/
-function picture_stop(obj,id){
-	layer.confirm('确认要下架吗？',function(index){
 
-		var  dataJson={
-			status:0,
-			modular:"update",
-			contentId:id
-		}
-
-		$.ajax( {
-			url : 'updateStatusOrDeleteByContent.do',
-			type : 'post',
-			contentType : 'application/json;charset=utf-8',
-			dataType : 'json',
-			data : JSON.stringify(dataJson),
-			success : function(data) {
-				if (data.success) {
-					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="picture_start(this,'+id+')" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
-					$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
-					$(obj).remove();
-					layer.msg('已下架!',{icon: 5,time:1000});
-				} else {
-
-				}
-			}
-		});
-
-
-
-	});
-}
-
-/*图片-发布*/
-function picture_start(obj,id){
-	layer.confirm('确认要发布吗？',function(index){
-		var  dataJson={
-			status:1,
-			modular:"update",
-			contentId:id
-		}
-		$.ajax( {
-			url : 'updateStatusOrDeleteByContent.do',
-			type : 'post',
-			contentType : 'application/json;charset=utf-8',
-			dataType : 'json',
-			data : JSON.stringify(dataJson),
-			success : function(data) {
-                    if (data.success) {
-					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick=picture_stop(this,'+id+') href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
-					$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-					$(obj).remove();
-					layer.msg('已发布!',{icon: 6,time:1000});
-				} else {
-
-				}
-			}
-		});
-
-	});
-}
-/*图片-申请上线*/
-function picture_shenqing(obj,id){
-	$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
-	$(obj).parents("tr").find(".td-manage").html("");
-	layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
-}
 /*图片-编辑*/
 function queryDetaila(id) {
 
 	var index = layer.open({
 		type: 2,
 		title: "项目详情",
-		content: "<%=basePath%>selectProjectDeatil?projectId="+id
+		content: "selectProjectDeatil?projectId="+id
 	});
 	layer.full(index);
 
@@ -279,7 +189,7 @@ function picture_delte(obj,id){
 			contentId:id
 		}
 		$.ajax( {
-			url : '<%=basePath%>deleteProject',
+			url : 'deleteProject',
 			type : 'post',
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json',
@@ -306,7 +216,7 @@ function picture_del(obj,id){
         var index = layer.open({
             type: 2,
             title: "创建任务",
-            content: "<%=basePath%>missionAdd"
+            content: "missionAdd"
         });
         layer.full(index);
 		/*	var  dataJson={

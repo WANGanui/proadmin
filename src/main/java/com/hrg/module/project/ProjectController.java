@@ -77,17 +77,27 @@ logger.info("=========================================:"+ JsonUtil.encode(projec
            String creator=worker.getName();//创建人
            project.setCreatordataid(creatordataid);
            project.setCreator(creator);
-           String[] memberIdName=project.getMember().split("[+]");
-           String[] meberIds=memberIdName[0].split(",");
-           String[] meberNames=memberIdName[1].split(",");
-           List<WorkerRelProject> mapList=new ArrayList<>();
-           for (int i = 0; i < meberIds.length; i++) {
-               WorkerRelProject workerRelProject=new WorkerRelProject();
-               workerRelProject.setWorkerdataid(meberIds[i]);
-               workerRelProject.setWorkername(meberNames[i]);
-               mapList.add(workerRelProject);
+           project.setAuditprogress("0");
+
+           String auditorIds= project.getAuditorid();//审核人
+           String[] auditorId=auditorIds.split(",");
+           List<ProjectAudit> projectAudits=new ArrayList<>();
+           for (int i = 0; i < auditorId.length; i++) {
+               ProjectAudit projectAudit=new ProjectAudit();
+               projectAudit.setAuditorid(auditorId[i]);
+               projectAudit.setAuditstate("0");
+               projectAudit.setOrderid(i);
+               projectAudits.add(projectAudit);
            }
-           projectService.insert(project,mapList);
+           String departmentId=project.getDepartmentid();//参与部门
+           String[] departmentIds=departmentId.split(",");
+           List<ProjectRelDepartment> projectRelDepartments=new ArrayList<>();
+           for (int i = 0; i < departmentIds.length; i++) {
+               ProjectRelDepartment projectRelDepartment=new ProjectRelDepartment();
+               projectRelDepartment.setDepartmentid(departmentIds[i]);
+               projectRelDepartments.add(projectRelDepartment);
+           }
+           projectService.insert(project,projectAudits,projectRelDepartments);
            result.put("success",true);
        }catch (Exception e){
            result.put("success",false);
@@ -137,7 +147,6 @@ logger.info("=================="+result);
        }
         return resultMap;
     }
-
 
     //查询项目进度详情
     @RequestMapping(value = "/projectDetail")
@@ -207,5 +216,19 @@ logger.info("=================="+result);
             resultMap.put("success",false);
         }
         return resultMap;
+    }
+
+    @RequestMapping(value = "/selectProjectAudit")
+    public String selectProjectAudit(HttpSession session,HttpServletRequest request,String roleid){
+        Worker worker=(Worker) session.getAttribute("worker");
+        String auditId= worker.getDataid();//创建人ID
+        try {
+            List<String> missList = permissionService.selectList("2",roleid);
+            request.setAttribute("roles",missList);
+            request.setAttribute("projectList",projectService.selectProjectAudit(auditId));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "project/project_audit_list";
     }
 }
