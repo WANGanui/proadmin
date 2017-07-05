@@ -71,7 +71,7 @@
 						</c:if>
 
 					<c:if test="${projectAll.state==2}">
-						<span class="label radius" style="background-color: #9effff">	进行中</span>
+						<span class="label radius" style="background-color: #9effff">	审核中</span>
 					</c:if>
 
 						<c:if test="${projectAll.state==3}">
