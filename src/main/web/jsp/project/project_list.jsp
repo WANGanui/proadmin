@@ -231,6 +231,10 @@ function picture_del(obj,id){
 
     });
 }
+$(".paginate_button").click(function () {
+        _onload();
+    }
+)
 </script>
 
 </body>

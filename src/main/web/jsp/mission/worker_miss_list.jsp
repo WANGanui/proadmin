@@ -163,7 +163,7 @@
                     <tr class="text-c">
 
                         <td>${missionIndex2.index+1}</td>
-                        <td onclick="picture_query('任务详情','<%=basePath%>missionDetail?dataid=${mission1.dataid}')" style="text-decoration:underline">${mission2.name}</td>
+                        <td onclick="picture_query('任务详情','<%=basePath%>missionDetail?dataid=${mission2.dataid}')" style="text-decoration:underline">${mission2.name}</td>
                         <td>${mission2.context}</td>
                         <td class="td-time"><fmt:formatDate value="${mission2.starttime}" pattern="yyyy-MM-dd" /></td>
                         <td class="td-time"><fmt:formatDate value="${mission2.endtime}" pattern="yyyy-MM-dd" /></td>

@@ -277,6 +277,10 @@
 
         });
     }
+    $(".paginate_button").click(function () {
+            _onload();
+        }
+    )
 </script>
 
 </body>

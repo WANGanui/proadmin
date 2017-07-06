@@ -83,7 +83,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<ul>
 							<c:forEach items="${map.menus}" var="menutwo">
 								 <c:if test="${menutwo.modulepid==menu.datatid}">
-									    <li><a data-href="<%=basePath%>${menutwo.moduleurl}?roleid=${map.roleid}" onclick="_ssow()" data-title="${menutwo.modulename}" href="javascript:void(0)">${menutwo.modulename}${permissions.permissionid}</a></li>
+									    <li><a data-href="<%=basePath%>${menutwo.moduleurl}?roleid=${map.roleid}" onclick="_ssow()" data-title="${menutwo.modulename}" href="javascript:void(0)">${menutwo.modulename}${permissions.permissionid}
+											<c:if test="${menutwo.datatid==19}">
+												<span style="font-size: 15px;color: red;margin-left: 20px">${map.auditmission}</span>
+											</c:if>
+											<c:if test="${menutwo.datatid==20}">
+												<span style="font-size: 15px;color: red;margin-left: 20px">${map.auditproject}</span>
+											</c:if>
+											<c:if test="${menutwo.datatid==9}">
+												<span style="font-size: 15px;color: red;margin-left: 20px">${map.workermission}</span>
+											</c:if>
+										</a>
+										</li>
 								 </c:if>
 							</c:forEach>
 					</ul>

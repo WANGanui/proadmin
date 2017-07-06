@@ -1,9 +1,6 @@
 package com.hrg.module.workdata;
 
-import com.hrg.model.Project;
-import com.hrg.model.Workdata;
-import com.hrg.model.WorkdataCriteria;
-import com.hrg.model.Worker;
+import com.hrg.model.*;
 import com.hrg.service.MissionService;
 import com.hrg.service.ProjectService;
 import com.hrg.service.WorkDataService;
@@ -80,6 +77,10 @@ public class WorkdataController {
         Worker worker = (Worker) session.getAttribute("worker");
         try {
             List<Project> projectList = projectService.selectByWorker(worker.getDataid());
+            MissionCriteria missionCriteria = new MissionCriteria();
+            missionCriteria.setHeaderid(worker.getDataid());
+            List<Mission> missionList = missionService.selectList(missionCriteria);
+            model.addObject("mission",missionList);
             model.addObject("projects",projectList);
             model.setViewName("workdata/data_add");
         } catch (Exception e) {

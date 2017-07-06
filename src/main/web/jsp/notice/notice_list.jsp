@@ -25,12 +25,12 @@
     <link rel="stylesheet" type="text/css" href="<%=basePath%>lib/icheck/icheck.css" />
     <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/css/style.css" />
+    <script src="<%=basePath%>jsp/role.js"></script>
     <!--[if IE 6]>
     <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
-    <script src="<%=basePath%>jsp/role.js">
+
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-
     <title>项目列表</title>
     <style>
         textarea{
@@ -47,7 +47,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="_onload()">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 公告管理 <span class="c-gray en">&gt;</span> 公告列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <c:forEach items="${roles}" var="list">
@@ -282,6 +282,10 @@
             });
         });
     }
+    $(".paginate_button").click(function () {
+            _onload();
+        }
+    )
 </script>
 
 </body>

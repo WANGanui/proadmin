@@ -190,6 +190,10 @@ function picture_del(obj,projectId,auditId){
         content: $('#mark')
     })
 }
+$(".paginate_button").click(function () {
+        _onload();
+    }
+)
 </script>
 
 </body>

@@ -83,6 +83,9 @@ document.ready(function () {
     <div class="layui-form-item">
         <label class="layui-form-label">选择任务</label>
         <div class="layui-input-block" id="province_id">
+            <c:forEach items="${mission}" var="miss" varStatus="projectIndex">
+                <input type="checkbox" value="${miss.dataid}" name="missionname" lay-filter="dddd" title="${miss.name}">
+            </c:forEach>
 
         </div>
     </div>
@@ -99,7 +102,7 @@ document.ready(function () {
         </div>
     </div>--%>
     <div class="layui-form-item">
-        <div class="layui-input-block">
+        <div class="layui-input-block" id="btn">
             <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
@@ -181,6 +184,7 @@ document.ready(function () {
             /*layer.alert(JSON.stringify(data.field+project+projectid), {
                 title: '最终的提交信息'
             })*/
+            $("#btn").css({"display":"none"});
             var select = document.getElementsByName("missionname");
             var province_id="";
             var  province_name="";
@@ -225,6 +229,9 @@ document.ready(function () {
             });
             return false;
         });
+       /* form.on('checkbox(dddd)',function (data) {
+            
+        })*/
         form.on('select(sele)', function(data){
             var dataJson = {
                 dataid:data.value

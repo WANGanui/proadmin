@@ -129,6 +129,9 @@
                         <td class="td-manage">
                             <a style="text-decoration:none" class="ml-5 delete" onClick="return picture_del(0,'${mission1.dataid}',${mission1.state})" href="javascript:;" title="同意">同意</a>
                             <a style="text-decoration:none" class="ml-5 update" onClick="return picture_del(1,'${mission1.dataid}',${mission1.state})" href="javascript:;" title="拒绝">拒绝</a>
+                            <c:if test="${mission1.state==2}">
+                                <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('进度详情','<%=basePath%>/missionjindu?dataid=${mission1.dataid}')" title="进度详情"><i class="Hui-iconfont">&#xe667;</i></a>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>
@@ -356,6 +359,10 @@ if (remaek.length==0){
             }
         });
     }
+    $(".paginate_button").click(function () {
+            _onload();
+    }
+    )
 </script>
 
 </body>
