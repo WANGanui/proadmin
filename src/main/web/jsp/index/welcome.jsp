@@ -10,198 +10,544 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <!--[if lt IE 9]>
-    <script type="text/javascript" src="<%=basePath%>lib/html5.js"></script>
-    <script type="text/javascript" src="<%=basePath%>lib/respond.min.js"></script>
-    <script type="text/javascript" src="<%=basePath%>lib/PIE_IE678.js"></script>
-    <![endif]-->
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui/css/H-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/css/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>lib/Hui-iconfont/1.0.7/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>lib/icheck/icheck.css" />
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/skin/default/skin.css" id="skin" />
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>static/h-ui.admin/css/style.css" />
-    <!--[if IE 6]>
-    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
-    <script src="<%=basePath%>jsp/role.js">
-        <script>DD_belatedPNG.fix('*');</script>
-    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>项目列表</title>
-    <style>
-        textarea{
-            border:0;
-            background-color:transparent;
-            /*scrollbar-arrow-color:yellow;
-            scrollbar-base-color:lightsalmon;
-            overflow: hidden;*/
-            color: #666464;
-            height: auto;
-        }
-        .Hui-iconfont{
-            font-size: 20px;
-        }
-        #table2_filter{
-            display: none!important;
-        }
-        #table2_length label{
-            display: none!important;
-        }
-        #DataTables_Table_0_filter{
-            display: none!important;
-        }
-        #DataTables_Table_0_length label{
-            display: none!important;
-        }
-        #DataTables_Table_0_paginate{
-            display: none!important;
-        }
-    </style>
+
+    <title>H+ 后台主题UI框架 - 首页示例二</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="<%=basePath%>css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="<%=basePath%>css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Morris -->
+    <link href="<%=basePath%>css/morris-0.4.3.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="<%=basePath%>js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="<%=basePath%>css/animate.min.css" rel="stylesheet">
+    <link href="<%=basePath%>css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
 </head>
-<body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 我的桌面   <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
-<div class="page-container">
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right">月</span>
+                    <h5>任务</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">40</h1>
+                    <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i>
+                    </div>
+                    <small>数量</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">全年</span>
+                    <h5>项目</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">275</h1>
+                    <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>新项目</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">今天</span>
+                    <h5>访客</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">106</h1>
+                    <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>新访客</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">最近一个月</span>
+                    <h5>活跃用户</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">800</h1>
+                    <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
+                    </div>
+                    <small>07月</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>订单</h5>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-xs btn-white active">天</button>
+                            <button type="button" class="btn btn-xs btn-white">月</button>
+                            <button type="button" class="btn btn-xs btn-white">年</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="flot-chart">
+                                <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <ul class="stat-list">
+                                <li>
+                                    <h2 class="no-margins">346</h2>
+                                    <small>项目总数</small>
+                                    <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 48%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="no-margins ">422</h2>
+                                    <small>最近一个月任务</small>
+                                    <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 60%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="no-margins ">180</h2>
+                                    <small>最近一个月项目</small>
+                                    <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 22%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
-    <div class="mt-20">
-        <table class="table table-border table-bordered table-bg table-hover table-sort">
-            <thead>
-            <tr class="text-c">
-                <th width="40">序号</th>
-                <th width="60">公告标题</th>
-                <th width="200">公告内容</th>
-                <th width="80">发布人</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${map.notice}" var="notice" varStatus="noticeIndex">
-                <tr class="text-c">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>消息</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content ibox-heading">
+                    <h3><i class="fa fa-envelope-o"></i> 新消息</h3>
+                    <small><i class="fa fa-tim"></i> 您有22条未读消息</small>
+                </div>
+                <div class="ibox-content">
+                    <div class="feed-activity-list">
 
-                    <td>${noticeIndex.index+1}</td>
-                    <td>${notice.title}</td>
-                    <td>${notice.context}</td>
-                    <td>${notice.worker}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                        <div class="feed-element">
+                            <div>
+                                <small class="pull-right text-navy">1天前</small>
+                                <strong>吃火锅</strong>
+                                <div>晚上吃火锅</div>
+                                <small class="text-muted">4月11日 00:00</small>
+                            </div>
+                        </div>
+
+                        <div class="feed-element">
+                            <div>
+                                <small class="pull-right">1天前</small>
+                                <strong>马伯庸 </strong>
+                                <div>又方便，又防水，手感又好，还可以用手机遥控。简直是拍戏利器，由其是跟老师们搭戏的时候…想想还有点小激动啊，嘿嘿。</div>
+                                <small class="text-muted">11月8日 20:08 </small>
+                            </div>
+                        </div>
+
+                        <div class="feed-element">
+                            <div>
+                                <small class="pull-right">1天前</small>
+                                <strong>芒果宓 </strong>
+                                <div>一个完整的梦。</div>
+                                <small class="text-muted">11月8日 20:08 </small>
+                            </div>
+                        </div>
+
+                        <div class="feed-element">
+                            <div>
+                                <small class="pull-right">1天前</small>
+                                <strong>刺猬尼克索</strong>
+                                <div>哈哈哈哈 你卖什么萌啊! 蠢死了</div>
+                                <small class="text-muted">11月8日 20:08 </small>
+                            </div>
+                        </div>
+
+
+                        <div class="feed-element">
+                            <div>
+                                <small class="pull-right">1天前</small>
+                                <strong>老刀99</strong>
+                                <div>昨天评论里你见过最“温暖和感人”的诗句，整理其中经典100首，值得你收下学习。</div>
+                                <small class="text-muted">11月8日 20:08 </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>项目列表</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                <thead>
+                                <tr>
+                                    <th>状态</th>
+                                    <th>日期</th>
+                                    <th>项目</th>
+                                    <th>进度</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 24%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="label label-warning">已取消</span>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 66%</td>
+                                </tr>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 54%</td>
+                                </tr>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 12%</td>
+                                </tr>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 22%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="label label-primary">已完成</span>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 66%</td>
+                                </tr>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 23%</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>任务列表</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                <thead>
+                                <tr>
+                                    <th>状态</th>
+                                    <th>日期</th>
+                                    <th>任务</th>
+                                    <th>进度</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 24%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="label label-warning">已取消</span>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 66%</td>
+                                </tr>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 54%</td>
+                                </tr>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 12%</td>
+                                </tr>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 22%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="label label-primary">已完成</span>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 66%</td>
+                                </tr>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
+                                    <td>南川项目</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 23%</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>业务地区</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <table class="table table-hover margin bottom">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 1%" class="text-center">序号</th>
+                                            <th>地区</th>
+                                            <th class="text-center">日期</th>
+                                            <th class="text-center">业务量</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center">1</td>
+                                            <td>重庆
+                                                </small>
+                                            </td>
+                                            <td class="text-center small">2017.9</td>
+                                            <td class="text-center"><span class="label label-primary">483</span>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">2</td>
+                                            <td>天津
+                                            </td>
+                                            <td class="text-center small">2017.9</td>
+                                            <td class="text-center"><span class="label label-primary">327</span>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">3</td>
+                                            <td>河南
+                                            </td>
+                                            <td class="text-center small">2017.9</td>
+                                            <td class="text-center"><span class="label label-warning">125</span>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">4</td>
+                                            <td>哈尔滨</td>
+                                            <td class="text-center small">2017.9</td>
+                                            <td class="text-center"><span class="label label-primary">344</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div id="" style="height: 300px;">
+                                        <jsp:include page="demo2.jsp"></jsp:include>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<div class="page-container">
-    <div id="div2" class="mt-20">
-        <table class="table table-border table-bordered table-bg table-hover table-sort" id="table2">
-            <thead>
-            <tr class="text-c">
-                <th width="40">序号</th>
-                <th width="60">任务名称</th>
-                <th width="80">开始时间</th>
-                <th width="80">计划结束时间</th>
-                <th  width="60">项目名称</th>
-                <th width="60">完成百分比</th>
-                <th width="60">任务比重</th>
-                <th width="60">创建人</th>
-                <th width="60">审核人</th>
-                <th width="60">责任人</th>
-                <th width="60">类型</th>
-                <th width="60">项目阶段</th>
-                <th width="60">流程状态</th>
-                <th width="60">任务状态</th>
-            </tr>
-            </thead>
 
-            <tbody>
-            <c:forEach items="${map.mission}" var="mission2" varStatus="missionIndex2">
-                <tr class="text-c">
-
-                    <td>${missionIndex2.index+1}</td>
-                    <td onclick="picture_query('任务详情','<%=basePath%>missionDetail?dataid=${mission2.dataid}')" style="text-decoration:underline">${mission2.name}</td>
-                    <td class="td-time"><fmt:formatDate value="${mission2.starttime}" pattern="yyyy-MM-dd" /></td>
-                    <td class="td-time"><fmt:formatDate value="${mission2.endtime}" pattern="yyyy-MM-dd" /></td>
-                    <td>${mission2.proname}</td>
-                    <td>${mission2.percentage}</td>
-                    <td>${mission2.proportion}</td>
-                    <td>${mission2.creator}</td>
-                    <td>${mission2.auditorname}</td>
-                    <td>${mission2.headername}</td>
-                    <td class="td-status"><c:if test="${mission2.type==0}">
-                        <span class="label label-success radius">	项目任务 </span>
-                    </c:if>
-                        <c:if test="${mission2.type==1}">
-                            <span class="label label-success radius">个人任务</span>
-                        </c:if>
-                    </td>
-                    <td class="td-status">
-                        <span class="label label-success radius">${mission2.level}</span>
-                    </td>
-                    <td class="td-status"><c:if test="${mission2.state==0}">
-                        <span class="label label-success radius" style="background-color: #00a0e9">	未开始 </span>
-                    </c:if>
-                        <c:if test="${mission2.state==1}">
-                            <span class="label label-success radius" style="background-color: #985f0d">进行中</span>
-                        </c:if>
-                        <c:if test="${mission2.state==2}">
-                            <span class="label label-success radius">已完成</span>
-                        </c:if>
-                    </td>
-                    <td class="td-status"><c:if test="${mission2.missionstate==0}">
-                        <span class="label label-success radius">	已同意 </span>
-                    </c:if>
-                        <c:if test="${mission2.missionstate==1}">
-                            <span class="label label-success radius" style="background-color: #985f0d">已拒绝</span>
-                        </c:if>
-                        <c:if test="${mission2.missionstate==2}">
-                            <span class="label label-success radius" style="background-color: #00a0e9">待审核</span>
-                        </c:if>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-</div>
-</div>
-<script type="text/javascript" src="<%=basePath%>lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
-<script type="text/javascript" src="<%=basePath%>lib/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="<%=basePath%>lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="<%=basePath%>static/h-ui/js/H-ui.js"></script>
-<script type="text/javascript" src="<%=basePath%>static/h-ui.admin/js/H-ui.admin.js"></script>
-<script type="text/javascript" src="<%=basePath%>static/h-ui/js/ZeroClipboard.js"></script><%--
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.min.js" ></script>--%>
-<script type="text/javascript">
-    function  obj(id) {
-        var clip = new ZeroClipboard.Client();
-        ZeroClipboard.setMoviePath("ZeroClipboard.swf");
-        clip.setHandCursor(true);
-        clip.setText("http://www.5cpr.com/mobile/share.do?id="+id+"&type=2");
-        clip.addEventListener('complete', function (client) {
-            layer.msg('复制成功', {time: 2000, icon: 6});
-        });
-        clip.glue('J_copy_clipboard_data'+id);
-    }
+<script src="<%=basePath%>js/jquery.min.js?v=2.1.4"></script>
+<script src="<%=basePath%>js/bootstrap.min.js?v=3.3.6"></script>
+<script src="<%=basePath%>js/plugins/flot/jquery.flot.js"></script>
+<script src="<%=basePath%>js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="<%=basePath%>js/plugins/flot/jquery.flot.spline.js"></script>
+<script src="<%=basePath%>js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="<%=basePath%>js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="<%=basePath%>js/plugins/flot/jquery.flot.symbol.js"></script>
+<script src="<%=basePath%>js/plugins/peity/jquery.peity.min.js"></script>
+<script src="<%=basePath%>js/demo/peity-demo.min.js"></script>
+<script src="<%=basePath%>js/content.min.js?v=1.0.0"></script>
+<script src="<%=basePath%>js/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="<%=basePath%>js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="<%=basePath%>js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<script src="<%=basePath%>js/plugins/easypiechart/jquery.easypiechart.js"></script>
+<script src="<%=basePath%>js/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="<%=basePath%>js/demo/sparkline-demo.min.js"></script>
+<script>
+    $(document).ready(function(){$(".chart").easyPieChart(
+        {barColor:"#f8ac59",scaleLength:5,lineWidth:4,size:80});
+    $(".chart2").easyPieChart({barColor:"#1c84c6",scaleLength:5,lineWidth:4,size:80});
+    var data2=[
+        [gd(2012,1,1),7],
+        [gd(2012,1,2),6],
+        [gd(2012,1,3),4],
+        [gd(2012,1,4),8],
+        [gd(2012,1,5),9],
+        [gd(2012,1,6),7],
+        [gd(2012,1,7),5],
+        [gd(2012,1,8),4],
+        [gd(2012,1,9),7],
+        [gd(2012,1,10),8],
+        [gd(2012,1,11),9],
+        [gd(2012,1,12),6],
+        [gd(2012,1,13),4],
+        [gd(2012,1,14),5],
+        [gd(2012,1,15),11],
+        [gd(2012,1,16),8],
+        [gd(2012,1,17),8],
+        [gd(2012,1,18),11],
+        [gd(2012,1,19),11],
+        [gd(2012,1,20),6],
+        [gd(2012,1,21),6],
+        [gd(2012,1,22),8],
+        [gd(2012,1,23),11],
+        [gd(2012,1,24),13],
+        [gd(2012,1,25),7],
+        [gd(2012,1,26),9],
+        [gd(2012,1,27),9],
+        [gd(2012,1,28),8],
+        [gd(2012,1,29),5],
+        [gd(2012,1,30),8],
+        [gd(2012,1,31),25]];
+    var data3=[
+        [gd(2012,1,1),800],
+        [gd(2012,1,2),500],
+        [gd(2012,1,3),600],
+        [gd(2012,1,4),700],
+        [gd(2012,1,5),500],
+        [gd(2012,1,6),456],
+        [gd(2012,1,7),800],
+        [gd(2012,1,8),589],
+        [gd(2012,1,9),467],
+        [gd(2012,1,10),876],
+        [gd(2012,1,11),689],
+        [gd(2012,1,12),700],
+        [gd(2012,1,13),500],
+        [gd(2012,1,14),600],
+        [gd(2012,1,15),700],
+        [gd(2012,1,16),786],
+        [gd(2012,1,17),345],
+        [gd(2012,1,18),888],
+        [gd(2012,1,19),888],
+        [gd(2012,1,20),888],
+        [gd(2012,1,21),987],
+        [gd(2012,1,22),444],
+        [gd(2012,1,23),999],
+        [gd(2012,1,24),567],
+        [gd(2012,1,25),786],
+        [gd(2012,1,26),666],
+        [gd(2012,1,27),888],
+        [gd(2012,1,28),900],
+        [gd(2012,1,29),178],
+        [gd(2012,1,30),555],
+        [gd(2012,1,31),993]]
+        ;var dataset=[{label:"任务",data:data3,color:"#1ab394",bars:{show:true,align:"center",barWidth:24*60*60*600,lineWidth:0}},{label:"项目",data:data2,yaxis:2,color:"#464f88",lines:{lineWidth:1,show:true,fill:true,fillColor:{colors:[{opacity:0.2},{opacity:0.2}]}},splines:{show:false,tension:0.6,lineWidth:1,fill:0.1},}];var options={xaxis:{mode:"time",tickSize:[3,"day"],tickLength:0,axisLabel:"Date",axisLabelUseCanvas:true,axisLabelFontSizePixels:12,axisLabelFontFamily:"Arial",axisLabelPadding:10,color:"#838383"},yaxes:[{position:"left",max:1070,color:"#838383",axisLabelUseCanvas:true,axisLabelFontSizePixels:12,axisLabelFontFamily:"Arial",axisLabelPadding:3},{position:"right",clolor:"#838383",axisLabelUseCanvas:true,axisLabelFontSizePixels:12,axisLabelFontFamily:" Arial",axisLabelPadding:67}],legend:{noColumns:1,labelBoxBorderColor:"#000000",position:"nw"},grid:{hoverable:false,borderWidth:0,color:"#838383"}};function gd(year,month,day){return new Date(year,month-1,day).getTime()}var previousPoint=null,previousLabel=null;$.plot($("#flot-dashboard-chart"),dataset,options);var mapData={"US":298,"SA":200,"DE":220,"FR":540,"CN":120,"AU":760,"BR":550,"IN":200,"GB":120,};$("#world-map").vectorMap({map:"world_mill_en",backgroundColor:"transparent",regionStyle:{initial:{fill:"#e4e4e4","fill-opacity":0.9,stroke:"none","stroke-width":0,"stroke-opacity":0}},series:{regions:[{values:mapData,scale:["#1ab394","#22d6b1"],normalizeFunction:"polynomial"}]},})});
 </script>
-<script type="text/javascript">
-    $('.table-sort').dataTable({
-        "aaSorting": [[ 0, "asc" ]],//默认第几个排序
-        "bStateSave": false,//状态保存
-        "aoColumnDefs": [
-            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0]}// 制定列不参与排序
-        ]
-    });
-    function picture_query(title,url){
-        var index = layer.open({
-            type: 2,
-            title: title,
-            content: url
-        });
-        layer.full(index);
-    }
-</script>
-
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 </body>
 </html>

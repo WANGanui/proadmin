@@ -212,10 +212,10 @@
         {name: '武汉', value: 164},
         {name: '大庆', value: 150},*/
 
-        {name: '重庆', value: 250},
-        {name: '天津', value: 270},
-        {name: '郑州', value: 200},
-        {name: '哈尔滨', value: 300},
+        {name: '重庆', value: 160},
+        {name: '天津', value: 170},
+        {name: '郑州', value: 150},
+        {name: '哈尔滨', value: 200},
     ];
     var geoCoordMap = {
         '海门':[121.15,31.89],
