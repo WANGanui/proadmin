@@ -214,7 +214,7 @@
 function article_save(id,name){
 	alert("1");
 }
-$("#province_id").change(function(){
+$("#province_id").click(function(){
     var opt=$("#province_id option:selected").val();
     if (opt==0){
 
