@@ -41,12 +41,13 @@ public class ProjectController {
     public String selectProject(HttpServletRequest request,String roleid){
         try {
             ProjectCriteria projectCriteria=new ProjectCriteria();
-            List<String> list=new ArrayList<>();
+           /* List<String> list=new ArrayList<>();
             list.add("4");
             list.add("3");
             list.add("2");
             list.add("1"); list.add("0");
-            projectCriteria.setStateList(list);
+            projectCriteria.setStateList(list);*/
+            projectCriteria.setIsdelete("0");
             List<Project> projectList= projectService.selectList(projectCriteria);
 logger.info("=========================================:"+ JsonUtil.encode(projectList));
             List<String> missList = permissionService.selectList("2",roleid);
@@ -84,7 +85,8 @@ logger.info("=========================================:"+ JsonUtil.encode(projec
            project.setCreatordataid(creatordataid);
            project.setCreator(creator);
            project.setAuditprogress("0");
-
+           project.setIsdelete("0");
+           project.setState("0");
            String auditorIds= project.getAuditorid();//审核人
            String[] auditorId=auditorIds.split(",");
            List<ProjectAudit> projectAudits=new ArrayList<>();
@@ -106,6 +108,7 @@ logger.info("=========================================:"+ JsonUtil.encode(projec
            projectService.insert(project,projectAudits,projectRelDepartments);
            result.put("success",true);
        }catch (Exception e){
+           e.printStackTrace();
            result.put("success",false);
        }
 logger.info("=================="+result);
@@ -210,7 +213,8 @@ logger.info("=================="+result);
         try {
             Project project=new Project();
             project.setDataid(map.get("contentId").toString());
-            project.setState("5");
+            project.setIsdelete("1");
+            project.setDeletestate("0");
             project.setRemark(map.get("remake").toString());
             Worker worker=(Worker) session.getAttribute("worker");
             String creatordataid= worker.getDataid();//创建人ID
@@ -259,8 +263,12 @@ logger.info("=================="+result);
             if (auditInt>0){
                 project.setState("2");
             }
+
             if (auditInt==0){
                 project.setState("1");
+            }
+            if ("2".equals(map.get("auditState").toString())){
+                project.setState("3");
             }
             project.setDataid(map.get("projectId").toString());
 
