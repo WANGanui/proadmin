@@ -78,8 +78,8 @@
 					<td class="td-time">${projectAll.progress}</td>
 					<td class="td-manage">
 						<%--<a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${project.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
-						--%><a style="text-decoration:none" class="ml-5 add" onClick="picture_del('1','${projectAll.dataid}','${projectAll.id}')" href="javascript:;" title="同意">同意</a>
-							<a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('2','${projectAll.dataid}','${projectAll.id}')" href="javascript:;" title="拒绝">拒绝</a>
+						--%><a style="text-decoration:none" class="ml-5 add" onClick="picture_del('${projectAll.isdelete}','1','${projectAll.dataid}','${projectAll.id}')" href="javascript:;" title="同意">同意</a>
+							<a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('${projectAll.isdelete}','2','${projectAll.dataid}','${projectAll.id}')" href="javascript:;" title="拒绝">拒绝</a>
 					</td>
 				</tr>
 </c:forEach>
@@ -95,6 +95,7 @@
 		<input type="hidden" value="" id="dataId"/>
 		<input type="hidden" value="" id="projectId"/>
 		<input type="hidden" value="" id="auditState" />
+		<input type="hidden" value="" id="isdelete" />
 		<label class="form-label col-xs-4 col-sm-4" style="text-align: right"><span class="c-red">*</span>原因：</label>
 		<div class="formControls col-xs-8 col-sm-6">
 			<textarea id="remake" rows="10"cols="25"></textarea>
@@ -133,6 +134,7 @@ function  article_save_submit() {
     var remaek=$("#remake").val();
     var projectId=$("#projectId").val()
     var auditState=$("#auditState").val();
+    var isdelete=$("#isdelete").val();
     var  tag="";
     if (auditState==2) {
         if (remaek.length == 0) {
@@ -149,7 +151,8 @@ function  article_save_submit() {
         auditId:auditId,
         projectId:projectId,
         auditState:auditState,
-        remark:remaek
+        remark:remaek,
+        isdelete:isdelete
     }
     $.ajax( {
         url : '<%=basePath%>updateProjectAuditState',
@@ -179,10 +182,11 @@ function queryDetaila(id) {
 
 }
 
-function picture_del(obj,projectId,auditId){
+function picture_del(isdelete,obj,projectId,auditId){
     $('#dataId').val(auditId);
     $('#projectId').val(projectId);
     $("#auditState").val(obj);
+    $("#isdelete").val(isdelete);
 	layer.open({
         type: 1,
         title:"备注",

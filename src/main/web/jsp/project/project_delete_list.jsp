@@ -72,9 +72,15 @@
 					<td class="td-time"><fmt:formatDate value="${projectAll.starttime}" pattern="yyyy-MM-dd" /></td>
 					<td class="td-time"><fmt:formatDate value="${projectAll.endtime}" pattern="yyyy-MM-dd" /></td>
 					<td>${projectAll.leader}</td>
-					<td class="td-status"><c:if test="${projectAll.state==5}">
-						<span class="label label-success radius">	已废弃 </span>
+					<td class="td-status"><c:if test="${projectAll.deletestate==0}">
+						<span class="label label-success radius">	待审核 </span>
 					</c:if>
+						<c:if test="${projectAll.deletestate==1}">
+							<span class="label label-success radius">	审核中 </span>
+						</c:if>
+						<c:if test="${projectAll.deletestate==2}">
+							<span class="label label-success radius">	已废弃</span>
+						</c:if>
 
 					</td>
 

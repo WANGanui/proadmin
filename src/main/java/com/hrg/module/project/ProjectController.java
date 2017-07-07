@@ -223,6 +223,7 @@ logger.info("=================="+result);
             project.setModifydataid(creatordataid);
             //逻辑删除
              projectService.update(project);
+             projectService.copy(map.get("contentId").toString());//复制审核表数据到删除审核表
             resultMap.put("success",true);
         }catch (Exception e){
             e.printStackTrace();
@@ -250,25 +251,53 @@ logger.info("=================="+result);
     public @ResponseBody Object updateProjectAuditState(@RequestBody Map map,HttpSession session){
         Map resultMap=new HashMap();
         try {
-            ProjectAudit projectAudit=new ProjectAudit();
-            projectAudit.setRemark(map.get("remark").toString());
-            projectAudit.setAuditstate(map.get("auditState").toString());
-            projectAudit.setId(Integer.parseInt(map.get("auditId").toString()));
-            projectService.updateByPrimaryKeySelective(projectAudit);
-            Map mapInt=new HashMap();
-            mapInt.put("auditstate","0");
-            mapInt.put("projectid",map.get("projectId").toString());
-            int auditInt= projectService.selectAuditInt(mapInt);
+            int auditInt =0;
+            if ("1".equals(map.get("isdelete").toString())){
+                ProjectAuditDel projectAuditDel=new ProjectAuditDel();
+                projectAuditDel.setRemark(map.get("remark").toString());
+                projectAuditDel.setAuditstate(map.get("auditState").toString());
+                projectAuditDel.setId(Integer.parseInt(map.get("auditId").toString()));
+                projectService.updateByPrimaryKeySelective(projectAuditDel);
+                Map mapInt = new HashMap();
+                mapInt.put("auditstate", "0");
+                mapInt.put("projectid", map.get("projectId").toString());
+                auditInt= projectService.selectAuditDelInt(mapInt);
+            }else {
+                ProjectAudit projectAudit = new ProjectAudit();
+                projectAudit.setRemark(map.get("remark").toString());
+                projectAudit.setAuditstate(map.get("auditState").toString());
+                projectAudit.setId(Integer.parseInt(map.get("auditId").toString()));
+                projectService.updateByPrimaryKeySelective(projectAudit);
+                Map mapInt = new HashMap();
+                mapInt.put("auditstate", "0");
+                mapInt.put("projectid", map.get("projectId").toString());
+                auditInt= projectService.selectAuditInt(mapInt);
+            }
             Project project=new Project();
             if (auditInt>0){
-                project.setState("2");
+
+                if ("1".equals(map.get("isdelete").toString())) {
+                    project.setIsdelete("1");//不同意删除
+                }else {
+                    project.setState("2");
+                }
             }
 
             if (auditInt==0){
-                project.setState("1");
+                if ("1".equals(map.get("isdelete").toString())) {
+                    project.setIsdelete("2");//不同意删除
+                }else {
+                    project.setState("1");
+                }
+
             }
             if ("2".equals(map.get("auditState").toString())){
-                project.setState("3");
+
+                if ("1".equals(map.get("isdelete").toString())) {
+                    project.setIsdelete("0");//不同意删除
+                }else {
+                    project.setState("3");
+                }
             }
             project.setDataid(map.get("projectId").toString());
 
@@ -291,8 +320,7 @@ logger.info("=================="+result);
     public String selectDeleteProject(HttpServletRequest request,String roleid){
         try {
             ProjectCriteria projectCriteria=new ProjectCriteria();
-
-            projectCriteria.setState("5");
+            projectCriteria.setIsdelete("1");
             List<Project> projectList= projectService.selectList(projectCriteria);
             logger.info("=========================================:"+ JsonUtil.encode(projectList));
             request.setAttribute("projectList",projectList);
