@@ -277,7 +277,7 @@ logger.info("=================="+result);
             if (auditInt>0){
 
                 if ("1".equals(map.get("isdelete").toString())) {
-                    project.setIsdelete("1");//不同意删除
+                    project.setDeletestate("1");//不同意删除
                 }else {
                     project.setState("2");
                 }
@@ -285,7 +285,7 @@ logger.info("=================="+result);
 
             if (auditInt==0){
                 if ("1".equals(map.get("isdelete").toString())) {
-                    project.setIsdelete("2");//不同意删除
+                    project.setDeletestate("2");//不同意删除
                 }else {
                     project.setState("1");
                 }
