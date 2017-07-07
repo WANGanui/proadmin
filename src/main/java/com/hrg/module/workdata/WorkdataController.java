@@ -76,12 +76,9 @@ public class WorkdataController {
         HttpSession session = request.getSession();
         Worker worker = (Worker) session.getAttribute("worker");
         try {
-            List<Project> projectList = projectService.selectByWorker(worker.getDataid());
-            MissionCriteria missionCriteria = new MissionCriteria();
-            missionCriteria.setHeaderid(worker.getDataid());
-            List<Mission> missionList = missionService.selectList(missionCriteria);
-            model.addObject("mission",missionList);
-            model.addObject("projects",projectList);
+
+            Map map  = missionService.slectWorkerMission(new MissionCriteria(),worker.getDataid());
+            model.addObject("map",map);
             model.setViewName("workdata/data_add");
         } catch (Exception e) {
             e.printStackTrace();

@@ -87,7 +87,7 @@
     <div class="layui-inline">
         <label class="layui-form-label">开始日期</label>
         <div class="layui-input-inline">
-            <input type="text" name="starttime"  id="date" lay-verify="date" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})" value=<fmt:formatDate value="${map.mission.starttime}" pattern="yyyy-MM-dd" /> >
+            <input type="text" name="starttime"  id="date" lay-verify="date" disabled autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})" value=<fmt:formatDate value="${map.mission.starttime}" pattern="yyyy-MM-dd" /> >
         </div>
     </div>
     <div class="layui-inline">

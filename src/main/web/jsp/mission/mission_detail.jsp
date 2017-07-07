@@ -89,13 +89,13 @@
 
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">选择责任人</label>
+            <label class="layui-form-label">责任人</label>
             <div class="layui-input-inline">
                 <input type="text" class="layui-input" disabled value="${map.mission.headername}">
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">选择审核人</label>
+            <label class="layui-form-label">审核人</label>
             <div class="layui-input-inline">
                 <div class="layui-input-inline">
                     <input type="text" class="layui-input" disabled value="${map.mission.auditorname}">
@@ -120,7 +120,7 @@
     <c:if test="${map.mission.proname!=''}">
         <div class="layui-form-item" id="pro1" >
             <div class="layui-inline">
-                <label class="layui-form-label">选择项目</label>
+                <label class="layui-form-label">项目</label>
                 <div class="layui-input-inline">
                     <input type="text" class="layui-input" disabled value="${map.mission.proname}">
                 </div>
@@ -145,7 +145,7 @@
 
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label" style="width: 120px">选择任务状态</label>
+            <label class="layui-form-label" style="">任务状态</label>
             <div class="layui-input-inline">
                 <c:if test="${map.mission.missionstate==0}">
                     <input type="text" class="layui-input" disabled value="已同意">
@@ -159,7 +159,7 @@
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label" style="width: 120px">选择流程状态</label>
+            <label class="layui-form-label" style="width: 120px">流程状态</label>
             <div class="layui-input-inline">
                 <c:if test="${map.mission.state==0}">
                     <input type="text" class="layui-input" disabled value="未开始">
