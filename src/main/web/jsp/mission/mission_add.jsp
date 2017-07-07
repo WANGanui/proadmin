@@ -192,8 +192,6 @@
             <div class="layui-input-inline">
                 <select name="state" lay-verify="required" >
                     <option value="0" name="headername">未开始</option>
-                    <option value="1" name="headername">进行中</option>
-                    <option value="2" name="headername">已完成</option>
                 </select>
             </div>
         </div>

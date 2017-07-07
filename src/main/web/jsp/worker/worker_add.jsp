@@ -110,7 +110,9 @@
                 <select name="role" lay-verify="required" lay-search="" lay-filter="role">
                     <option value="">直接选择或搜索选择</option>
                     <c:forEach items="${map.roles}" var="role" varStatus="projectIndex">
-                        <option value="${role.dataid}" name="projectname">${role.name}</option>
+                        <c:if test="${role.dataid!=1}">
+                            <option value="${role.dataid}" name="projectname">${role.name}</option>
+                        </c:if>
                     </c:forEach>
                 </select>
             </div>

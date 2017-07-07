@@ -67,6 +67,7 @@
 </head>
 <body>
 <div class="login-top">
+
     <div class="title">
         			<span class="title-txt">
         				<i class="fa fa-globe"></i>HRG项目管理系统
@@ -75,6 +76,7 @@
         <span>欢迎登录</span>
     </div>
 </div>
+<img src="<%=basePath%>img/hrg1.png" style="width: 200px;height: 100px;margin-top: -210px">
 
 <div class="login-form animated rotateIn">
     <div class="form-inner" id="loginInfo">

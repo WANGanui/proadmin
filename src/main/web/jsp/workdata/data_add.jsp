@@ -68,27 +68,22 @@ document.ready(function () {
     </div>
     <div class="layui-form-item" id="pro1" >
         <div class="layui-inline">
-            <label class="layui-form-label">选择项目</label>
+            <label class="layui-form-label">选择任务</label>
             <div class="layui-input-inline">
-                <select name="project"  lay-search="" lay-filter="sele" >
+                <select name="mission"  lay-search="" lay-filter="sele" >
                     <option value="">直接选择或搜索选择</option>
-                    <c:forEach items="${projects}" var="project" varStatus="projectIndex">
+                    <c:forEach items="${map.list1}" var="project" varStatus="projectIndex">
+                        <option value="${project.dataid}" title="${project.name}">${project.name}</option>
+                    </c:forEach>
+                    <c:forEach items="${map.list2}" var="projectmission" varStatus="projectIndex">
                         <option value="${project.dataid}" title="${project.name}">${project.name}</option>
                     </c:forEach>
                 </select>
             </div>
         </div>
-
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">选择任务</label>
-        <div class="layui-input-block" id="province_id">
-            <c:forEach items="${mission}" var="miss" varStatus="projectIndex">
-                <input type="checkbox" value="${miss.dataid}" name="missionname" lay-filter="dddd" title="${miss.name}">
-            </c:forEach>
 
-        </div>
-    </div>
+
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">工作内容描述</label>
         <div class="layui-input-block">
@@ -112,46 +107,6 @@ document.ready(function () {
 <script src="<%=basePath%>js/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    function  queryTwoBarand() {
-        var select = document.getElementsByName("missionname");
-        var province_ids="";
-        for(i=0;i<select.length;i++){
-            if(select[i].checked){
-                if (province_ids==""){
-                    province_ids=select[i].value;
-                }else{
-                    province_ids=province_ids+","+select[i].value;
-                }
-            }
-        }
-        var dataJson = {
-            province_ids:province_ids
-        };
-        $.ajax( {
-            url : '<%=basePath%>selectMissionDd',
-            type : 'post',
-            async:true,
-            contentType : 'application/json;charset=utf-8',
-            dataType : 'json',
-            data : JSON.stringify(dataJson),
-            success : function(data) {
-                if (data.success) {
-                    document.getElementById("cont").value="";
-                    var listCarBrand= data.missionList;
-                    var contextd = data.context;
-                    var val="";
-                    for(var i = 0; i < listCarBrand.length; i++)
-                    {
-                        val += listCarBrand[i].context;
-
-                    }
-                    document.getElementById("cont").value=contextd;
-                } else {
-                }
-            }
-        });
-        return false;
-    };
     layui.use(['form', 'layedit', 'laydate'], function(){
         var form = layui.form()
             ,layer = layui.layer
@@ -175,43 +130,25 @@ document.ready(function () {
         });
 
         //选择项目
-        var project ="";
-        var projectid ="";
+        var province_id ="";
+        var province_name ="";
+
+        form.on('select(sele)', function(data){
+            province_id = data.value;
+            province_name=data.elem[data.elem.selectedIndex].title;
+        });
 
         //监听提交
         form.on('submit(demo1)', function(data){
 
-            /*layer.alert(JSON.stringify(data.field+project+projectid), {
-                title: '最终的提交信息'
-            })*/
             $("#btn").css({"display":"none"});
-            var select = document.getElementsByName("missionname");
-            var province_id="";
-            var  province_name="";
-            for(i=0;i<select.length;i++){
-                if(select[i].checked){
-                    if (province_id==""){
-                        province_id=select[i].value;
-                        province_name=select[i].title;
-                    }else{
-                        if(province_id==0){
-                            layer.msg('人员选择错误');
-                            return false;
-                        }
-                        province_id=province_id+","+select[i].value;
-                        province_name=province_name+","+select[i].title;
-                    }
-                }
-            }
             var dataJson = {
                 time:data.field.time,
-                projectdataid:projectid,
-                projectname:project,
                 missiondataid:province_id,
                 missionname:province_name,
                 workcontext:data.field.context,
             };
-            $.ajax( {
+            $.ajax({
                 url : '<%=basePath%>addWorkdata',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
@@ -228,43 +165,6 @@ document.ready(function () {
                 }
             });
             return false;
-        });
-       /* form.on('checkbox(dddd)',function (data) {
-            
-        })*/
-        form.on('select(sele)', function(data){
-            var dataJson = {
-                dataid:data.value
-            };
-            projectid = data.value;
-            project=data.elem[data.elem.selectedIndex].title;
-            $.ajax( {
-                url : '<%=basePath%>missionListByProject',
-                type : 'post',
-                async:true,
-                contentType : 'application/json;charset=utf-8',
-                dataType : 'json',
-                data : JSON.stringify(dataJson),
-                success : function(data) {
-                    if (data.success) {
-                        var listCarBrand= data.missionList;
-                        var select = document.getElementById("province_id");
-                        // document.write(listRole.length);
-                        //$("#carbrandPid").options.length=1;
-                        var htm="";
-                        for(var i = 0; i < listCarBrand.length; i++)
-                        {
-                            var id = listCarBrand[i].dataid;
-                            var name = listCarBrand[i].name;
-                            htm+= "<input type=\"checkbox\" value="+id+" name=\"missionname\" style=\"opacity: 1\" title="+name+">";
-                        }
-                        document.getElementById("province_id").innerHTML=htm+"<button class=\"layui-btn\" style='margin-left: 20px;' id=\"moren\" onclick=\"return queryTwoBarand()\">确认</button>";
-                        var form = layui.form();
-                        form.render("checkbox");
-                    } else {
-                    }
-                }
-            });
         });
     });
 </script>
