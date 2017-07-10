@@ -277,7 +277,7 @@ logger.info("=================="+result);
             if (auditInt>0){
 
                 if ("1".equals(map.get("isdelete").toString())) {
-                    project.setDeletestate("1");//不同意删除
+                    project.setDeletestate("1");//删除中
                 }else {
                     project.setState("2");
                 }
@@ -286,6 +286,7 @@ logger.info("=================="+result);
             if (auditInt==0){
                 if ("1".equals(map.get("isdelete").toString())) {
                     project.setDeletestate("2");//不同意删除
+                    project.setIsdelete("2");//已经删除
                 }else {
                     project.setState("1");
                 }
@@ -298,6 +299,7 @@ logger.info("=================="+result);
                 }else {
                     project.setState("3");
                 }
+
             }
             project.setDataid(map.get("projectId").toString());
 
@@ -320,7 +322,10 @@ logger.info("=================="+result);
     public String selectDeleteProject(HttpServletRequest request,String roleid){
         try {
             ProjectCriteria projectCriteria=new ProjectCriteria();
-            projectCriteria.setIsdelete("1");
+            List<String> list=new ArrayList<>();
+            list.add("1");
+            list.add("2");
+            projectCriteria.setIsdeleteList(list);
             List<Project> projectList= projectService.selectList(projectCriteria);
             logger.info("=========================================:"+ JsonUtil.encode(projectList));
             request.setAttribute("projectList",projectList);
