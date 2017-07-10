@@ -85,6 +85,7 @@
                     <th width="60">类型</th>
                     <th width="70">流程状态</th>
                     <th width="70">任务状态</th>
+                    <th width="70">操作</th>
                 </tr>
                 </thead>
 
@@ -130,7 +131,9 @@
                                 <span class="label label-success radius" style="background-color: #00a0e9">待审核</span>
                             </c:if>
                         </td>
-
+                        <td class="td-manage">
+                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('编辑任务','<%=basePath%>/toupdatemission?dataid=${mission1.dataid}')" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
+                        </td>
                     </tr>
                 </c:forEach>
 
@@ -155,6 +158,7 @@
                     <th width="60">类型</th>
                     <th width="70">流程状态</th>
                     <th width="70">任务状态</th>
+                    <th width="70">操作</th>
                 </tr>
                 </thead>
 
@@ -200,7 +204,9 @@
                                 <span class="label label-success radius" style="background-color: #00a0e9">待审核</span>
                             </c:if>
                         </td>
-
+                        <td class="td-manage">
+                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('编辑任务','<%=basePath%>/toupdatemission?dataid=${mission2.dataid}')" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
