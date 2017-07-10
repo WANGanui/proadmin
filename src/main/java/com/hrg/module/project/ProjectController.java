@@ -166,9 +166,9 @@ logger.info("=================="+result);
             request.setAttribute("projectList",projectList);//项目
             String projectdataid="";
             name=(name==null?"":name);
-            if (projectList.size()>1){
+            if (projectList.size()>=1){
                 if (name.equals("")||name==null){
-                    projectdataid=  projectList.get(0).getDataid();//项目Id
+                    projectdataid= projectList.get(0).getDataid();//项目Id
                 }else{
                     projectdataid=name;
                 }
