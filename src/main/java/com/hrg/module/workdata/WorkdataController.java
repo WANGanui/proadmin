@@ -132,4 +132,17 @@ public class WorkdataController {
         }
         return map;
     }
+
+    @RequestMapping("/updateisreadWorkdata")
+    public @ResponseBody Object updataIsread(@RequestBody Workdata workdata){
+        Map map = new HashMap();
+        workdata.setIsread("1");
+        try {
+            boolean bool = workDataService.update(workdata);
+            map.put("success",bool);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
 }

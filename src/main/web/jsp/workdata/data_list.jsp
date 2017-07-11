@@ -60,6 +60,7 @@
                 <th width="80">日期</th>
                 <th  width="60">项目负责人</th>
                 <th width="60">是否已阅</th>
+                <th width="60">操作</th>
             </tr>
             </thead>
             <tbody>
@@ -88,6 +89,11 @@
                         </c:if>
                         <c:if test="${data.isread==1}">
                         <span class="label label-success radius" style="background-color: #5eb95e">是 </span>
+                        </c:if>
+                    </td>
+                    <td class="td-manage">
+                        <c:if test="${data.isread==0}">
+                            <a style="text-decoration:none" class="ml-5" onClick="picture_del('${data.dataid}')" title="已阅"><i class="Hui-iconfont" style="font-size: 20px" >&#xe6e1;</i></a>
                         </c:if>
                     </td>
                 </tr>
@@ -266,16 +272,16 @@
         }
     }
     /*图片-删除*/
-    function picture_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
+    function picture_del(id){
+        layer.confirm('确认已阅吗？',function(index){
 
             var  dataJson={
-                status:1,
-                modular:"delete",
-                contentId:id
+                isread:"1",
+                dataid:id
             }
-            $.ajax( {
-                url : 'updateStatusOrDeleteByContent.do',
+
+           $.ajax( {
+                url : '<%=basePath%>updateisreadWorkdata',
                 type : 'post',
                 contentType : 'application/json;charset=utf-8',
                 dataType : 'json',
@@ -284,7 +290,7 @@
                     if (data.success) {
                         //$(obj).parents("tr").remove();
                         location.replace(location.href)
-                        layer.msg('已删除!',{icon:1,time:1000});
+                        layer.msg('已修改!',{icon:1,time:1000});
                     } else {
 
                     }
