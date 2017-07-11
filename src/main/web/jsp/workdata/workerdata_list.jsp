@@ -74,7 +74,7 @@
                     <td>${dataIndex.index+1}</td>
                     <td>${data.projectname}</td>
                     <td>${data.missionname}</td>
-                    <td>${data.workcontext}</td>
+                    <td onclick="workDataChat('${data.dataid}')">${data.workcontext}</td>
 
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
                     <td>${data.projectleader}</td>
@@ -128,13 +128,22 @@
         layer.full(index);
     }
 
-    /*案例-查看*/
+    /*案例-修改*/
     function picture_query(title,url){
         /*alert(url);*/
         var index = layer.open({
             type: 2,
             title: title,
             content: url
+        });
+        layer.full(index);
+    }
+    /*案例-查看*/
+    function workDataChat(title){
+        var index = layer.open({
+            type: 2,
+            title: "日志详情",
+            content: "workDataChatHtm?dataId="+title
         });
         layer.full(index);
     }
