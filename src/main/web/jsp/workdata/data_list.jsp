@@ -58,6 +58,7 @@
                 <th width="200">工作内容</th>
                 <th width="80">日期</th>
                 <th  width="60">项目负责人</th>
+                <th width="60">是否已阅</th>
             </tr>
             </thead>
             <tbody>
@@ -72,6 +73,14 @@
 
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
                     <td>${data.projectleader}</td>
+                    <td class="td-status">
+                        <c:if test="${data.isread==0}">
+                        <span class="label label-success radius" style="background-color: red">否 </span>
+                        </c:if>
+                        <c:if test="${data.isread==1}">
+                        <span class="label label-success radius" style="background-color: green">是 </span>
+                        </c:if>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
