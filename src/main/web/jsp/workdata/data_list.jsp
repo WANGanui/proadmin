@@ -77,7 +77,7 @@
                     </c:if>
                     </td>
                     <td>${data.missionname}</td>
-                    <td onclick="workDataChat('${data.dataid}')">${data.workcontext}</td>
+                    <td onclick="workDataChat('${data.dataid}')" style="text-decoration:underline">${data.workcontext}</td>
 
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
                     <td>${data.projectleader}</td>
