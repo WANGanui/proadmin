@@ -76,7 +76,7 @@
         <span>欢迎登录</span>
     </div>
 </div>
-<img src="<%=basePath%>img/hrg1.png" style="width: 200px;height: 100px;margin-top: -210px">
+<img src="<%=basePath%>img/hrg1.png" style="width: 200px;height: 100px;margin-top: -14%">
 
 <div class="login-form animated rotateIn">
     <div class="form-inner" id="loginInfo">

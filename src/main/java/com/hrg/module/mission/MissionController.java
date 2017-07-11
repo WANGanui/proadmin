@@ -40,7 +40,9 @@ public class MissionController {
     PermissionService permissionService;
 
     @RequestMapping("/missionList")
-    public ModelAndView selectList(HttpServletRequest request, MissionCriteria example,String roleid){
+    public ModelAndView selectList(HttpSession session, MissionCriteria example,String roleid){
+        Worker worker = (Worker) session.getAttribute("worker");
+        example.setAuditorid(worker.getDataid());
         ModelAndView model = new ModelAndView();
         try {
             logger.info("============开始任务列表查询=============");

@@ -44,7 +44,8 @@
     </style>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 任务管理 <span class="c-gray en">&gt;</span> 日志列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 任务管理 <span class="c-gray en">&gt;</span> 日志列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 
     <div class="mt-20">
@@ -67,7 +68,14 @@
 
                     <td>${dataIndex.index+1}</td>
                     <td>${data.workername}</td>
-                    <td>${data.projectname}</td>
+                    <td>
+                    <c:if test="${data.projectname}==null">
+                        <span>--<span>
+                    </c:if>
+                    <c:if test="${data.projectname}!=null">
+                            ${data.projectname}
+                    </c:if>
+                    </td>
                     <td>${data.missionname}</td>
                     <td onclick="workDataChat('${data.dataid}')">${data.workcontext}</td>
 
@@ -79,7 +87,7 @@
                         <span class="label label-success radius" style="background-color: red">否 </span>
                         </c:if>
                         <c:if test="${data.isread==1}">
-                        <span class="label label-success radius" style="background-color: green">是 </span>
+                        <span class="label label-success radius" style="background-color: #5eb95e">是 </span>
                         </c:if>
                     </td>
                 </tr>
