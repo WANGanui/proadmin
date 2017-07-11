@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=GBK" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -8,7 +8,7 @@
     <meta charset="GBK">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>登录</title>
+    <title>鐧诲綍</title>
     <link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css">
     <link rel="stylesheet" href="<%=basePath%>css/public.css" />
     <link rel="stylesheet" href="<%=basePath%>css/font-awesome.min.css">
@@ -33,11 +33,11 @@
                 Messenger().hideAll();
 
                 if ($("#account").val() == "") {
-                    Messenger().alertErr("请输入用户名！");
+                    Messenger().alertErr("璇疯緭鍏ョ敤鎴峰悕锛�");
                     return ;
                 }
                 if ($("#password").val() == "") {
-                    Messenger().alertErr("请输入用户密码！");
+                    Messenger().alertErr("璇疯緭鍏ョ敤鎴峰瘑鐮侊紒");
                     return ;
                 }
                 console.info(initData.gotoIndexUrl);
@@ -70,10 +70,10 @@
 
     <div class="title">
         			<span class="title-txt">
-        				<i class="fa fa-globe"></i>HRG项目管理系统
+        				<i class="fa fa-globe"></i>HRG椤圭洰绠＄悊绯荤粺
         			</span>
         <br>
-        <span>欢迎登录</span>
+        <span>娆㈣繋鐧诲綍</span>
     </div>
 </div>
 <img src="<%=basePath%>img/hrg1.png" style="width: 200px;height: 100px;margin-top: -210px">
@@ -83,19 +83,19 @@
         <div class="form-group relative">
             <div class="input-group">
                 <span class="input-group-addon input_icon"><i class="fa fa-envelope"></i></span>
-                <input class="form-control input-lg typeahead-email" placeholder="账号" type="text" name="username" id="account"/>
+                <input class="form-control input-lg typeahead-email" placeholder="璐﹀彿" type="text" name="username" id="account"/>
             </div>
             <span class="inputTips email_inputTips"></span>
         </div>
         <div class="form-group relative">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input class="form-control input-lg" placeholder="密码" type="password" name="password" id="password" />
+                <input class="form-control input-lg" placeholder="瀵嗙爜" type="password" name="password" id="password" />
             </div>
             <span class="inputTips pwd_inputTips"></span>
         </div>
         <div class="form-group">
-            <button class="button button-rounded button-royal" id="loginBtn">登录</button>
+            <button class="button button-rounded button-royal" id="loginBtn">鐧诲綍</button>
             <span id="sp"></span>
         </div>
         <div class="horizontal-line"></div>
