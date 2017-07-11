@@ -71,7 +71,7 @@
                     <td>${dataIndex.index+1}</td>
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
                     <td>${data.workername}</td>
-                    <td>${data.workcontext}</td>
+                    <td onclick="workDataChat('${data.dataid}')">${data.workcontext}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -197,6 +197,16 @@
 
 
         });
+    }
+
+    /*案例-查看*/
+    function workDataChat(title){
+        var index = layer.open({
+            type: 2,
+            title: "日志详情",
+            content: "workDataChatHtm?dataId="+title
+        });
+        layer.full(index);
     }
 
     /*图片-发布*/

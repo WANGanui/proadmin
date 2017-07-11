@@ -77,11 +77,12 @@
                     </c:if>
                     </td>
                     <td>${data.missionname}</td>
-                    <td>${data.workcontext}</td>
+                    <td onclick="workDataChat('${data.dataid}')">${data.workcontext}</td>
 
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
                     <td>${data.projectleader}</td>
                     <td class="td-status">
+
                         <c:if test="${data.isread==0}">
                         <span class="label label-success radius" style="background-color: red">否 </span>
                         </c:if>
@@ -137,11 +138,11 @@
     }
 
     /*案例-查看*/
-    function picture_query(title,url){
+    function workDataChat(title){
         var index = layer.open({
             type: 2,
-            title: title,
-            content: url
+            title: "日志详情",
+            content: "workDataChatHtm?dataId="+title
         });
         layer.full(index);
     }
