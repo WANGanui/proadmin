@@ -53,7 +53,7 @@
             <i class="Hui-iconfont">&#xe600;</i> 添加日志</a>
        </span>
     </div>
-    </div>
+
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort" >
             <thead>
@@ -86,6 +86,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 
 <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
