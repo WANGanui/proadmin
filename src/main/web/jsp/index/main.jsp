@@ -93,6 +93,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<c:if test="${menutwo.datatid==9}">
 												<span style="font-size: 15px;color: red;margin-left: 20px">${map.workermission}</span>
 											</c:if>
+											<c:if test="${menutwo.datatid==7}">
+												<span style="font-size: 15px;color: red;margin-left: 20px">${map.workdata}</span>
+											</c:if>
 										</a>
 										</li>
 								 </c:if>
