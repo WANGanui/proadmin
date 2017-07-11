@@ -83,7 +83,7 @@
 
                 <tbody>
                 <c:forEach items="${list}" var="mission1" varStatus="missionIndex1">
-                    <tr class="text-c">
+                    <tr class="text-c"<c:if test="${mission1.finishtime>mission1.endtime}"> style="background-color: red" </c:if>>
 
                         <td>${missionIndex1.index+1}</td>
                         <td onclick="picture_query('任务详情','<%=basePath%>missionDetail?dataid=${mission1.dataid}')" style="text-decoration:underline">${mission1.name}</td>
