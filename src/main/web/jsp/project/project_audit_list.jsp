@@ -194,7 +194,11 @@ function picture_del(isdelete,obj,projectId,auditId){
         content: $('#mark')
     })
 }
-$(".paginate_button").click(function () {
+$("#DataTables_Table_0_paginate").on('click',function () {
+    _onload();
+});
+
+$("#DataTables_Table_0_length").on('click',function () {
         _onload();
     }
 )

@@ -359,9 +359,13 @@ if (remaek.length==0){
             }
         });
     }
-    $(".paginate_button").click(function () {
+    $("#DataTables_Table_0_paginate").on('click',function () {
+        _onload();
+    });
+
+    $("#DataTables_Table_0_length").on('click',function () {
             _onload();
-    }
+        }
     )
 </script>
 

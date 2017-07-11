@@ -260,6 +260,13 @@
         });
         layer.full(index);
     }
+    $("#DataTables_Table_0_paginate").on('click',function () {
+        _onload();
+    });
+
+    $("#DataTables_Table_0_length").on('click',function () {
+        _onload();
+    })
 </script>
 
 </body>
