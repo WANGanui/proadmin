@@ -288,7 +288,7 @@
             });
         });
     }
-    $(".paginate_button").unbind("click").click(function () {
+    $("#DataTables_Table_0_paginate").on('click',function () {
             _onload();
         }
     )
