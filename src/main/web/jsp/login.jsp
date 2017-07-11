@@ -1,14 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=GBK" language="java" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="GBK">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ç™»å½•</title>
+    <title>µÇÂ¼</title>
     <link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css">
     <link rel="stylesheet" href="<%=basePath%>css/public.css" />
     <link rel="stylesheet" href="<%=basePath%>css/font-awesome.min.css">
@@ -33,11 +33,11 @@
                 Messenger().hideAll();
 
                 if ($("#account").val() == "") {
-                    Messenger().alertErr("è¯·è¾“å…¥ç”¨æˆ·åï¼");
+                    Messenger().alertErr("ÇëÊäÈëÓÃ»§Ãû£¡");
                     return ;
                 }
                 if ($("#password").val() == "") {
-                    Messenger().alertErr("è¯·è¾“å…¥ç”¨æˆ·å¯†ç ï¼");
+                    Messenger().alertErr("ÇëÊäÈëÓÃ»§ÃÜÂë£¡");
                     return ;
                 }
                 console.info(initData.gotoIndexUrl);
@@ -70,10 +70,10 @@
 
     <div class="title">
         			<span class="title-txt">
-        				<i class="fa fa-globe"></i>HRGé¡¹ç›®ç®¡ç†ç³»ç»Ÿ
+        				<i class="fa fa-globe"></i>HRGÏîÄ¿¹ÜÀíÏµÍ³
         			</span>
         <br>
-        <span>æ¬¢è¿ç™»å½•</span>
+        <span>»¶Ó­µÇÂ¼</span>
     </div>
 </div>
 <img src="<%=basePath%>img/hrg1.png" style="width: 200px;height: 100px;margin-top: -210px">
@@ -83,19 +83,19 @@
         <div class="form-group relative">
             <div class="input-group">
                 <span class="input-group-addon input_icon"><i class="fa fa-envelope"></i></span>
-                <input class="form-control input-lg typeahead-email" placeholder="è´¦å·" type="text" name="username" id="account"/>
+                <input class="form-control input-lg typeahead-email" placeholder="ÕËºÅ" type="text" name="username" id="account"/>
             </div>
             <span class="inputTips email_inputTips"></span>
         </div>
         <div class="form-group relative">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input class="form-control input-lg" placeholder="å¯†ç " type="password" name="password" id="password" />
+                <input class="form-control input-lg" placeholder="ÃÜÂë" type="password" name="password" id="password" />
             </div>
             <span class="inputTips pwd_inputTips"></span>
         </div>
         <div class="form-group">
-            <button class="button button-rounded button-royal" id="loginBtn">ç™»å½•</button>
+            <button class="button button-rounded button-royal" id="loginBtn">µÇÂ¼</button>
             <span id="sp"></span>
         </div>
         <div class="horizontal-line"></div>

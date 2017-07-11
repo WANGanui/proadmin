@@ -288,7 +288,7 @@
             });
         });
     }
-    $(".paginate_button").click(function () {
+    $(".paginate_button").unbind("click").click(function () {
             _onload();
         }
     )
