@@ -47,7 +47,7 @@ public class MissionController {
         try {
             logger.info("============开始任务列表查询=============");
             logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
-            List<Mission> missions = missionService.selectList(example);
+            List<Mission> missions = missionService.selectList(example,worker);
             List<String> missList = permissionService.selectList("6",roleid);
             logger.info("============任务列表查询成功=============");
             model.addObject("roles",missList);
@@ -151,12 +151,13 @@ logger.info("========================返回结果："+JsonUtil.encode(missions))
     }
 
     @RequestMapping("/missionListByProject")
-    public @ResponseBody Object selectlistBypro(@RequestBody Map deptMap){
+    public @ResponseBody Object selectlistBypro(@RequestBody Map deptMap,HttpSession session){
+        Worker worker = (Worker)session.getAttribute("worker");
         MissionCriteria example = new MissionCriteria();
         example.setProdataid(deptMap.get("dataid").toString());
         Map map = new HashMap();
         try {
-            List<Mission> missionList = missionService.selectList(example);
+            List<Mission> missionList = missionService.selectList(example,worker);
             map.put("missionList",missionList);
             map.put("success",true);
         } catch (Exception e) {
