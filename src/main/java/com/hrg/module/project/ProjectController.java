@@ -166,16 +166,18 @@ logger.info("=================="+result);
             request.setAttribute("projectList",projectList);//项目
             String projectdataid="";
             name=(name==null?"":name);
+            List<Workdata> workdataList=null;
             if (projectList.size()>=1){
                 if (name.equals("")||name==null){
                     projectdataid= projectList.get(0).getDataid();//项目Id
                 }else{
                     projectdataid=name;
                 }
+                WorkdataCriteria workdataCriteria=new WorkdataCriteria();
+                workdataCriteria.setProjectdataid(projectdataid);
+                workdataList  = workDataService.queryList(workdataCriteria);
+
             }
-            WorkdataCriteria workdataCriteria=new WorkdataCriteria();
-            workdataCriteria.setProjectdataid(projectdataid);
-            List<Workdata> workdataList= workDataService.queryList(workdataCriteria);
             request.setAttribute("workdataList",workdataList);
 
             request.setAttribute("selectId",projectdataid);
