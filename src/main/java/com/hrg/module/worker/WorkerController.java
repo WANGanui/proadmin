@@ -324,4 +324,18 @@ public class WorkerController {
         }
         return model;
     }
+
+    @RequestMapping("/selectyeji")
+    public @ResponseBody Object selectyeji(HttpSession session){
+        Worker worker = (Worker) session.getAttribute("worker");
+        Map map = new HashMap();
+        try {
+            List list = workerService.slectyeji(worker);
+            map.put("yejiList",list);
+            map.put("success",true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
 }

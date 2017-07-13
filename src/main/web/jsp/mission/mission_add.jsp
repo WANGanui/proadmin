@@ -143,9 +143,9 @@
         <div class="layui-inline">
             <label class="layui-form-label" style="width:130px">项目任务阶段</label>
             <div class="layui-input-inline">
-                <select name="level" multiple size="10" lay-verify="required" >
-                    <option value=""></option>
-                    <option value="现场勘查" selected="">现场勘查</option>
+                <select name="level" multiple size="10"  >
+                    <option value="" selected=""></option>
+                    <option value="现场勘查">现场勘查</option>
                     <option value="设备实测">设备实测</option>
                     <option value="产品方案">产品方案</option>
                     <option value="投资收益分析">投资收益分析</option>

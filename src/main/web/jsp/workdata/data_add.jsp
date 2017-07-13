@@ -42,11 +42,7 @@
     }
 </style>
 <script>
-document.ready(function () {
-    var laydate = layui.laydate;
-    var data = new Date();
-    $("#date").val(date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate());
-})
+
 
 </script>
 <body>
@@ -58,14 +54,6 @@ document.ready(function () {
 </fieldset>
 <form class="layui-form layui-form-pane" action="">
 
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">选择日期</label>
-            <div class="layui-input-inline">
-                <input type="text" name="time" id="date" lay-verify="date"  autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
-            </div>
-        </div>
-    </div>
     <div class="layui-form-item" id="pro1" >
         <div class="layui-inline">
             <label class="layui-form-label">选择任务</label>
@@ -107,6 +95,7 @@ document.ready(function () {
 <script src="<%=basePath%>js/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
+
     layui.use(['form', 'layedit', 'laydate'], function(){
         var form = layui.form()
             ,layer = layui.layer

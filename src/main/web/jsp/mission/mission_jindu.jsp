@@ -83,9 +83,9 @@
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
                     <td>${data.workername}</td>
                     <td >${data.workcontext}</td>
-                    <td onclick="workDataChat('${data.dataid}')" style="text-decoration:underline" onmouseover="_over(this,'${dataIndex.index+1}')" onmouseout="_out(this,'${dataIndex.index+1}')" >
-                        <c:if test="${data.count!=0}"><span style="color: red;font-size: 16px">(${data.count})</span></c:if>
-                    <span class="cutLogin-describe"  >${data.chat}</span></td>
+                    <td onclick="workDataChat('${data.dataid}')" onmouseover="_over(this,'${dataIndex.index+1}')" onmouseout="_out(this,'${dataIndex.index+1}')" >
+                        <c:if test="${data.count!=0}"><span style="padding: 2px 7px;  background-color: red; border-radius: 30px; color: #fff;">${data.count}</span></c:if>
+                    <span class="cutLogin-describe"  style="text-decoration:underline" >${data.chat}</span></td>
                     <div id="v${dataIndex.index+1}" style="position:absolute;display:none;border:1px solid silver;background:silver;">${data.chat}</div>
                 </tr>
             </c:forEach>

@@ -30,6 +30,7 @@
     <link href="<%=basePath%>css/animate.min.css" rel="stylesheet">
     <link href="<%=basePath%>css/style.min862f.css?v=4.1.0" rel="stylesheet">
 
+
 </head>
 
 <body class="gray-bg">
@@ -97,51 +98,15 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>业绩</h5>
-                    <div class="pull-right">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-white active">天</button>
-                            <button type="button" class="btn btn-xs btn-white">月</button>
-                            <button type="button" class="btn btn-xs btn-white">年</button>
-                        </div>
-                    </div>
                 </div>
                 <div class="ibox-content">
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-sm-9">
-                            <div class="flot-chart">
-                                <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+                            <div class="flot-chart" style="height: 270px">
+                                <div class="flot-chart-content" id="row" style="width:152%;height: 320px;margin-top: -40px;margin-left: -60px"></div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <ul class="stat-list">
-                                <li>
-                                    <h2 class="no-margins">346</h2>
-                                    <small>项目总数</small>
-                                    <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i>
-                                    </div>
-                                    <div class="progress progress-mini">
-                                        <div style="width: 48%;" class="progress-bar"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <h2 class="no-margins ">422</h2>
-                                    <small>最近一个月任务</small>
-                                    <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i>
-                                    </div>
-                                    <div class="progress progress-mini">
-                                        <div style="width: 60%;" class="progress-bar"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <h2 class="no-margins ">180</h2>
-                                    <small>最近一个月项目</small>
-                                    <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i>
-                                    </div>
-                                    <div class="progress progress-mini">
-                                        <div style="width: 22%;" class="progress-bar"></div>
-                                    </div>
-                                </li>
-                        </div>
+
                     </div>
                 </div>
 
@@ -460,7 +425,11 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript" src="<%=basePath%>js/jquery1.11.3.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/echarts.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/echarts.common.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/echarts.simple.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/echarts.min.js"></script>
 <script src="<%=basePath%>js/jquery.min.js?v=2.1.4"></script>
 <script src="<%=basePath%>js/bootstrap.min.js?v=3.3.6"></script>
 <script src="<%=basePath%>js/plugins/flot/jquery.flot.js"></script>
@@ -479,11 +448,130 @@
 <script src="<%=basePath%>js/plugins/sparkline/jquery.sparkline.min.js"></script>
 <script src="<%=basePath%>js/demo/sparkline-demo.min.js"></script>
 <script>
-    $(document).ready(function(){$(".chart").easyPieChart(
+    var dataAxis = [];
+    var data = [];
+    $.ajax({
+        url:"<%=basePath%>worker/selectyeji",
+        type : 'post',
+        async:true,
+        contentType : 'application/json;charset=utf-8',
+        dataType : 'json',
+        success:function (data1) {
+            if(data1.success){
+                var yeji = data1.yejiList;
+                for (var i = 0; i < yeji.length; i++){
+                    var name=yeji[i].name;
+                    dataAxis.push(name);
+
+                    var  count=yeji[i].count;
+                    data.push(count);
+
+                }
+                var myChart = echarts.init(document.getElementById('row'));
+                var yMax = 100;
+                var dataShadow = [];
+
+                for (var i = 0; i < data.length; i++) {
+                    dataShadow.push(yMax);
+                }
+                option = {
+                    xAxis: {
+                        data: dataAxis,
+                        axisLabel: {
+                            inside: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        axisLine: {
+                            show: false
+                        },
+                        z: 10
+                    },
+                    yAxis: {
+                        axisLine: {
+                            show: false
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                color: '#999'
+                            }
+                        }
+                    },
+                    dataZoom: [
+                        {
+                            type: 'inside'
+                        }
+                    ],
+                    series: [
+                        { // For shadow
+                            type: 'bar',
+                            itemStyle: {
+                                normal: {color: 'rgba(0,0,0,0.05)'}
+                            },
+                            barGap:'-100%',
+                            barCategoryGap:'40%',
+                            data: dataShadow,
+                            animation: false
+                        },
+                        {
+                            type: 'bar',
+                            itemStyle: {
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(
+                                        0, 0, 0, 1,
+                                        [
+                                            {offset: 0, color: '#1ab394'},
+                                            {offset: 0.5, color: '#1ab394'},
+                                            {offset: 1, color: '#1ab394'}
+                                        ]
+                                    )
+                                },
+                                emphasis: {
+                                    color: new echarts.graphic.LinearGradient(
+                                        0, 0, 0, 1,
+                                        [
+                                            {offset: 0, color: '#1ab394'},
+                                            {offset: 0.7, color: '#1ab394'},
+                                            {offset: 1, color: '#1ab394'}
+                                        ]
+                                    )
+                                }
+                            },
+                            data: data
+                        }
+                    ]
+                };
+
+                // Enable data zoom when user click bar.
+                var zoomSize = 6;
+                myChart.on('click', function (params) {
+                    console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+                    myChart.dispatchAction({
+                        type: 'dataZoom',
+                        startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
+                        endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+                    });
+                });
+
+                myChart.setOption(option);
+            }
+
+        }
+    });
+
+
+   /* $(document).ready(function(){$(".chart").easyPieChart(
         {barColor:"#f8ac59",scaleLength:5,lineWidth:4,size:80});
     $(".chart2").easyPieChart({barColor:"#1c84c6",scaleLength:5,lineWidth:4,size:80});
-    var data2=[
-        [gd(2012,1,1),7],
+    var data2=[*/
+        /*[gd(2012,1,1),7],
         [gd(2012,1,2),6],
         [gd(2012,1,3),4],
         [gd(2012,1,4),8],
@@ -513,8 +601,8 @@
         [gd(2012,1,28),8],
         [gd(2012,1,29),5],
         [gd(2012,1,30),8],
-        [gd(2012,1,31),25]];
-    var data3=[
+        [gd(2012,1,31),25]]*/
+    /*var data3=[
         [gd(2012,1,1),800],
         [gd(2012,1,2),500],
         [gd(2012,1,3),600],
@@ -545,9 +633,107 @@
         [gd(2012,1,28),900],
         [gd(2012,1,29),178],
         [gd(2012,1,30),555],
-        [gd(2012,1,31),993]]
-        ;var dataset=[{label:"任务",data:data3,color:"#1ab394",bars:{show:true,align:"center",barWidth:24*60*60*600,lineWidth:0}},{label:"项目",data:data2,yaxis:2,color:"#464f88",lines:{lineWidth:1,show:true,fill:true,fillColor:{colors:[{opacity:0.2},{opacity:0.2}]}},splines:{show:false,tension:0.6,lineWidth:1,fill:0.1},}];var options={xaxis:{mode:"time",tickSize:[3,"day"],tickLength:0,axisLabel:"Date",axisLabelUseCanvas:true,axisLabelFontSizePixels:12,axisLabelFontFamily:"Arial",axisLabelPadding:10,color:"#838383"},yaxes:[{position:"left",max:1070,color:"#838383",axisLabelUseCanvas:true,axisLabelFontSizePixels:12,axisLabelFontFamily:"Arial",axisLabelPadding:3},{position:"right",clolor:"#838383",axisLabelUseCanvas:true,axisLabelFontSizePixels:12,axisLabelFontFamily:" Arial",axisLabelPadding:67}],legend:{noColumns:1,labelBoxBorderColor:"#000000",position:"nw"},grid:{hoverable:false,borderWidth:0,color:"#838383"}};function gd(year,month,day){return new Date(year,month-1,day).getTime()}var previousPoint=null,previousLabel=null;$.plot($("#flot-dashboard-chart"),dataset,options);var mapData={"US":298,"SA":200,"DE":220,"FR":540,"CN":120,"AU":760,"BR":550,"IN":200,"GB":120,};$("#world-map").vectorMap({map:"world_mill_en",backgroundColor:"transparent",regionStyle:{initial:{fill:"#e4e4e4","fill-opacity":0.9,stroke:"none","stroke-width":0,"stroke-opacity":0}},series:{regions:[{values:mapData,scale:["#1ab394","#22d6b1"],normalizeFunction:"polynomial"}]},})});
+        [gd(2012,1,31),993]];
+        var dataset=[
+            {
+                label:"任务",
+                data:data3,
+                color:"#1ab394",
+                bars:{
+                    show:true,
+                    align:"center",
+                    barWidth:24*60*60*600,
+                    lineWidth:0
+                }
+            },
+            /!*{
+                label:"项目",
+                data:data2,
+                yaxis:2,
+                color:"#464f88",
+                lines:{
+                    lineWidth:1,
+                    show:true,
+                    fill:true,
+                    fillColor:{
+                        colors:[{opacity:0.2},{opacity:0.2}]
+                    }
+                },splines:{
+                        show:false,
+                        tension:0.6,
+                        lineWidth:1,
+                        fill:0.1
+                    },
+            }*!/];
+        var options={
+            xaxis:{
+                mode:"time",
+                tickSize:[1,"day"],
+                tickLength:0,
+                axisLabel:"Date",
+                axisLabelUseCanvas:true,
+                axisLabelFontSizePixels:12,
+                axisLabelFontFamily:"Arial",
+                axisLabelPadding:10,
+                color:"#838383"},
+            yaxes:[{
+                position:"left",
+                max:1070,
+                color:"#838383",
+                axisLabelUseCanvas:true,
+                axisLabelFontSizePixels:12,
+                axisLabelFontFamily:"Arial",
+                axisLabelPadding:3
+            },{
+                position:"right",
+                clolor:"#838383",
+                axisLabelUseCanvas:true,
+                axisLabelFontSizePixels:12,
+                axisLabelFontFamily:" Arial",
+                axisLabelPadding:67
+            }],
+            legend:{
+                noColumns:1,
+                labelBoxBorderColor:"#000000",
+                position:"nw"
+            },
+            grid:{
+                hoverable:false,
+                borderWidth:0,
+                color:"#838383"
+            }
+        };
+        function gd(year,month,day){
+            return new Date(year,month-1,day).getTime()
+        }
+        var previousPoint=null, previousLabel=null;
+        $.plot($("#flot-dashboard-chart"),dataset,options);
+        var mapData={
+            "US":298,
+            "SA":200,
+            "DE":220,
+            "FR":540,
+            "CN":120,
+            "AU":760,
+            "BR":550,
+            "IN":200,
+            "GB":120,
+        };
+        $("#world-map").vectorMap({
+            map:"world_mill_en",
+            backgroundColor:"transparent",
+            regionStyle:{
+                initial:{
+                    fill:"#e4e4e4","fill-opacity":0.9,
+                    stroke:"none","stroke-width":0,"stroke-opacity":0
+                }},
+            series:{
+                regions:[{values:mapData,scale:["#1ab394","#22d6b1"],
+                    normalizeFunction:"polynomial"}]},
+        })});*/
 </script>
-<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8">
+
+</script>
 </body>
 </html>

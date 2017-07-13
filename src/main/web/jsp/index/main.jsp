@@ -85,16 +85,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								 <c:if test="${menutwo.modulepid==menu.datatid}">
 									    <li><a data-href="<%=basePath%>${menutwo.moduleurl}?roleid=${map.roleid}" onclick="_ssow()" data-title="${menutwo.modulename}" href="javascript:void(0)">${menutwo.modulename}${permissions.permissionid}
 											<c:if test="${menutwo.datatid==19}">
-												<span style="font-size: 15px;color: red;margin-left: 20px">${map.auditmission}</span>
+												<c:if test="${map.auditmission!=0}"><span style="padding: 2px 7px;font-size: 12px;  background-color: red; border-radius: 30px; color: #fff;margin-left: 20px">${map.auditmission}</span></c:if>
 											</c:if>
 											<c:if test="${menutwo.datatid==20}">
-												<span style="font-size: 15px;color: red;margin-left: 20px">${map.auditproject}</span>
+												<c:if test="${map.auditproject!=0}"><span style="padding: 2px 7px; font-size: 12px; background-color: red; border-radius: 30px; color: #fff;margin-left: 20px">${map.auditproject}</span></c:if>
 											</c:if>
 											<c:if test="${menutwo.datatid==9}">
-												<span style="font-size: 15px;color: red;margin-left: 20px">${map.workermission}</span>
+												<c:if test="${map.workermission!=0}"><span style="padding: 2px 7px; font-size: 12px; background-color: red; border-radius: 30px; color: #fff;margin-left: 20px">${map.workermission}</span></c:if>
 											</c:if>
 											<c:if test="${menutwo.datatid==7}">
-												<span style="font-size: 15px;color: red;margin-left: 20px">${map.workdata}</span>
+												<c:if test="${map.workdata!=0}"><span style="padding: 2px 7px; font-size: 12px; background-color: red; border-radius: 30px; color: #fff;margin-left: 20px">${map.workdata}</span></c:if>
 											</c:if>
 										</a>
 										</li>
@@ -122,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
 			<%--<iframe scrolling="yes" frameborder="0" src="<%=basePath%>worker/selectIndex?dataid=${worker.dataid}"></iframe>--%>
-			<iframe scrolling="yes" frameborder="0" src="/jsp/index/welcome.jsp"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="<%=basePath%>worker/selectIndex"></iframe>
 		</div>
 	</div>
 	<%--<div id="iframe_box1"  style="width: 40%;margin-left: 60%;height: 720px;" >
