@@ -57,6 +57,7 @@
                 <th width="60">项目名称</th>
                 <th width="60">任务名称</th>
                 <th width="200">工作内容</th>
+                <th width="200">评论内容</th>>
                 <th width="80">日期</th>
                 <th  width="60">项目负责人</th>
                 <th width="60">是否已阅</th>
@@ -78,8 +79,11 @@
                     </c:if>
                     </td>
                     <td>${data.missionname}</td>
-                    <td onclick="workDataChat('${data.dataid}')" style="text-decoration:underline">${data.workcontext}</td>
-
+                    <td >${data.workcontext}</td>
+                    <td onclick="workDataChat('${data.dataid}')" style="text-decoration:underline" onmouseover="_over(this,'${dataIndex.index+1}')" onmouseout="_out(this,'${dataIndex.index+1}')" >
+                        <c:if test="${data.count!=0}"><span style="color: red;font-size: 16px">(${data.count})</span></c:if><span class="cutLogin-describe">${data.chat}</span>
+                    </td>
+                    <div id="v${dataIndex.index+1}" style="position:absolute;display:none;border:1px solid silver;background:silver;">${data.chat}</div>
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
                     <td>${data.projectleader}</td>
                     <td class="td-status">
@@ -112,6 +116,36 @@
 <script type="text/javascript" src="static/h-ui/js/ZeroClipboard.js"></script><%--
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.min.js" ></script>--%>
 <script type="text/javascript">
+
+    function _over(obj,id) {
+        var objDiv = $("#v"+id+"");
+        $(objDiv).css("display","block");
+        $(objDiv).css("left", event.clientX-20);
+        $(objDiv).css("top", event.clientY + 10);
+    }
+    function _out(obj,id) {
+        var objDiv = $("#v"+id+"");
+        $(objDiv).css("display", "none");
+    }
+    function substrTextLogin(text, length) {
+        var subText;
+        text.each(function () {
+            var textVal = $(this).text().trim();
+
+            if (textVal.length <= length) {
+                subText = textVal;
+            } else {
+                subText = textVal.substring(0, length)+"...." ;
+            }
+            // console.log(subText);
+            $(this).text('');
+            $(this).text(subText);
+
+        });
+
+    }
+    substrTextLogin($('.cutLogin-describe'), 20);
+
     function  obj(id) {
         var clip = new ZeroClipboard.Client();
         ZeroClipboard.setMoviePath("ZeroClipboard.swf");
