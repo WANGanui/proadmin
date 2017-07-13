@@ -182,7 +182,7 @@ logger.info("=================="+result);
 
             request.setAttribute("selectId",projectdataid);
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return "project/project_progress_list";
     }
