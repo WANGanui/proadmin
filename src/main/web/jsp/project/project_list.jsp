@@ -74,7 +74,7 @@
 						<span class="label radius" style="background-color: #9effff">	审核中</span>
 					</c:if>
 						<c:if test="${projectAll.state==3}">
-							<span class="label radius" style="background-color: #9effff">审核失败</span>
+							<span class="label radius" style="background-color: #bbbbbb">审核失败</span>
 						</c:if>
 
 					</td>
@@ -121,18 +121,6 @@
 <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
 <script type="text/javascript" src="static/h-ui/js/ZeroClipboard.js"></script><%--
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.min.js" ></script>--%>
-<script type="text/javascript">
-	function  obj(id) {
-		var clip = new ZeroClipboard.Client();
-		ZeroClipboard.setMoviePath("ZeroClipboard.swf");
-		clip.setHandCursor(true);
-		clip.setText("http://www.5cpr.com/mobile/share.do?id="+id+"&type=2");
-			clip.addEventListener('complete', function (client) {
-				layer.msg('复制成功', {time: 2000, icon: 6});
-			});
-		clip.glue('J_copy_clipboard_data'+id);
-	}
-</script>
 <script type="text/javascript">
 $('.table-sort').dataTable({
 	"aaSorting": [[ 0, "asc" ]],//默认第几个排序
