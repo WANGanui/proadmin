@@ -30,7 +30,26 @@
     <link href="<%=basePath%>css/animate.min.css" rel="stylesheet">
     <link href="<%=basePath%>css/style.min862f.css?v=4.1.0" rel="stylesheet">
 
+    <script style="text/javascript">
+        function picture_query(title,url){
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url
+            });
+            layer.full(index);
+        };
+        function queryDetaila(id) {
 
+            var index = layer.open({
+                type: 2,
+                title: "项目详情",
+                content: "<%=basePath%>selectProjectDeatil?projectId="+id
+            });
+            layer.full(index);
+
+        }
+    </script>
 </head>
 
 <body class="gray-bg">
@@ -39,12 +58,12 @@
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-success pull-right">月</span>
+                    <span class="label label-success pull-right">全年</span>
                     <h5>任务</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">40</h1>
-                    <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i>
+                    <h1 class="no-margins" ><a href="<%=basePath%>/missionList?roleid=${map.roleid}">${map.missionNum}</a></h1>
+                    <div class="stat-percent font-bold text-success"><i class="fa fa-level-up"></i>
                     </div>
                     <small>数量</small>
                 </div>
@@ -57,38 +76,38 @@
                     <h5>项目</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">275</h1>
-                    <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
+                    <h1 class="no-margins"><a  href="<%=basePath%>/projectList?roleid=${map.roleid}">${map.projectNum}</a></h1>
+                    <div class="stat-percent font-bold text-info"><i class="fa fa-level-up"></i>
                     </div>
-                    <small>新项目</small>
+                    <small>数量</small>
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-primary pull-right">今天</span>
-                    <h5>访客</h5>
+                    <span class="label label-primary pull-right">当前</span>
+                    <h5>待审核任务</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">106</h1>
-                    <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i>
+                    <h1 class="no-margins"><a  href="<%=basePath%>/missionCheck?roleid=${map.roleid}">${map.auditmission}</a></h1>
+                    <div class="stat-percent font-bold text-navy"><i class="fa fa-level-up"></i>
                     </div>
-                    <small>新访客</small>
+                    <small>数量</small>
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-danger pull-right">最近一个月</span>
-                    <h5>活跃用户</h5>
+                    <span class="label label-danger pull-right">当前</span>
+                    <h5>待审核项目</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">800</h1>
-                    <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
+                    <h1 class="no-margins"><a  href="<%=basePath%>/selectProjectAudit?roleid=${map.roleid}">${map.auditproject}</a></h1>
+                    <div class="stat-percent font-bold text-danger"><i class="fa fa-level-up"></i>
                     </div>
-                    <small>07月</small>
+                    <small>数量</small>
                 </div>
             </div>
         </div>
@@ -119,7 +138,7 @@
         <div class="col-sm-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>消息</h5>
+                    <h5>公告</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -130,64 +149,25 @@
                     </div>
                 </div>
                 <div class="ibox-content ibox-heading">
-                    <h3><i class="fa fa-envelope-o"></i> 新消息</h3>
-                    <small><i class="fa fa-tim"></i> 您有22条未读消息</small>
+                    <h3><i class="fa fa-envelope-o"></i> 新公告</h3>
                 </div>
                 <div class="ibox-content">
                     <div class="feed-activity-list">
-
-                        <div class="feed-element">
-                            <div>
-                                <small class="pull-right text-navy">1天前</small>
-                                <strong>吃火锅</strong>
-                                <div>晚上吃火锅</div>
-                                <small class="text-muted">4月11日 00:00</small>
+                        <c:forEach items="${map.notice}" var="notice">
+                            <div class="feed-element">
+                                <div>
+                                    <strong>${notice.title}</strong>
+                                    <div>${notice.context}</div>
+                                    <small class="text-muted"><fmt:formatDate value="${notice.time}"/></small>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="feed-element">
-                            <div>
-                                <small class="pull-right">1天前</small>
-                                <strong>马伯庸 </strong>
-                                <div>又方便，又防水，手感又好，还可以用手机遥控。简直是拍戏利器，由其是跟老师们搭戏的时候…想想还有点小激动啊，嘿嘿。</div>
-                                <small class="text-muted">11月8日 20:08 </small>
-                            </div>
-                        </div>
-
-                        <div class="feed-element">
-                            <div>
-                                <small class="pull-right">1天前</small>
-                                <strong>芒果宓 </strong>
-                                <div>一个完整的梦。</div>
-                                <small class="text-muted">11月8日 20:08 </small>
-                            </div>
-                        </div>
-
-                        <div class="feed-element">
-                            <div>
-                                <small class="pull-right">1天前</small>
-                                <strong>刺猬尼克索</strong>
-                                <div>哈哈哈哈 你卖什么萌啊! 蠢死了</div>
-                                <small class="text-muted">11月8日 20:08 </small>
-                            </div>
-                        </div>
-
-
-                        <div class="feed-element">
-                            <div>
-                                <small class="pull-right">1天前</small>
-                                <strong>老刀99</strong>
-                                <div>昨天评论里你见过最“温暖和感人”的诗句，整理其中经典100首，值得你收下学习。</div>
-                                <small class="text-muted">11月8日 20:08 </small>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-sm-8">
-
             <div class="row">
                 <div class="col-sm-6">
                     <div class="ibox float-e-margins">
@@ -213,55 +193,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td><small>进行中...</small>
+                                <c:forEach items="${map.project}" var="projectAll">
+                                <tr onclick="queryDetaila('${projectAll.dataid}')" >
+                                    <td><small><c:if test="${projectAll.state==1}">
+                                        <span class="label label-success radius">	审核完成 </span>
+                                    </c:if>
+                                        <c:if test="${projectAll.state==0}">
+                                            <span class="label radius" style="background-color:red">	待审核</span>
+                                        </c:if>
+
+                                        <c:if test="${projectAll.state==2}">
+                                            <span class="label radius" style="background-color: #9effff">	审核中</span>
+                                        </c:if>
+                                        <c:if test="${projectAll.state==3}">
+                                            <span class="label radius" style="background-color: #bbbbbb">审核失败</span>
+                                        </c:if></small>
                                     </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 24%</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="label label-warning">已取消</span>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 66%</td>
-                                </tr>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 54%</td>
-                                </tr>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 12%</td>
-                                </tr>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 22%</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="label label-primary">已完成</span>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 66%</td>
-                                </tr>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 23%</td>
-                                </tr>
+                                    <td><i class="fa fa-clock-o"></i><fmt:formatDate value="${projectAll.endtime}" pattern="yyyy-MM-dd" /></td>
+                                    <td>${projectAll.name}</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> ${projectAll.progress}</td>
+                                </tr></c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -291,55 +242,23 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 24%</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="label label-warning">已取消</span>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 66%</td>
-                                </tr>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 54%</td>
-                                </tr>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 12%</td>
-                                </tr>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 22%</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="label label-primary">已完成</span>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 66%</td>
-                                </tr>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 2017-08-23</td>
-                                    <td>南川项目</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 23%</td>
-                                </tr>
+                                <c:forEach items="${map.mission}" var="mission1">
+                                    <tr onclick="picture_query('任务详情','<%=basePath%>missionDetail?dataid=${mission1.dataid}')">
+                                        <td><small><c:if test="${mission1.state==0}">
+                                            <span class="label label-success radius" style="background-color: #00a0e9">	未开始 </span>
+                                        </c:if>
+                                            <c:if test="${mission1.state==1}">
+                                                <span class="label label-success radius" style="background-color: #13DAEC">进行中</span>
+                                            </c:if>
+                                            <c:if test="${mission1.state==2}">
+                                                <span class="label label-success radius">已完成</span>
+                                            </c:if></small>
+                                        </td>
+                                        <td><i class="fa fa-clock-o"></i><fmt:formatDate value="${mission1.endtime}" pattern="yyyy-MM-dd" /></td>
+                                        <td >${mission1.name}</td>
+                                        <td class="text-navy"> <i class="fa fa-level-up"></i> ${mission1.percentage}</td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -447,7 +366,10 @@
 <script src="<%=basePath%>js/plugins/easypiechart/jquery.easypiechart.js"></script>
 <script src="<%=basePath%>js/plugins/sparkline/jquery.sparkline.min.js"></script>
 <script src="<%=basePath%>js/demo/sparkline-demo.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
+
 <script>
+
     var dataAxis = [];
     var data = [];
     $.ajax({
@@ -462,13 +384,12 @@
                 for (var i = 0; i < yeji.length; i++){
                     var name=yeji[i].name;
                     dataAxis.push(name);
-
                     var  count=yeji[i].count;
                     data.push(count);
 
                 }
                 var myChart = echarts.init(document.getElementById('row'));
-                var yMax = 100;
+                var yMax = 50;
                 var dataShadow = [];
 
                 for (var i = 0; i < data.length; i++) {
@@ -480,7 +401,7 @@
                         axisLabel: {
                             inside: true,
                             textStyle: {
-                                color: '#fff'
+                                color: '#ed5565'
                             }
                         },
                         axisTick: {
@@ -565,172 +486,6 @@
 
         }
     });
-
-
-   /* $(document).ready(function(){$(".chart").easyPieChart(
-        {barColor:"#f8ac59",scaleLength:5,lineWidth:4,size:80});
-    $(".chart2").easyPieChart({barColor:"#1c84c6",scaleLength:5,lineWidth:4,size:80});
-    var data2=[*/
-        /*[gd(2012,1,1),7],
-        [gd(2012,1,2),6],
-        [gd(2012,1,3),4],
-        [gd(2012,1,4),8],
-        [gd(2012,1,5),9],
-        [gd(2012,1,6),7],
-        [gd(2012,1,7),5],
-        [gd(2012,1,8),4],
-        [gd(2012,1,9),7],
-        [gd(2012,1,10),8],
-        [gd(2012,1,11),9],
-        [gd(2012,1,12),6],
-        [gd(2012,1,13),4],
-        [gd(2012,1,14),5],
-        [gd(2012,1,15),11],
-        [gd(2012,1,16),8],
-        [gd(2012,1,17),8],
-        [gd(2012,1,18),11],
-        [gd(2012,1,19),11],
-        [gd(2012,1,20),6],
-        [gd(2012,1,21),6],
-        [gd(2012,1,22),8],
-        [gd(2012,1,23),11],
-        [gd(2012,1,24),13],
-        [gd(2012,1,25),7],
-        [gd(2012,1,26),9],
-        [gd(2012,1,27),9],
-        [gd(2012,1,28),8],
-        [gd(2012,1,29),5],
-        [gd(2012,1,30),8],
-        [gd(2012,1,31),25]]*/
-    /*var data3=[
-        [gd(2012,1,1),800],
-        [gd(2012,1,2),500],
-        [gd(2012,1,3),600],
-        [gd(2012,1,4),700],
-        [gd(2012,1,5),500],
-        [gd(2012,1,6),456],
-        [gd(2012,1,7),800],
-        [gd(2012,1,8),589],
-        [gd(2012,1,9),467],
-        [gd(2012,1,10),876],
-        [gd(2012,1,11),689],
-        [gd(2012,1,12),700],
-        [gd(2012,1,13),500],
-        [gd(2012,1,14),600],
-        [gd(2012,1,15),700],
-        [gd(2012,1,16),786],
-        [gd(2012,1,17),345],
-        [gd(2012,1,18),888],
-        [gd(2012,1,19),888],
-        [gd(2012,1,20),888],
-        [gd(2012,1,21),987],
-        [gd(2012,1,22),444],
-        [gd(2012,1,23),999],
-        [gd(2012,1,24),567],
-        [gd(2012,1,25),786],
-        [gd(2012,1,26),666],
-        [gd(2012,1,27),888],
-        [gd(2012,1,28),900],
-        [gd(2012,1,29),178],
-        [gd(2012,1,30),555],
-        [gd(2012,1,31),993]];
-        var dataset=[
-            {
-                label:"任务",
-                data:data3,
-                color:"#1ab394",
-                bars:{
-                    show:true,
-                    align:"center",
-                    barWidth:24*60*60*600,
-                    lineWidth:0
-                }
-            },
-            /!*{
-                label:"项目",
-                data:data2,
-                yaxis:2,
-                color:"#464f88",
-                lines:{
-                    lineWidth:1,
-                    show:true,
-                    fill:true,
-                    fillColor:{
-                        colors:[{opacity:0.2},{opacity:0.2}]
-                    }
-                },splines:{
-                        show:false,
-                        tension:0.6,
-                        lineWidth:1,
-                        fill:0.1
-                    },
-            }*!/];
-        var options={
-            xaxis:{
-                mode:"time",
-                tickSize:[1,"day"],
-                tickLength:0,
-                axisLabel:"Date",
-                axisLabelUseCanvas:true,
-                axisLabelFontSizePixels:12,
-                axisLabelFontFamily:"Arial",
-                axisLabelPadding:10,
-                color:"#838383"},
-            yaxes:[{
-                position:"left",
-                max:1070,
-                color:"#838383",
-                axisLabelUseCanvas:true,
-                axisLabelFontSizePixels:12,
-                axisLabelFontFamily:"Arial",
-                axisLabelPadding:3
-            },{
-                position:"right",
-                clolor:"#838383",
-                axisLabelUseCanvas:true,
-                axisLabelFontSizePixels:12,
-                axisLabelFontFamily:" Arial",
-                axisLabelPadding:67
-            }],
-            legend:{
-                noColumns:1,
-                labelBoxBorderColor:"#000000",
-                position:"nw"
-            },
-            grid:{
-                hoverable:false,
-                borderWidth:0,
-                color:"#838383"
-            }
-        };
-        function gd(year,month,day){
-            return new Date(year,month-1,day).getTime()
-        }
-        var previousPoint=null, previousLabel=null;
-        $.plot($("#flot-dashboard-chart"),dataset,options);
-        var mapData={
-            "US":298,
-            "SA":200,
-            "DE":220,
-            "FR":540,
-            "CN":120,
-            "AU":760,
-            "BR":550,
-            "IN":200,
-            "GB":120,
-        };
-        $("#world-map").vectorMap({
-            map:"world_mill_en",
-            backgroundColor:"transparent",
-            regionStyle:{
-                initial:{
-                    fill:"#e4e4e4","fill-opacity":0.9,
-                    stroke:"none","stroke-width":0,"stroke-opacity":0
-                }},
-            series:{
-                regions:[{values:mapData,scale:["#1ab394","#22d6b1"],
-                    normalizeFunction:"polynomial"}]},
-        })});*/
 </script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8">
 

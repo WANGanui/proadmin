@@ -122,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
 			<%--<iframe scrolling="yes" frameborder="0" src="<%=basePath%>worker/selectIndex?dataid=${worker.dataid}"></iframe>--%>
-			<iframe scrolling="yes" frameborder="0" src="<%=basePath%>worker/selectIndex"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="<%=basePath%>worker/selectIndex?dataid=${worker.dataid}"></iframe>
 		</div>
 	</div>
 	<%--<div id="iframe_box1"  style="width: 40%;margin-left: 60%;height: 720px;" >
