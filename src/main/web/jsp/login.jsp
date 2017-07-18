@@ -55,7 +55,7 @@
                     dataType:'json',
                     success:function (data) {
                         if (data.success == false){
-                            Messenger().alertErr(data.msg);
+                            Messenger().alertErr("用户名或密码错误！");
                         }else {
                             window.location.href=initData.gotoIndexUrl;
                         }

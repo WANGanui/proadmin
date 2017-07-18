@@ -189,10 +189,10 @@
                 data : JSON.stringify(data.field),
                 success : function(data) {
                     if (data.success) {
-                        layer.msg('添加日志成功' ,{time: 2000, icon:6});
+                        layer.msg('添加公告成功' ,{time: 2000, icon:6});
                         $("#but").hide();
                     } else {
-                        layer.msg('添加日志失败' ,{time: 2000, icon:5});
+                        layer.msg('添加公告失败' ,{time: 2000, icon:5});
 
                     }
                 }
