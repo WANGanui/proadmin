@@ -64,7 +64,7 @@
                         <option value="${project.dataid}" title="${project.name}">${project.name}</option>
                     </c:forEach>
                     <c:forEach items="${map.list2}" var="projectmission" varStatus="projectIndex">
-                        <option value="${project.dataid}" title="${project.name}">${project.name}</option>
+                        <option value="${projectmission.dataid}" title="${projectmission.name}">${projectmission.name}</option>
                     </c:forEach>
                 </select>
             </div>

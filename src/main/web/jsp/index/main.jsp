@@ -75,11 +75,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <c:forEach items="${map.menus}" var="menu">
 	<c:if test="${menu.modulepid==0}">
 		<dl id="menu-product">
-				<dt><i class="Hui-iconfont">&#xe620;</i>
+
+				<dt <c:if test="${menu.datatid==5}">class="selected"</c:if>>
+					<i class="Hui-iconfont">&#xe620;</i>
 					      ${menu.modulename}
 					  <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 			  </dt>
-				<dd>
+				<dd  <c:if test="${menu.datatid==5}">style="display: block" </c:if>>
 					<ul>
 							<c:forEach items="${map.menus}" var="menutwo">
 								 <c:if test="${menutwo.modulepid==menu.datatid}">
