@@ -137,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<jsp:include page="demo2.jsp" flush="true"></jsp:include>
 	</div>--%>
 </section>
-
+<%--
 <div class="contextMenu" id="myMenu1">
 	<ul>
 		<li id="open">Open </li>
@@ -145,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<li id="save">save </li>
 		<li id="delete">delete </li>
 	</ul>
-</div>
+</div>--%>
 
 
 <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
