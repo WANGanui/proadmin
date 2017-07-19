@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by 82705 on 2017/6/14.
@@ -34,6 +33,8 @@ public class ProjectController {
     DepartmentService departmentService;//查询所有部门
     @Autowired
     WorkDataService workDataService; //查询项目进度详情
+    @Autowired
+    MissionService missionService;
     @Autowired
     PermissionService permissionService;
     //查询项目列表
@@ -159,26 +160,27 @@ logger.info("=================="+result);
 
     //查询项目进度详情
     @RequestMapping(value = "/projectDetail")
-    public  String projectDetail(HttpServletRequest request,String name){
+    public  String projectDetail(HttpServletRequest request,HttpSession session,String name){
         try {
             ProjectCriteria projectCriteria=new ProjectCriteria();
             List<Project> projectList= projectService.selectList(projectCriteria);
             request.setAttribute("projectList",projectList);//项目
             String projectdataid="";
             name=(name==null?"":name);
-            List<Workdata> workdataList=null;
+            List<Mission> missions=null;
             if (projectList.size()>=1){
                 if (name.equals("")||name==null){
                     projectdataid= projectList.get(0).getDataid();//项目Id
                 }else{
                     projectdataid=name;
                 }
-                WorkdataCriteria workdataCriteria=new WorkdataCriteria();
-                workdataCriteria.setProjectdataid(projectdataid);
-                workdataList  = workDataService.queryList(workdataCriteria);
+
+                MissionCriteria example=new MissionCriteria();
+                example.setProdataid(projectdataid);
+                missions = missionService.selectList(example);
 
             }
-            request.setAttribute("workdataList",workdataList);
+            request.setAttribute("list",missions);
 
             request.setAttribute("selectId",projectdataid);
         }catch (Exception e){
@@ -335,5 +337,35 @@ logger.info("=================="+result);
             e.printStackTrace();
         }
         return "project/project_delete_list";
+    }
+
+
+    @RequestMapping(value = "/addTadaTable")
+    public @ResponseBody Object addTadaTable(){
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // 日期格式
+            Date date = dateFormat.parse("2017-01-01"); // 指定日期
+
+            System.out.println(dateFormat.format(date));// 输出格式化后的日期
+
+            Map map=null;
+            for (int i = 1; i < 366; i++) {
+                map=new HashMap();
+                Date newDate = addDate(date, i); // 指定日期加上20天
+                String date1= dateFormat.format(newDate);
+                System.out.println(date1);
+                map.put("dataTime",date1);
+                projectService.insertDataTable(map);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  null;
+    }
+    public static Date addDate(Date date,long day) throws ParseException {
+        long time = date.getTime(); // 得到指定日期的毫秒数
+        day = day*24*60*60*1000; // 要加上的天数转换成毫秒数
+        time+=day; // 相加得到新的毫秒数
+        return new Date(time); // 将毫秒数转换成日期
     }
 }

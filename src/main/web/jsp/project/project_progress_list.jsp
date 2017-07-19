@@ -51,26 +51,77 @@
         <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><select onchange="projectProgress()" id="dataId" name="name" class="select" style="width: 150px;"><c:forEach items="${projectList}" var="project"><option value="${project.dataid}" <c:if test="${selectId==project.dataid}">selected</c:if>>${project.name}</option></c:forEach></select></span> </div>
     </form>
     <div class="mt-20">
-        <table id="tbody" class="table table-border table-bordered table-bg table-hover table-sort">
+        <table class="table table-border table-bordered table-bg table-hover table-sort" id="table1">
             <thead>
             <tr class="text-c">
                 <th width="40">序号</th>
-                <th width="40">日期</th>
-                <th width="60">人员</th>
-                <th width="100">任务名称</th>
-                <th width="200">工作内容</th>
+                <th width="60">任务名称</th>
+                <th width="80">开始时间</th>
+                <th width="80">计划结束时间</th>
+                <th  width="60">项目名称</th>
+                <th width="60">进度</th>
+                <th width="60">任务比重</th>
+                <th width="60">创建人</th>
+                <th width="60">审核人</th>
+                <th width="60">责任人</th>
+                <th width="60">类型</th>
+                <th width="60">项目阶段</th>
+                <th width="70">流程状态</th>
+                <th width="70">任务状态</th>
+                <th width="100">操作</th>
             </tr>
             </thead>
-            <tbody >
-            <c:forEach items="${workdataList}" var="workdata" varStatus="projectIndex">
-                <tr class="text-c">
 
-                    <td>${projectIndex.index+1}</td>
-                    <td onclick="queryDetaila()"><fmt:formatDate value="${workdata.time}" pattern="yyyy-MM-dd" /></td>
-                    <td class="td-time">${workdata.workername}</td>
-                    <td class="td-time">${workdata.missionname}</td>
-                    <td>${workdata.workcontext}</td>
+            <tbody>
+            <c:forEach items="${list}" var="mission1" varStatus="missionIndex1">
+                <tr class="text-c" <c:if test="${mission1.finishtime>mission1.endtime}"> style="background-color: red" </c:if>>
 
+                    <td>${missionIndex1.index+1}</td>
+                    <td onclick="picture_query('任务详情','<%=basePath%>missionDetail?dataid=${mission1.dataid}')" style="text-decoration:underline">${mission1.name}</td>
+
+                    <td class="td-time"><fmt:formatDate value="${mission1.starttime}" pattern="yyyy-MM-dd" /></td>
+                    <td class="td-time"><fmt:formatDate value="${mission1.endtime}" pattern="yyyy-MM-dd" /></td>
+                    <td>${mission1.proname}</td>
+                    <td>${mission1.percentage}</td>
+                    <td>${mission1.proportion}级</td>
+                    <td>${mission1.creator}</td>
+                    <td>${mission1.auditorname}</td>
+                    <td>${mission1.headername}</td>
+                    <td class="td-status"><c:if test="${mission1.type==0}">
+                        <span class="label label-success radius">	项目任务 </span>
+                    </c:if>
+                        <c:if test="${mission1.type==1}">
+                            <span class="label label-success radius">个人任务</span>
+                        </c:if>
+                    </td>
+                    <td class="td-status">
+                        <span class="label label-success radius">${mission1.level}</span>
+                    </td>
+                    <td class="td-status"><c:if test="${mission1.state==0}">
+                        <span class="label label-success radius" style="background-color: #00a0e9">	未开始 </span>
+                    </c:if>
+                        <c:if test="${mission1.state==1}">
+                            <span class="label label-success radius" style="background-color: #13DAEC">进行中</span>
+                        </c:if>
+                        <c:if test="${mission1.state==2}">
+                            <span class="label label-success radius">已完成</span>
+                        </c:if>
+                    </td>
+                    <td class="td-status"><c:if test="${mission1.missionstate==0}">
+                        <span class="label label-success radius">	已同意 </span>
+                    </c:if>
+                        <c:if test="${mission1.missionstate==1}">
+                            <span class="label label-success radius" style="background-color: #985f0d">已拒绝</span>
+                        </c:if>
+                        <c:if test="${mission1.missionstate==2}">
+                            <span class="label label-success radius" style="background-color: #00a0e9">待审核</span>
+                        </c:if>
+                    </td>
+                    <td class="td-manage">
+                      <%--  <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('${mission1.dataid}')" title="删除"><i class="Hui-iconfont" style="font-size: 20px" >&#xe6e2;</i></a>
+                        <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('编辑任务','<%=basePath%>/toupdatemission?dataid=${mission1.dataid}')" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
+                      --%>  <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('进度详情','<%=basePath%>/missionjindu?dataid=${mission1.dataid}')" title="进度详情"><i class="Hui-iconfont">&#xe667;</i></a>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -100,7 +151,15 @@
         $("#form").submit();
 
     }
-
+    /*案例-查看*/
+    function picture_query(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
 
 </script>
 
