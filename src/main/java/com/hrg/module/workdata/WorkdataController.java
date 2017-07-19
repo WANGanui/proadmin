@@ -40,7 +40,7 @@ public class WorkdataController {
         Worker worker = (Worker) session.getAttribute("worker");
         try {
             logger.info("===========开始查询工作日志，入参【"+ JsonUtil.encode(example)+"】============");
-            List<Workdata> list = workDataService.selectList(example,worker.getDepartmentdataid());
+            List<Workdata> list = workDataService.selectList(example,worker);
             model.addObject("list",list);
             model.setViewName("workdata/data_list");
             logger.info("============查询日志成功==============");
@@ -56,11 +56,12 @@ public class WorkdataController {
         ModelAndView model = new ModelAndView();
         HttpSession session = request.getSession();
         Worker worker = (Worker)session.getAttribute("worker");
+        worker.setDepartmentdataid(null);
         example.setWorkerdataid(worker.getDataid());
         logger.info("============开始查询个人日志==============");
         try {
             logger.info("===========开始查询个人日志，入参【"+ JsonUtil.encode(example)+"】============");
-            List<Workdata> list = workDataService.selectList(example,null);
+            List<Workdata> list = workDataService.selectList(example,worker);
             model.addObject("list",list);
             model.setViewName("workdata/workerdata_list");
             logger.info("=================查询日志成功=====================");
