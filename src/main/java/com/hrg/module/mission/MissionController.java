@@ -47,8 +47,60 @@ public class MissionController {
         try {
             logger.info("============开始任务列表查询=============");
             logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
+            List list = new ArrayList();
+            list.add("0");
+            list.add("1");
+            example.setStateList(list);
             List<Mission> missions = missionService.selectList(example,worker);
             List<String> missList = permissionService.selectList("6",roleid);
+            logger.info("============任务列表查询成功=============");
+            model.addObject("roles",missList);
+            model.addObject("list",missions);
+            model.setViewName("mission/mission_list");
+        } catch (Exception e) {
+            logger.info("============任务列表查询失败，系统异常=============");
+            model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.SYSTEM_EXCEPTION.getMessage(),ErrorCode.SYSTEM_EXCEPTION.getCode())));
+            e.printStackTrace();
+        }
+        return model;
+    }
+
+    @RequestMapping("/missionend")
+    public ModelAndView selectListend(HttpSession session, MissionCriteria example,String roleid){
+        Worker worker = (Worker) session.getAttribute("worker");
+        example.setAuditorid(worker.getDataid());
+        ModelAndView model = new ModelAndView();
+        try {
+            logger.info("============开始任务列表查询=============");
+            logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
+            example.setMissionstate("0");
+            example.setState("2");
+            List<Mission> missions = missionService.selectList(example);
+            List<String> missList = permissionService.selectList("22",roleid);
+            logger.info("============任务列表查询成功=============");
+            model.addObject("roles",missList);
+            model.addObject("list",missions);
+            model.setViewName("mission/mission_list");
+        } catch (Exception e) {
+            logger.info("============任务列表查询失败，系统异常=============");
+            model.addObject(JsonUtil.encode(ApiResult.returnFail(ErrorCode.SYSTEM_EXCEPTION.getMessage(),ErrorCode.SYSTEM_EXCEPTION.getCode())));
+            e.printStackTrace();
+        }
+        return model;
+    }
+
+    @RequestMapping("/missionrefuse")
+    public ModelAndView selectListrefuse(HttpSession session, MissionCriteria example,String roleid){
+        Worker worker = (Worker) session.getAttribute("worker");
+        example.setAuditorid(worker.getDataid());
+        ModelAndView model = new ModelAndView();
+        try {
+            logger.info("============开始任务列表查询=============");
+            logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
+            example.setMissionstate("1");
+            example.setState("0");
+            List<Mission> missions = missionService.selectList(example);
+            List<String> missList = permissionService.selectList("23",roleid);
             logger.info("============任务列表查询成功=============");
             model.addObject("roles",missList);
             model.addObject("list",missions);

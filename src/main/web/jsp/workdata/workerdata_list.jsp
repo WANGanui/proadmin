@@ -64,7 +64,6 @@
                 <th width="200">工作内容</th>
                 <th width="200">评论内容</th>
                 <th width="80">日期</th>
-                <th  width="60">项目负责人</th>
                 <th width="100">操作</th>
             </tr>
             </thead>
@@ -82,7 +81,6 @@
                     <div id="v${dataIndex.index+1}" style="position:absolute;display:none;border:1px solid silver;background:silver;">${data.chat}</div>
 
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
-                    <td>${data.projectleader}</td>
                     <td class="td-manage">
                         <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('修改日志','<%=basePath%>editWorkdata?dataid=${data.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
                     </td>

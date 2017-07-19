@@ -59,7 +59,6 @@
                 <th width="200">工作内容</th>
                 <th width="200">评论内容</th>>
                 <th width="80">日期</th>
-                <th  width="60">项目负责人</th>
                 <th width="60">是否已阅</th>
                 <th width="60">操作</th>
             </tr>
@@ -85,7 +84,6 @@
                     </td>
                     <div id="v${dataIndex.index+1}" style="position:absolute;display:none;border:1px solid silver;background:silver;">${data.chat}</div>
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
-                    <td>${data.projectleader}</td>
                     <td class="td-status">
 
                         <c:if test="${data.isread==0}">
@@ -97,7 +95,7 @@
                     </td>
                     <td class="td-manage">
                         <c:if test="${data.isread==0}">
-                            <a style="text-decoration:none" class="ml-5" onClick="picture_del('${data.dataid}')" title="已阅"><i class="Hui-iconfont" style="font-size: 20px" >&#xe6e1;</i></a>
+                            <a style="text-decoration:none" class="ml-5" onClick="picture_del('${data.dataid}')" title="已阅"><i class="Hui-iconfont" style="font-size: 20px" >阅</i></a>
                         </c:if>
                     </td>
                 </tr>

@@ -41,6 +41,17 @@
         white-space:nowrap;
     !important;
     }
+    .btn{
+        display: inline-block;
+        height: 38px;
+        line-height: 38px;
+        padding: 0 18px;
+        background-color: #009688;
+        font-size: 14px;
+        color: #fff;
+        border: none;
+        border-radius: 2px;
+    }
 </style>
 <script>
 
@@ -192,17 +203,21 @@
             <textarea  name="remark"  class="layui-textarea" disabled>${map.mission.remark}</textarea>
         </div>
     </div>
-    <%--<div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">编辑器</label>
+    <div class="layui-form-item">
         <div class="layui-input-block">
-            <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+            <button class="btn" onclick="_back()">关闭</button>
         </div>
-    </div>--%>
+    </div>
 </form>
 <div id="div2"></div>
 <script src="<%=basePath%>js/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
+    function _back() {
+       window.parent.location.reload();
+
+       // parent.layer.close();
+    }
     function  queryTwoBarand() {
 
         var select = document.getElementsByName("ment");
