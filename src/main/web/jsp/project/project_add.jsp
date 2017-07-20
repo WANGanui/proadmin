@@ -83,7 +83,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">项目名称</label>
         <div class="layui-input-block">
-            <input type="text" name="name" lay-verify="title" width="200" autocomplete="off" value="测试2" placeholder="请输入项目名称" class="layui-input">
+            <input type="text" name="name" lay-verify="title" width="200" autocomplete="off" value="" placeholder="请输入项目名称" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item" id="department">
@@ -114,13 +114,13 @@
         <div class="layui-inline">
             <label class="layui-form-label" style="width: 130px;">项目开始日期</label>
             <div class="layui-input-inline">
-                <input type="text" name="starttime" id="date" lay-verify="date" value="2017-6-23" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+                <input type="text" name="starttime" id="date" lay-verify="date" value="" placeholder="年-月-日" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label" style="width: 130px;">预计结束日期</label>
             <div class="layui-input-inline">
-                <input type="text" name="endtime" id="date1" lay-verify="date" placeholder="年-月-日" value="2017-6-23" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+                <input type="text" name="endtime" id="date1" lay-verify="date" placeholder="年-月-日" value="" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
             </div>
         </div>
     </div>
