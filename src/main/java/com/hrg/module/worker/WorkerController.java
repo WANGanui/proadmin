@@ -5,19 +5,16 @@ import com.hrg.exception.MessageException;
 import com.hrg.exception.ValidatorException;
 import com.hrg.global.ApiResult;
 import com.hrg.global.JsonResult;
-import com.hrg.model.*;
+import com.hrg.model.Worker;
+import com.hrg.model.WorkerCriteria;
 import com.hrg.service.ModuleService;
 import com.hrg.service.PermissionService;
 import com.hrg.service.WorkerService;
 import com.hrg.util.JsonUtil;
-import com.hrg.util.PageUtil;
 import com.hrg.util.ResultUtil;
 import com.hrg.util.ValidUtil;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +26,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 82705 on 2017/6/6.
@@ -313,10 +312,11 @@ public class WorkerController {
     }
 
     @RequestMapping("/selectIndex")
-    public ModelAndView selectIndex(String dataid){
+    public ModelAndView selectIndex(String dataid,HttpSession session){
+        Worker worker = (Worker) session.getAttribute("worker");
         ModelAndView model = new ModelAndView();
         try {
-            Map map = workerService.selectIndex(dataid);
+            Map map = workerService.selectIndex(dataid,worker);
             model.addObject("map",map);
             model.setViewName("index/welcome");
         } catch (Exception e) {

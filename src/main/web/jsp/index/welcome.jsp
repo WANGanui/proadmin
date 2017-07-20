@@ -53,6 +53,12 @@
 </head>
 
 <body class="gray-bg">
+<div id="small-chat">
+    <span class="badge badge-warning pull-right" style="color: red;">5</span>
+    <a class="open-small-chat">
+        <i class="fa fa-comments"></i>
+    </a>
+</div>
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-sm-3">
@@ -138,7 +144,7 @@
         <div class="col-sm-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>公告</h5>
+                    <h5>日志信息</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -148,21 +154,36 @@
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content ibox-heading">
-                    <h3><i class="fa fa-envelope-o"></i> 新公告</h3>
-                </div>
+                <%--<div class="ibox-content ibox-heading">
+                    <h3><i class="fa fa-envelope-o"></i> 缺失日志</h3>
+                </div>--%>
                 <div class="ibox-content">
-                    <div class="feed-activity-list">
-                        <c:forEach items="${map.notice}" var="notice">
-                            <div class="feed-element">
-                                <div>
-                                    <strong>${notice.title}</strong>
-                                    <div>${notice.context}</div>
-                                    <small class="text-muted"><fmt:formatDate value="${notice.time}"/></small>
-                                </div>
+                    <table class="table table-hover no-margins">
+                        <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>缺失日志(篇)</th>
+                        </tr>
+                        </thead>
+                        <tbody  <%--onclick="queryWorkData(${map.roleid})"--%>>
+                        <c:forEach items="${map.workDataMissingLog}" var="notice">
+                            <tr>
+                               <td>${notice.name}</td>
+                                <td class="text-navy"> ${notice.missingLog}</td>
+                            </tr></c:forEach>
+                        </tbody>
+                    </table>
+                   <%-- <div class="feed-activity-list">
+                    <c:forEach items="${map.workDataMissingLog}" var="notice">
+                        <div class="feed-element">
+                            <div>
+                                <strong>${notice.name}</strong>
+                                <div>${notice.missingLog}</div>
+                                    &lt;%&ndash;  <small class="text-muted"><fmt:formatDate value="${notice.time}"/></small>&ndash;%&gt;
                             </div>
-                        </c:forEach>
-                    </div>
+                        </div>
+                    </c:forEach>
+                     </div>--%>
                 </div>
             </div>
         </div>
@@ -343,7 +364,9 @@
             </div>
         </div>
     </div>
+
 </div>
+
 <script type="text/javascript" src="<%=basePath%>js/jquery1.11.3.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/echarts.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/echarts.common.min.js"></script>
@@ -367,7 +390,20 @@
 <script src="<%=basePath%>js/plugins/sparkline/jquery.sparkline.min.js"></script>
 <script src="<%=basePath%>js/demo/sparkline-demo.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
+<script>
+    function queryWorkData(roleId) {
+        if (roleId==3){
+            var index = layer.open({
+                type: 2,
+                title:"日志列表",
+                content: "<%=basePath%>missionWorkdata?roleid=3"
+            });
+            layer.full(index);
+            //window.location.href='http://192.168.100.88:9090//missionWorkdata?roleid=3'
+        }
 
+    }
+</script>
 <script>
 
     var dataAxis = [];
