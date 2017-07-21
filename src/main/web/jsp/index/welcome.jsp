@@ -53,12 +53,7 @@
 </head>
 
 <body class="gray-bg">
-<div id="small-chat">
-    <span class="badge badge-warning pull-right" style="color: red;">5</span>
-    <a class="open-small-chat">
-        <i class="fa fa-comments"></i>
-    </a>
-</div>
+
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-sm-3">
@@ -165,7 +160,7 @@
                             <th>缺失日志(篇)</th>
                         </tr>
                         </thead>
-                        <tbody  <%--onclick="queryWorkData(${map.roleid})"--%>>
+                        <tbody  onclick="queryWorkData(${map.roleid})">
                         <c:forEach items="${map.workDataMissingLog}" var="notice">
                             <tr>
                                <td>${notice.name}</td>
@@ -367,6 +362,46 @@
 
 </div>
 
+<!--公告提示-->
+<c:if test="${map.noticeRelWorkTotal>0}">
+<div id="small-chat">
+    <span class="badge badge-warning pull-right" style="color: red;">${map.noticeRelWorkTotal}</span>
+    <a class="open-small-chat">
+        <i class="fa fa-comments"></i>
+    </a>
+</div>
+<div class="small-chat-box fadeInRight animated active">
+
+    <div class="heading" draggable="true">
+       公告信息
+    </div>
+
+    <div class="slimScrollDiv" style="position: relative; width: auto; height: 234px;"><div class="content" style="width: auto; height: 234px;">
+        <div class="left"><%--
+            <c:forEach items="${map.relWorkMap}" var="relWorkMap">--%>
+            <div class="author-name">
+               ${map.relWorkMap.title}
+                <input type="hidden" value="${map.relWorkMap.relWorkerId}"/>
+            </div>
+            <div class="chat-message active">
+                    ${map.relWorkMap.context}
+            </div><%--
+            </c:forEach>--%>
+        </div>
+
+
+
+    </div><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 120.608px;"></div><div class="slimScrollRail" style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.4; z-index: 90; right: 1px;"></div></div>
+    <div class="form-chat">
+        <div class="input-group input-group-sm">
+           <%-- <span class="input-group-btn"> <button class="btn btn-primary" onclick="read()" type="button">已阅
+                </button> </span>--%>
+            <span class="input-group-btn"> <button class="btn btn-primary" onclick="openUrl(${map.roleid})" type="button">更多公告......
+                </button> </span>
+        </div>
+    </div>
+</div>
+</c:if>
 <script type="text/javascript" src="<%=basePath%>js/jquery1.11.3.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/echarts.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/echarts.common.min.js"></script>
@@ -400,8 +435,25 @@
             });
             layer.full(index);
             //window.location.href='http://192.168.100.88:9090//missionWorkdata?roleid=3'
+        }else if (roleId==2){
+            var index = layer.open({
+                type: 2,
+                title:"个人日志",
+                content: "<%=basePath%>workerdata?roleid=2"
+            });
+            layer.full(index);
+            //window.location.href='http://192.168.100.88:9090//missionWorkdata?roleid=3'
         }
 
+    }
+
+    function openUrl(roleId) {
+        var index = layer.open({
+            type: 2,
+            title:"公告列表",
+            content: "<%=basePath%>noticeList?roleid="+roleId
+        });
+        layer.full(index);
     }
 </script>
 <script>

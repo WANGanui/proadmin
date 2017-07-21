@@ -16,10 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by 82705 on 2017/6/7.
@@ -38,26 +36,40 @@ public class MissionController {
     WorkerService workerService;
     @Autowired
     PermissionService permissionService;
-    @Autowired
-    MissionAuditService missionAuditService;
 
     @RequestMapping("/missionList")
-    public ModelAndView selectList(HttpSession session, MissionCriteria example,String roleid){
+    public ModelAndView selectList(HttpSession session, MissionCriteria example,String roleid,String projectDept,String loginTime){
         Worker worker = (Worker) session.getAttribute("worker");
         example.setAuditorid(worker.getDataid());
         ModelAndView model = new ModelAndView();
         try {
             logger.info("============开始任务列表查询=============");
-            logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
+
             List list = new ArrayList();
             list.add("0");
             list.add("1");
             example.setStateList(list);
+            example.setHeaderid(projectDept);
+            model.addObject("headerid",projectDept);
+           if (null!=loginTime){
+               SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // 日期格式
+               Date date = dateFormat.parse(loginTime); // 指定日期
+              // String createTime= dateFormat.format(date);
+               example.setCreatetime(date);
+               model.addObject("loginTime",loginTime);
+           }
+
+            logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
             List<Mission> missions = missionService.selectList(example,worker);
             List<String> missList = permissionService.selectList("6",roleid);
+            WorkerCriteria workerCriteria=new WorkerCriteria();
+            workerCriteria.setDepartmentdataid(worker.getDepartmentdataid());
+            List<Worker> workerList=  workerService.selectList(workerCriteria);//查询登录人部门
             logger.info("============任务列表查询成功=============");
             model.addObject("roles",missList);
             model.addObject("list",missions);
+            model.addObject("workerList",workerList);
+            model.addObject("roleid",roleid);
             model.setViewName("mission/mission_list");
         } catch (Exception e) {
             logger.info("============任务列表查询失败，系统异常=============");
@@ -132,6 +144,8 @@ public class MissionController {
             for (MissionAudit audit:audits){
                 ids.add(audit.getMissionid());
             }
+             example.setAuditorid(creatordataid);
+
             logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
             example.setOrderByClause("createtime desc");
             List<Mission> missions = missionService.selectList(example);

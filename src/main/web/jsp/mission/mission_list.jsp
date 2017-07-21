@@ -54,7 +54,20 @@
 </head>
 <body onload="_onload()">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 任务管理 <span class="c-gray en">&gt;</span> 任务列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
-<div class="page-container">
+<div class="page-container"><form action="missionList" id="missionList" method="post">
+    <input type="hidden" value="${roleid}" name="roleid" id="roleid"/>
+    <div class="text-c"> 创建时间：
+        <input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}'})" id="logmin" name="loginTime" value="${loginTime}" class="input-text Wdate" style="width:120px;">
+        <%--此行时间插件隐藏--%><input type="hidden" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d'})" id="logmax" class="input-text Wdate" style="width:120px;">
+      责任人：<select id="projectDept" name="projectDept" style="width: 100px;height: 28px;"    >
+            <option value="" selected="">选择责任人</option>
+            <c:forEach items="${workerList}" var="worker">
+                <option value="${worker.dataid}" <c:if test="${headerid==worker.dataid}"> selected</c:if>>${worker.name}</option>
+            </c:forEach>
+        </select>
+        <button name="" id="2" class="btn btn-success" onclick="query()" type="submit"><i class="Hui-iconfont">&#xe665;</i> 开始搜索</button>
+    </form>
+    </div>
     <c:forEach items="${roles}" var="list">
         <input type="hidden" id="${list}" value="${list}">
     </c:forEach>
@@ -390,6 +403,35 @@
             _onload();
         }
     )
+
+    function query() {
+        $("#missionList").submit();
+        /*
+        var  roleid=$("#roleid").val();
+        var  logmin=$("#logmin").val();
+        var projectDept=$("#projectDept").val();
+        var  dataJson={
+            roleid:roleid,
+            logmin:logmin,
+            projectDept:projectDept
+        }
+        $.ajax( {
+            url : '<%=basePath%>deleteMission',
+            type : 'post',
+            contentType : 'application/json;charset=utf-8',
+            dataType : 'json',
+            data : JSON.stringify(dataJson),
+            success : function(data) {
+                if (data.success) {
+                    location.replace(location.href)
+                    layer.msg('已删除!',{icon:1,time:1000});
+                } else {
+                    layer.msg('删除失败',{icon:1,time:1000});
+                }
+            }
+        });
+        window.location.href="http://localhost:8080//selectListExample?roleid="+roleid+"&logmin="+logmin+"&projectDept="+projectDept;
+   */ }
 </script>
 
 </body>
