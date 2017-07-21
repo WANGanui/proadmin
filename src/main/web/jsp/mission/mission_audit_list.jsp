@@ -74,8 +74,8 @@
                     <th width="60">创建人</th>
                     <th width="60">责任人</th>
                     <th width="60">类型</th>
-                    <th width="70">流程状态</th>
                     <th width="70">任务状态</th>
+                    <th width="70">流程状态</th>
                     <th width="100">操作</th>
                 </tr>
                 </thead>

@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="<%=basePath%>css/layui.css"  media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <script src="<%=basePath%>js/jquery1.11.3.min.js"></script>
+    <script src="<%=basePath%>js/ajaxfileupload.js"></script>
 </head>
 <style>
     form{
@@ -39,6 +40,12 @@
         overflow:hidden;
         white-space:nowrap;
         !important;
+    }
+    .notshow
+    {
+        width:50px;
+        height: 50px;
+        display: none;
     }
 </style>
 <script>
@@ -107,7 +114,7 @@
                 </select>
             </div>
         </div>
-        <div class="layui-inline">
+       <%-- <div class="layui-inline">
             <label class="layui-form-label">选择审核人</label>
             <div class="layui-input-inline">
                 <select name="auditor" lay-verify="required" lay-search="" lay-filter="auditor">
@@ -117,6 +124,24 @@
                     </c:forEach>
                 </select>
             </div>
+        </div>--%>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: auto" >审核人部门</label>
+        <div class="layui-input-block" id="audit_ids">
+            <c:forEach items="${partment}" var="item" varStatus="itemIndex1" >
+                <input type="checkbox" class="layui-span-ment" name="menttt" value="${item.dataid}" title="${item.name}" >
+            </c:forEach>
+            <button class="layui-btn" id="moren" onclick="return queryTwoBarand2()">确认</button>
+
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="auditren" style="display: none">
+        <label class="layui-form-label" style="width: auto">选择审核人</label>
+        <div class="layui-input-block" id="audit_id">
+
         </div>
     </div>
 
@@ -178,7 +203,7 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label" style="width: 120px">选择任务状态</label>
+            <label class="layui-form-label" style="width: auto">选择任务状态</label>
             <div class="layui-input-inline">
                 <select name="missionstate" lay-verify="required">
                     <option value="2" name="headername">待审核</option>
@@ -188,7 +213,7 @@
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label" style="width: 120px">选择流程状态</label>
+            <label class="layui-form-label" style="width: auto">选择流程状态</label>
             <div class="layui-input-inline">
                 <select name="state" lay-verify="required" >
                     <option value="0" name="headername">未开始</option>
@@ -202,19 +227,18 @@
             <input type="text" name="percentage" lay-verify="title" width="200" autocomplete="off" value="0%" placeholder="" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item layui-form-text">
-    <label class="layui-form-label">任务内容描述</label>
-    <div class="layui-input-block">
-        <textarea placeholder="请输入内容" name="context" class="layui-textarea"></textarea>
-    </div>
-</div>
-   <%-- <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">备注</label>
+        <label class="layui-form-label">任务内容描述</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入内容" name="remark" class="layui-textarea"></textarea>
+             <textarea placeholder="请输入内容" name="context" class="layui-textarea"></textarea>
         </div>
-    </div>--%>
-    <%--<div class="layui-form-item layui-form-text">
+    </div>
+            <input type="file" name="file-demo" id="file" title="上传文件">
+            <img src="<%=basePath%>/img/load.gif" class="notshow" id="loading"/>
+             <input type="hidden" id="filename" name="filename" value="${obj.goodsPhoto}"/>
+
+<%--<div class="layui-form-item layui-form-text">
         <label class="layui-form-label">编辑器</label>
         <div class="layui-input-block">
             <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
@@ -225,11 +249,87 @@
             <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
         </div>
     </div>
+
+
 </form>
 <div id="div2"></div>
 <script src="<%=basePath%>js/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
+    $(function() {
+        $(":file").change(function () {
+            //加载图标
+            $("#loading").ajaxStart(function (data) {
+                $(this).show();
+                $(this).prev().hide();
+            }).ajaxComplete(function () {
+                $(this).hide();
+                $(this).prev().show()
+            });
+
+            $.ajaxFileUpload({
+                url: '<%=basePath%>uploadfile',
+                secureuri: false,
+                fileElementId: 'file',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success){
+                        $("#photoImg").attr("src", data.imagePath);
+                        $("#filename").val(data.imagePath);
+                    }
+                }
+            })
+            return false;
+        });
+    })
+    function  queryTwoBarand2() {
+        $("#auditren").css({"display":"block"});
+        var select = document.getElementsByName("menttt");
+        var province_ids="";
+        //var province_ids="";
+        for(i=0;i<select.length;i++){
+            if(select[i].checked){
+                if (province_ids==""){
+                    province_ids=select[i].value;
+                }else{
+                    if(province_ids==0){
+                        layer.msg('部门选择错误');
+                        return false;
+                    }
+                    province_ids=province_ids+","+select[i].value;
+                }
+            }
+        }
+        var dataJson = {
+            province_ids:province_ids
+        };
+        $.ajax( {
+            url : '<%=basePath%>selectUserList',
+            type : 'post',
+            async:true,
+            contentType : 'application/json;charset=utf-8',
+            dataType : 'json',
+            data : JSON.stringify(dataJson),
+            success : function(data) {
+                if (data.success) {
+                    var listCarBrand= data.workerList;
+                    var htm="";
+                    for(var i = 0; i < listCarBrand.length; i++)
+                    {
+                        var id = listCarBrand[i].dataid;
+                        var name = listCarBrand[i].name;
+                        htm+= "<input type=\"checkbox\" value="+id+" name=\"auditname\" style=\"opacity: 1\" title="+name+">";
+
+                    }
+                    document.getElementById("audit_id").innerHTML=htm;
+                    var form = layui.form();
+                    form.render("checkbox");
+                } else {
+                }
+            }
+        });
+        return false;
+    };
 
     function  queryTwoBarand() {
         $("#renyuan").css({"display":"block"});
@@ -378,6 +478,26 @@
                     }
                 }
             }
+            var select2 =document.getElementsByName("auditname");
+            var audit_id="";
+            var audit_name="";
+            for (i=0;i<select2.length;i++){
+                if (select2[i].checked){
+                    if (audit_id==""){
+                        audit_id=select2[i].value;
+                        audit_name=select2[i].title;
+                    }else {
+                        if(audit_id==0){
+                            layer.msg('人员选择错误');
+                            return false;
+                        }
+                        audit_id=audit_id+","+select2[i].value;
+                        audit_name=audit_name+","+select2[i].title;
+                    }
+                }
+            }
+
+            var audits=audit_id+"+"+audit_name;
             var member=province_id+"+"+province_name;
 
             var dataJson = {
@@ -390,6 +510,7 @@
                 prodataid:projectid,//项目
                 proname:project,
                 member:member,//分配人员
+                audits:audits,//审核人
                 type:data.field.type,//任务类型
                 starttime:data.field.starttime,//任务开始时间
                 endtime:data.field.endtime,//任务结束时间

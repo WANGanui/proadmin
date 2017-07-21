@@ -38,6 +38,8 @@ public class MissionController {
     WorkerService workerService;
     @Autowired
     PermissionService permissionService;
+    @Autowired
+    MissionAuditService missionAuditService;
 
     @RequestMapping("/missionList")
     public ModelAndView selectList(HttpSession session, MissionCriteria example,String roleid){
@@ -98,7 +100,6 @@ public class MissionController {
             logger.info("============开始任务列表查询=============");
             logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
             example.setMissionstate("1");
-            example.setState("0");
             List<Mission> missions = missionService.selectList(example);
             List<String> missList = permissionService.selectList("23",roleid);
             logger.info("============任务列表查询成功=============");
@@ -119,14 +120,29 @@ public class MissionController {
         ModelAndView model = new ModelAndView();
         try {
             logger.info("============开始任务列表查询=============");
-          example.setMissionstate("2");
+            example.setMissionstate("2");
             Worker worker=(Worker) session.getAttribute("worker");
             String creatordataid= worker.getDataid();//创建人ID
-          example.setAuditorid(creatordataid);
-
+            example.setAuditorid(creatordataid);
+            MissionAuditCriteria criteria = new MissionAuditCriteria();
+            criteria.setAuditorid(worker.getDataid());
+            criteria.setAuditstate("0");
+            List<MissionAudit> audits = missionAuditService.selectList(criteria);
+            List<String> ids = new ArrayList<>();
+            for (MissionAudit audit:audits){
+                ids.add(audit.getMissionid());
+            }
             logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
+            example.setOrderByClause("createtime desc");
             List<Mission> missions = missionService.selectList(example);
-logger.info("========================返回结果："+JsonUtil.encode(missions));
+
+            if (ids.size()>0){
+                MissionCriteria missionCriteria = new MissionCriteria();
+                missionCriteria.setDataidList(ids);
+                List<Mission> missionList = missionService.selectList(missionCriteria);
+                missions.addAll(missionList);
+            }
+            logger.info("========================返回结果："+JsonUtil.encode(missions));
             List<String> missList = permissionService.selectList("19",roleid);
             logger.info("============任务列表查询成功=============");
             model.addObject("roles",missList);
@@ -271,8 +287,30 @@ logger.info("========================返回结果："+JsonUtil.encode(missions))
                     workerList.add(relMission);
                 }
             }
-            missionService.insert(mission,workerList);
-            result.put("success",true);
+
+            String audits = mission.getAudits();
+            String[] auditidname = audits.split("[+]");
+            String[] auditIds = null;
+            String[] auditNames = null;
+            if (auditidname.length>=1){
+                auditIds = auditidname[0].split(",");
+            }
+            if (auditidname.length>=2){
+                auditNames = auditidname[1].split(",");
+            }
+
+            List<MissionAudit> auditList = new ArrayList<>();
+            if (auditIds != null){
+                for (int i = 0; i < auditIds.length; i++){
+                    MissionAudit missionAudit = new MissionAudit();
+                    missionAudit.setAuditorid(auditIds[i]);
+                    missionAudit.setAuditname(auditNames[i]);
+                    auditList.add(missionAudit);
+                }
+            }
+
+            boolean bool =  missionService.insert(mission,workerList,auditList);
+            result.put("success",bool);
         } catch (Exception e) {
             result.put("success",false);
             e.printStackTrace();
