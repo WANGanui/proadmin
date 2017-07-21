@@ -36,6 +36,8 @@ public class MissionController {
     WorkerService workerService;
     @Autowired
     PermissionService permissionService;
+    @Autowired
+    MissionAuditService missionAuditService;
 
     @RequestMapping("/missionList")
     public ModelAndView selectList(HttpSession session, MissionCriteria example,String roleid,String projectDept,String loginTime){
