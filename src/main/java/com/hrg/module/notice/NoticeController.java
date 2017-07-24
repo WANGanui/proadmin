@@ -3,7 +3,7 @@ package com.hrg.module.notice;
 import com.hrg.enums.ErrorCode;
 import com.hrg.global.ApiResult;
 import com.hrg.model.Notice;
-import com.hrg.model.NoticeCriteria;
+import com.hrg.model.NoticeRelWorker;
 import com.hrg.model.Worker;
 import com.hrg.service.NoticeService;
 import com.hrg.service.PermissionService;
@@ -34,12 +34,14 @@ public class NoticeController {
     PermissionService permissionService;
 
     @RequestMapping("/noticeList")
-    public ModelAndView selectList(NoticeCriteria example,String roleid){
+    public ModelAndView selectList(HttpSession session,String roleid){
         ModelAndView model = new ModelAndView();
         try {
             logger.info("==============开始查询公告列表=============");
-            logger.info("==============入参【"+ JsonUtil.encode(example)+"】==============");
-            List<Notice> noticeList = noticeService.selectList(example);
+            Worker worker = (Worker) session.getAttribute("worker");
+           Map map=new HashMap();
+           map.put("workerid",worker.getDataid());
+            List<Map> noticeList = noticeService.selectNoticeWork(map);
             List<String> missList = permissionService.selectList("13",roleid);
             logger.info("==============查询公告列表成功==============");
             model.addObject("roles",missList);
@@ -116,5 +118,22 @@ public class NoticeController {
             e.printStackTrace();
         }
         return map;
+    }
+
+    @RequestMapping(value = "/updateStatusNoticeRelWorker")
+    public @ResponseBody Object updateStatusNoticeRelWorker(@RequestBody Map map){
+        Map result = new HashMap<>();
+
+        try {
+            NoticeRelWorker noticeRelWorker=new NoticeRelWorker();
+            noticeRelWorker.setDataid(map.get("dataid").toString());
+            noticeRelWorker.setIsread(map.get("status").toString());
+            noticeService.updateStatusNoticeRelWorker(noticeRelWorker);
+            result.put("success",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            result.put("success",false);
+        }
+        return result;
     }
 }

@@ -70,6 +70,7 @@
                 <th width="80">发布人</th>
                 <th  width="60">发布部门</th>
                 <th width="60">发布日期</th>
+                <th width="60">状态</th>
                 <th width="100">操作</th>
             </tr>
             </thead>
@@ -84,7 +85,14 @@
                     <td>${notice.worker}</td>
                     <td>${notice.department}</td>
                     <td class="td-time"><fmt:formatDate value="${notice.time}" pattern="yyyy-MM-dd" /></td>
+                    <td class="td-status"><c:if test="${notice.isread==0}"><span class="label label-success radius" style="background-color: #00a0e9">	未读 </span></c:if>
+                        <c:if test="${notice.isread==1}"> <span class="label label-success radius">已读</span></c:if>
+                    </td>
                     <td class="td-manage">
+
+                        <c:if test="${notice.isread==0}">
+                            <a style="text-decoration:none;font-size: 16px;" class="ml-5" onClick="picture_shenhe(this,'${notice.noticeWorkId}')"  href="javascript:;" >阅</a>
+                        </c:if>
                         <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('${notice.dataid}')" href="javascript:;" title="修改"><i class="Hui-iconfont">&#xe6e2;</i></a>
                         <a style="text-decoration:none" class="ml-5 delete" onClick="picture_query('修改公告','<%=basePath%>toeditNotice?dataid=${notice.dataid}')" href="javascript:;" title="修改"><i class="Hui-iconfont">&#xe60c;</i></a>
 
@@ -122,7 +130,7 @@
         "bStateSave": false,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0]}// 制定列不参与排序
+            {"orderable":false,"aTargets":[0,8]}// 制定列不参与排序
         ]
     });
     /*案例-添加*/
@@ -166,22 +174,33 @@
     }
     /*图片-审核*/
     function picture_shenhe(obj,id){
-        layer.confirm('审核文章？', {
-                btn: ['通过','不通过'],
-                shade: false
-            },
-            function(){
-                $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="picture_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-                $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-                $(obj).remove();
-                layer.msg('已发布', {icon:6,time:1000});
-            },
-            function(){
-                $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="picture_shenqing(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-                $(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
-                $(obj).remove();
-                layer.msg('未通过', {icon:5,time:1000});
+        layer.confirm('确认已阅读该公告？', function(index) {
+
+            var  dataJson={
+                status:1,
+                dataid:id
+            }
+
+            $.ajax( {
+                url : 'updateStatusNoticeRelWorker',
+                type : 'post',
+                contentType : 'application/json;charset=utf-8',
+                dataType : 'json',
+                data : JSON.stringify(dataJson),
+                success : function(data) {
+                    if (data.success) {
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已读</span>');
+                        $(obj).remove();
+                        layer.msg('已发布', {icon: 6, time: 1000});
+                    } else {
+
+                    }
+                }
             });
+
+
+
+        });
     }
     /*图片-下架*/
     function picture_stop(obj,id){
