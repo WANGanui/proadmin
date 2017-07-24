@@ -191,7 +191,7 @@
                     if (data.success) {
                         $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已读</span>');
                         $(obj).remove();
-                        layer.msg('已发布', {icon: 6, time: 1000});
+                        layer.msg('阅读', {icon: 6, time: 2000});
                     } else {
 
                     }
