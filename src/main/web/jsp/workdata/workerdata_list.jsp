@@ -63,6 +63,7 @@
                 <th width="60">任务名称</th>
                 <th width="200">工作内容</th>
                 <th width="200">评论内容</th>
+                <th width="60">是否已阅</th>
                 <th width="80">日期</th>
                 <th width="100">操作</th>
             </tr>
@@ -79,7 +80,15 @@
                         <c:if test="${data.count!=0}"><span style="padding: 2px 7px;  background-color: red; border-radius: 30px; color: #fff;">${data.count}</span></c:if><span class="cutLogin-describe" style="text-decoration:underline">${data.chat}</span>
                     </td>
                     <div id="v${dataIndex.index+1}" style="position:absolute;display:none;border:1px solid silver;background:silver;">${data.chat}</div>
+                    <td class="td-status">
 
+                        <c:if test="${data.isread==0}">
+                            <span class="label label-success radius" style="background-color: red">否 </span>
+                        </c:if>
+                        <c:if test="${data.isread==1}">
+                            <span class="label label-success radius" style="background-color: #5eb95e">是 </span>
+                        </c:if>
+                    </td>
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>
                     <td class="td-manage">
                         <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('修改日志','<%=basePath%>editWorkdata?dataid=${data.dataid}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>

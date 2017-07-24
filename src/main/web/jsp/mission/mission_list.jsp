@@ -81,6 +81,7 @@
                     <th width="300">任务内容</th>
                     <th width="80">开始时间</th>
                     <th width="80">计划结束时间</th>
+                    <th width="80">创建时间</th>
                     <th  width="60">项目名称</th>
                     <th width="60">进度</th>
                     <th width="60">任务比重</th>
@@ -102,6 +103,7 @@
                         <td>${mission1.context}</td>
                         <td class="td-time"><fmt:formatDate value="${mission1.starttime}" pattern="yyyy-MM-dd" /></td>
                         <td class="td-time"><fmt:formatDate value="${mission1.endtime}" pattern="yyyy-MM-dd" /></td>
+                        <td class="td-time"><fmt:formatDate value="${mission1.createtime}" pattern="yyyy-MM-dd" /></td>
                         <td>${mission1.proname}</td>
                         <td>${mission1.percentage}</td>
                         <td>${mission1.proportion}级</td>

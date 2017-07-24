@@ -23,4 +23,5 @@
 	<dubbo:reference id="workDataService" interface="com.hrg.service.WorkDataService"/>
 	<dubbo:reference id="workerRoleService" interface="com.hrg.service.WorkerRoleService"/>
 	<dubbo:reference id="permissionService" interface="com.hrg.service.PermissionService"/>
+	<dubbo:reference id="missionAuditService" interface="com.hrg.service.MissionAuditService"/>
 </beans>

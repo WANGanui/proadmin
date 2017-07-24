@@ -47,8 +47,8 @@ public class UploadControllor {
             if (!ServletFileUpload.isMultipartContent(request)) {
                 return null;
             }
-            upload.setFileSizeMax(1024 * 1024);
-            upload.setSizeMax(1024 * 1024 * 10);
+            /*upload.setFileSizeMax(1024 * 102);
+            upload.setSizeMax(1024 * 1024 * 10);*/
             List<FileItem> list = upload.parseRequest(request);
             for (FileItem item : list) {
                 if (item.isFormField()) {
