@@ -365,10 +365,7 @@ if (remaek.length==0){
         }
     )
 
-    $("#table1_filter").on('click',function () {
-        window.location.reload();
-        }
-    )
+
 
 </script>
 
