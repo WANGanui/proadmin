@@ -123,8 +123,8 @@
                             </c:if>
                         </td>
                         <td class="td-manage">
-                            <a style="text-decoration:none" class="ml-5 delete" onClick="return picture_del(0,'${mission1.dataid}',${mission1.state})" href="javascript:;" title="同意">同意</a>
-                            <a style="text-decoration:none" class="ml-5 update" onClick="return picture_del(1,'${mission1.dataid}',${mission1.state})" href="javascript:;" title="拒绝">拒绝</a>
+                            <a style="text-decoration:none" class="ml-5 delete" onClick="return picture_del(this,0,'${mission1.dataid}',${mission1.state})" href="javascript:;" title="同意">同意</a>
+                            <a style="text-decoration:none" class="ml-5 update" onClick="return picture_del(this,1,'${mission1.dataid}',${mission1.state})" href="javascript:;" title="拒绝">拒绝</a>
                             <c:if test="${mission1.state==2}">
                                 <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('进度详情','<%=basePath%>/missionjindu?dataid=${mission1.dataid}')" title="进度详情"><i class="Hui-iconfont">&#xe667;</i></a>
                             </c:if>
@@ -145,7 +145,7 @@
     <input type="hidden" value="" id="dataId"/>
     <label class="form-label col-xs-4 col-sm-4" style="text-align: right"><span class="c-red">*</span>拒绝原因：</label>
     <div class="formControls col-xs-8 col-sm-6">
-        <textarea id="remake" rows="10"cols="25">1</textarea>
+        <textarea id="remake" rows="10"cols="25"></textarea>
     </div>
 </div>
     <br/>
@@ -262,7 +262,7 @@
     }
 
     /*图片-删除*/
-    function picture_del(state,id,mes){
+    function picture_del(obj,state,id,mes){
         sta="";
         if(state==0) {
             sta="同意";
@@ -287,7 +287,8 @@
                     data : JSON.stringify(dataJson),
                     success : function(data) {
                         if (data.success) {
-                            window.location.reload();
+                            //window.location.reload();
+                            $(obj).parent().parent().remove();
                             layer.msg('已同意!',{icon:1,time:3000});
                         } else {
 
@@ -363,6 +364,12 @@ if (remaek.length==0){
             _onload();
         }
     )
+
+    $("#table1_filter").on('click',function () {
+        window.location.reload();
+        }
+    )
+
 </script>
 
 </body>
