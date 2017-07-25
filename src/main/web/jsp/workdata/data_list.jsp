@@ -92,7 +92,7 @@
                     </td>
                     <td class="td-manage">
                         <c:if test="${data.isread==0}">
-                            <a style="text-decoration:none" class="ml-5" onClick="picture_del('${data.dataid}')" title="已阅"><i class="Hui-iconfont" style="font-size: 20px" >阅</i></a>
+                            <a style="text-decoration:none" class="ml-5" onClick="picture_del(this,'${data.dataid}')" title="已阅"><i class="Hui-iconfont" style="font-size: 20px" >阅</i></a>
                         </c:if>
                     </td>
                 </tr>
@@ -301,7 +301,7 @@
         }
     }
     /*图片-删除*/
-    function picture_del(id){
+    function picture_del(obj,id){
         layer.confirm('确认已阅吗？',function(index){
 
             var  dataJson={
@@ -318,8 +318,10 @@
                 success : function(data) {
                     if (data.success) {
                         //$(obj).parents("tr").remove();
-                        location.replace(location.href)
-                        layer.msg('已修改!',{icon:1,time:1000});
+                      //  location.replace(location.href)
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">是</span>');
+                        $(obj).remove();
+                        layer.msg('已阅读', {icon: 6, time: 2000});
                     } else {
 
                     }
