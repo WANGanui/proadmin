@@ -84,7 +84,6 @@ public class MissionController {
     @RequestMapping("/missionend")
     public ModelAndView selectListend(HttpSession session, MissionCriteria example,String roleid){
         Worker worker = (Worker) session.getAttribute("worker");
-        example.setAuditorid(worker.getDataid());
         ModelAndView model = new ModelAndView();
         try {
             logger.info("============开始任务列表查询=============");
@@ -108,7 +107,6 @@ public class MissionController {
     @RequestMapping("/missionrefuse")
     public ModelAndView selectListrefuse(HttpSession session, MissionCriteria example,String roleid){
         Worker worker = (Worker) session.getAttribute("worker");
-        example.setAuditorid(worker.getDataid());
         ModelAndView model = new ModelAndView();
         try {
             logger.info("============开始任务列表查询=============");
@@ -173,18 +171,33 @@ public class MissionController {
     }
 
     @RequestMapping(value = "/updateState")
-    public @ResponseBody Object updateState(@RequestBody Map map){
+    public @ResponseBody Object updateState(@RequestBody Map map,HttpSession session){
+        Worker worker = (Worker)session.getAttribute("worker");
        Map resultMap=new HashMap();
          try {
 
              Mission mission=new Mission();
              mission.setDataid(map.get("dataId").toString());
-             mission.setMissionstate(map.get("missionState").toString());
+
              mission.setRemark(map.get("remark").toString());
-             if ("0".equals(map.get("mes").toString())){
-                 mission.setState("1");
+             MissionAuditCriteria missionAuditCriteria = new MissionAuditCriteria();
+             missionAuditCriteria.setMissionid(mission.getDataid());
+             missionAuditCriteria.setAuditstate("0");
+             int count = missionAuditService.count(missionAuditCriteria);
+             if (count==1){
+                 if ("0".equals(map.get("mes").toString())){
+                     mission.setState("1");
+                 }
+                 mission.setMissionstate(map.get("missionState").toString());
+                 missionService.updateState(mission);
              }
-             missionService.updateState(mission);
+
+             MissionAuditCriteria example = new MissionAuditCriteria();
+             example.setMissionid(mission.getDataid());
+             example.setAuditorid(worker.getDataid());
+             MissionAudit missionAudit = new MissionAudit();
+             missionAudit.setAuditstate("1");
+             missionAuditService.update(missionAudit,example);
              resultMap.put("success",true);
          }catch (Exception e){
             e.printStackTrace();

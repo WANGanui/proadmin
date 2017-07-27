@@ -21,8 +21,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=basePath%>css/layui.css"  media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
-    <script src="<%=basePath%>js/jquery1.11.3.min.js"></script>
-    <script src="<%=basePath%>js/ajaxfileupload.js"></script>
+    <link href="<%=basePath%>css/stream-v1.css" rel="stylesheet" type="text/css" />
+    <link href="<%=basePath%>css/webuploader.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="<%=basePath%>js/upload3.js"></script>
 </head>
 <style>
     form{
@@ -47,6 +48,7 @@
         height: 50px;
         display: none;
     }
+
 </style>
 <script>
 
@@ -234,9 +236,19 @@
              <textarea placeholder="请输入内容" name="context" class="layui-textarea"></textarea>
         </div>
     </div>
-            <input type="file" name="file-demo" id="file" title="上传文件">
-            <img src="<%=basePath%>/img/load.gif" class="notshow" id="loading"/>
-             <input type="hidden" id="filename" name="filename" value="${obj.goodsPhoto}"/>
+    <div id="uploader1" class="wu-example">
+        <!--用来存放文件信息-->
+        <div id="thelist1" class="uploader-list"></div>
+        <div class="btns">
+            <div id="multi" class="webuploader-container"><div class="webuploader-pick">点击选择文件</div>
+                <div id="rt_rt_1blpo379fs1finkji111eoj4" style="position: absolute; top: 0px; left: 0px; width: 126px; height: 46px; overflow: hidden; bottom: auto; right: auto;">
+                    <input type="file" name="multiFile" class="webuploader-element-invisible" multiple="multiple">
+                    <label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label>
+                </div>
+            </div>
+            <input type="button" value="上传" id="multiUpload">
+        </div>
+    </div>
 
 <%--<div class="layui-form-item layui-form-text">
         <label class="layui-form-label">编辑器</label>
@@ -254,8 +266,17 @@
 </form>
 <div id="div2"></div>
 <script src="<%=basePath%>js/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath%>js/webuploader.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/webuploader.min.js"></script>  
+<script type="text/javascript" src="<%=basePath%>js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/bootstrap-datepicker.ja.min.js"></script>
+<script src="<%=basePath%>js/jquery1.11.3.min.js"></script>
+<script src="<%=basePath%>js/ajaxfileupload.js"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
+
     $(function() {
         $(":file").change(function () {
             //加载图标

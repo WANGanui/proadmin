@@ -43,8 +43,8 @@
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="UTF-8"/>
 		<!-- 指定所上传文件的总大小不能超过1M。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
-		<property name="maxUploadSize" value="1048576"/>
+		<property name="maxUploadSize" value="1073741824"/>
 		<!-- 最大内存大小 -->
-		<property name="maxInMemorySize" value="40960" />
+		<property name="maxInMemorySize" value="1073741824" />
 	</bean>
 </beans>

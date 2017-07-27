@@ -207,6 +207,21 @@
             <input type="text" name="percentage" lay-verify="title" width="200" autocomplete="off" value="${map.mission.percentage}" placeholder="" class="layui-input">
         </div>
     </div>
+    <c:forEach items="${map.audit}" var="auditor">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: auto">审核人：${auditor.auditname}</label>
+            <label class="layui-form-label" style="width: auto;margin-left: 20px">审核状态：<c:if test="${auditor.auditstate==0}">
+                <span style="background-color: red;color: white">待审核</span>
+            </c:if>
+                <c:if test="${auditor.auditstate==1}">
+                    <span style="background-color: green;color: white">已通过</span>
+                </c:if>
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="percentage" style="width: 800px;margin-left: 20px" disabled value="${auditor.remark}" placeholder="" class="layui-input">
+            </div>
+        </div>
+    </c:forEach>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">任务内容描述</label>
         <div class="layui-input-block">
