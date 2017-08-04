@@ -21,9 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=basePath%>css/layui.css"  media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
-    <link href="<%=basePath%>css/stream-v1.css" rel="stylesheet" type="text/css" />
-    <link href="<%=basePath%>css/webuploader.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="<%=basePath%>js/upload3.js"></script>
+
 </head>
 <style>
     form{
@@ -236,7 +234,7 @@
              <textarea placeholder="请输入内容" name="context" class="layui-textarea"></textarea>
         </div>
     </div>
-    <div id="uploader1" class="wu-example">
+   <%-- <div id="uploader1" class="wu-example">
         <!--用来存放文件信息-->
         <div id="thelist1" class="uploader-list"></div>
         <div class="btns">
@@ -248,7 +246,7 @@
             </div>
             <input type="button" value="上传" id="multiUpload">
         </div>
-    </div>
+    </div>--%>
 
 <%--<div class="layui-form-item layui-form-text">
         <label class="layui-form-label">编辑器</label>

@@ -90,6 +90,7 @@
                     <th width="60">类型</th>
                     <th width="70">流程状态</th>
                     <th width="70">任务状态</th>
+                    <th width="70">附件</th>
                     <th width="100">操作</th>
                 </tr>
                 </thead>
@@ -135,6 +136,9 @@
                             <c:if test="${mission1.missionstate==2}">
                                 <span class="label label-success radius" style="background-color: #00a0e9">待审核</span>
                             </c:if>
+                        </td>
+                        <td class="td-manage">
+                            <a style="text-decoration:none" class="ml-5" onClick="picture_query('附件上传','<%=basePath%>/selectMissionFile?dataid=${mission1.dataid}')"><i class="Hui-iconfont" style="font-size: 20px">&#xe636;</i></a>
                         </td>
                         <td class="td-manage">
                             <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('${mission1.dataid}')" title="删除"><i class="Hui-iconfont" style="font-size: 20px" >&#xe6e2;</i></a>

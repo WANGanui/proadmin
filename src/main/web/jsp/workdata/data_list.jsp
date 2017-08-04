@@ -77,7 +77,7 @@
                     <td>${data.missionname}</td>
                     <td >${data.workcontext}</td>
                     <td onclick="workDataChat('${data.dataid}')"  onmouseover="_over(this,'${dataIndex.index+1}')" onmouseout="_out(this,'${dataIndex.index+1}')" >
-                         <c:if test="${data.count!=0}"><span style="padding: 2px 7px;  background-color: red; border-radius: 30px; color: #fff;">${data.count}</span></c:if><span class="cutLogin-describe" style="text-decoration:underline">${data.chat}</span>
+                        <c:if test="${data.count!=0}"><span style="padding: 2px 7px;  background-color: red; border-radius: 30px; color: #fff;">${data.count}</span></c:if><span class="cutLogin-describe" style="text-decoration:underline"><c:if test="${data.chat==''}"><span style="color: #fff;">请填写评论内容！</span></c:if>${data.chat}</span>
                     </td>
                     <div id="v${dataIndex.index+1}" style="position:absolute;display:none;border:1px solid silver;background:silver;">${data.chat}</div>
                     <td class="td-time"><fmt:formatDate value="${data.time}" pattern="yyyy-MM-dd" /></td>

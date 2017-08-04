@@ -184,7 +184,7 @@ public class MissionController {
              missionAuditCriteria.setMissionid(mission.getDataid());
              missionAuditCriteria.setAuditstate("0");
              int count = missionAuditService.count(missionAuditCriteria);
-             if (count==1){
+             if (count<=1){
                  if ("0".equals(map.get("mes").toString())){
                      mission.setState("1");
                  }
@@ -457,5 +457,33 @@ public class MissionController {
             e.printStackTrace();
         }
         return model;
+    }
+
+    @RequestMapping("/selectMissionFile")
+    public ModelAndView selectMissionFile(String dataid){
+        ModelAndView model = new ModelAndView();
+        try {
+            Mission mission = missionService.selectDetail(dataid);
+            List<MissionFile> files = missionService.selectMissionFile(dataid);
+            model.addObject("file",files);
+            model.addObject("mission",mission);
+            model.setViewName("mission/mission_upload");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
+    }
+
+    @RequestMapping("/deleteFile")
+    public @ResponseBody Object deleteFile(String dataid){
+        Map map = new HashMap();
+        try {
+            boolean bool = missionService.deleteFile(dataid);
+            map.put("success",bool);
+        } catch (Exception e) {
+            map.put("success",false);
+            e.printStackTrace();
+        }
+        return map;
     }
 }
