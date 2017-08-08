@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,8 +78,12 @@ public class WorkdataController {
         HttpSession session = request.getSession();
         Worker worker = (Worker) session.getAttribute("worker");
         try {
-
-            Map map  = missionService.slectWorkerMission(new MissionCriteria(),worker.getDataid());
+            List list = new ArrayList();
+            list.add("0");
+            list.add("1");
+            MissionCriteria example = new MissionCriteria();
+            example.setStateList(list);
+            Map map  = missionService.slectWorkerMission(example,worker.getDataid());
             model.addObject("map",map);
             model.setViewName("workdata/data_add");
         } catch (Exception e) {
