@@ -55,105 +55,36 @@
 <body onload="_onload()">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 任务管理 <span class="c-gray en">&gt;</span> 任务列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <form action="missionList" id="missionList" method="post">
-    <input type="hidden" value="${roleid}" name="roleid" id="roleid"/>
-    <div class="text-c"> 创建时间：
-        <input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}'})" id="logmin" name="loginTime" value="${loginTime}" class="input-text Wdate" style="width:120px;">
-        <%--此行时间插件隐藏--%><input type="hidden" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d'})" id="logmax" class="input-text Wdate" style="width:120px;">
-      责任人：<select id="projectDept" name="projectDept" style="width: 100px;height: 28px;"    >
-            <option value="" selected="">选择责任人</option>
-            <c:forEach items="${workerList}" var="worker">
-                <option value="${worker.dataid}" <c:if test="${headerid==worker.dataid}"> selected</c:if>>${worker.name}</option>
-            </c:forEach>
-        </select>
-        <button name="" id="2" class="btn btn-success" onclick="query()" type="submit"><i class="Hui-iconfont">&#xe665;</i> 开始搜索</button>
-    </form>
-    </div>
-    <c:forEach items="${roles}" var="list">
-        <input type="hidden" id="${list}" value="${list}">
-    </c:forEach>
-    <div class="mt-20">
-        <div id="div1" >
-            <table class="table table-border table-bordered table-bg table-hover table-sort" id="table1">
-                <thead>
-                <tr class="text-c">
-                    <th width="40">序号</th>
-                    <th width="60">任务名称</th>
-                    <th width="300">任务内容</th>
-                    <th width="80">开始时间</th>
-                    <th width="80">计划结束时间</th>
-                    <th width="80">创建时间</th>
-                    <th  width="60">项目名称</th>
-                    <th width="60">进度</th>
-                    <th width="60">任务比重</th>
-                    <th width="60">创建人</th>
-                    <th width="60">责任人</th>
-                    <th width="60">类型</th>
-                    <th width="70">流程状态</th>
-                    <th width="70">任务状态</th>
-                    <th width="70">附件</th>
-                    <th width="100">操作</th>
+
+
+<c:forEach items="${roles}" var="list">
+    <input type="hidden" id="${list}" value="${list}">
+</c:forEach>
+<div class="mt-20">
+    <div id="div1" >
+        <table class="table table-border table-bordered table-bg table-hover table-sort" id="table1">
+            <thead>
+            <tr class="text-c">
+                <th width="40">序号</th>
+                <th width="200">文件名称</th>
+                <th width="40">操作</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <c:forEach items="${file}" var="item" varStatus="missionIndex1">
+                <tr class="text-c" >
+                    <td>${missionIndex1.index+1}</td>
+                    <td>${item.nameold}</td>
+                    <td class="td-manage">
+                        <a style="text-decoration:none" class="ml-5" href="${item.path}" title="下载"><i class="Hui-iconfont">&#xe640;</i></a>
+                    </td>
                 </tr>
-                </thead>
-
-                <tbody>
-                <c:forEach items="${list}" var="mission1" varStatus="missionIndex1">
-                    <tr class="text-c" <c:if test="${mission1.finishtime>mission1.endtime}"> style="background-color: red" </c:if>>
-
-                        <td>${missionIndex1.index+1}</td>
-                        <td onclick="picture_query('任务详情','<%=basePath%>missionDetail?dataid=${mission1.dataid}')" style="text-decoration:underline">${mission1.name}</td>
-                        <td>${mission1.context}</td>
-                        <td class="td-time"><fmt:formatDate value="${mission1.starttime}" pattern="yyyy-MM-dd" /></td>
-                        <td class="td-time"><fmt:formatDate value="${mission1.endtime}" pattern="yyyy-MM-dd" /></td>
-                        <td class="td-time"><fmt:formatDate value="${mission1.createtime}" pattern="yyyy-MM-dd" /></td>
-                        <td>${mission1.proname}</td>
-                        <td>${mission1.percentage}</td>
-                        <td>${mission1.proportion}级</td>
-                        <td>${mission1.creator}</td>
-                        <td>${mission1.headername}</td>
-                        <td class="td-status"><c:if test="${mission1.type==0}">
-                            <span class="label label-success radius">	项目任务 </span>
-                        </c:if>
-                            <c:if test="${mission1.type==1}">
-                                <span class="label label-success radius">个人任务</span>
-                            </c:if>
-                        </td>
-                        <td class="td-status"><c:if test="${mission1.state==0}">
-                            <span class="label label-success radius" style="background-color: #00a0e9">	未开始 </span>
-                        </c:if>
-                            <c:if test="${mission1.state==1}">
-                                <span class="label label-success radius" style="background-color: #13DAEC">进行中</span>
-                            </c:if>
-                            <c:if test="${mission1.state==2}">
-                                <span class="label label-success radius">已完成</span>
-                            </c:if>
-                        </td>
-                        <td class="td-status"><c:if test="${mission1.missionstate==0}">
-                            <span class="label label-success radius">	已同意 </span>
-                        </c:if>
-                            <c:if test="${mission1.missionstate==1}">
-                                <span class="label label-success radius" style="background-color: #985f0d">已拒绝</span>
-                            </c:if>
-                            <c:if test="${mission1.missionstate==2}">
-                                <span class="label label-success radius" style="background-color: #00a0e9">待审核</span>
-                            </c:if>
-                        </td>
-                        <td class="td-manage">
-                            <a style="text-decoration:none" class="ml-5" onClick="picture_query('附件上传','<%=basePath%>/selectMissionFile?dataid=${mission1.dataid}')"><i class="Hui-iconfont" style="font-size: 20px">&#xe636;</i></a>
-                        </td>
-                        <td class="td-manage">
-                            <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('${mission1.dataid}')" title="删除"><i class="Hui-iconfont" style="font-size: 20px" >&#xe6e2;</i></a>
-                            <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('编辑任务','<%=basePath%>/toupdatemission?dataid=${mission1.dataid}')" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
-                            <a style="text-decoration:none" class="ml-5 add" onClick="picture_query('进度详情','<%=basePath%>/missionjindu?dataid=${mission1.dataid}')" title="进度详情"><i class="Hui-iconfont">&#xe667;</i></a>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
-
-
+</div>
 </div>
 </div>
 
@@ -412,31 +343,31 @@
     function query() {
         $("#missionList").submit();
         /*
-        var  roleid=$("#roleid").val();
-        var  logmin=$("#logmin").val();
-        var projectDept=$("#projectDept").val();
-        var  dataJson={
-            roleid:roleid,
-            logmin:logmin,
-            projectDept:projectDept
-        }
-        $.ajax( {
-            url : '<%=basePath%>deleteMission',
-            type : 'post',
-            contentType : 'application/json;charset=utf-8',
-            dataType : 'json',
-            data : JSON.stringify(dataJson),
-            success : function(data) {
-                if (data.success) {
-                    location.replace(location.href)
-                    layer.msg('已删除!',{icon:1,time:1000});
-                } else {
-                    layer.msg('删除失败',{icon:1,time:1000});
-                }
-            }
-        });
-        window.location.href="http://localhost:8080//selectListExample?roleid="+roleid+"&logmin="+logmin+"&projectDept="+projectDept;
-   */ }
+         var  roleid=$("#roleid").val();
+         var  logmin=$("#logmin").val();
+         var projectDept=$("#projectDept").val();
+         var  dataJson={
+         roleid:roleid,
+         logmin:logmin,
+         projectDept:projectDept
+         }
+         $.ajax( {
+         url : '<%=basePath%>deleteMission',
+         type : 'post',
+         contentType : 'application/json;charset=utf-8',
+         dataType : 'json',
+         data : JSON.stringify(dataJson),
+         success : function(data) {
+         if (data.success) {
+         location.replace(location.href)
+         layer.msg('已删除!',{icon:1,time:1000});
+         } else {
+         layer.msg('删除失败',{icon:1,time:1000});
+         }
+         }
+         });
+         window.location.href="http://localhost:8080//selectListExample?roleid="+roleid+"&logmin="+logmin+"&projectDept="+projectDept;
+         */ }
 </script>
 
 </body>

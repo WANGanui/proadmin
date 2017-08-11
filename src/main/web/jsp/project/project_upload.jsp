@@ -45,7 +45,7 @@
     </div>
 </div>
 </form>--%>
-<input type="hidden" value="${mission.dataid}" id="missionid">
+<input type="hidden" value="${project.dataid}" id="projectid">
 <c:forEach items="${file}" var="item">
         <div style="width: 250px;float: left;margin-left: 20px;">
             <i class="Hui-iconfont" style="font-size: 60px;">&#xe626;</i><br>
@@ -98,7 +98,7 @@
     $(function(){
         var $list = $("#thelist");
         var  uploader ;// 实例化
-        var missionid = $("#missionid").val();
+        var projectid = $("#projectid").val();
         uploader = WebUploader.create({
             auto:false, //是否自动上传
             pick: {
@@ -111,7 +111,7 @@
             fileVal:'multiFile',  //自定义file的name属性，我用的版本是0.1.5 ,打开客户端调试器发现生成的input 的name 没改过来。
             //名字还是默认的file,但不是没用哦。虽然客户端名字没改变，但是提交到到后台，是要用multiFile 这个对象来取文件的，用file 是取不到文件的
             // 建议作者有时间把这个地方改改啊，搞死人了。。
-            server: "<%=basePath%>/uploadfile?missionid="+missionid,
+            server: "<%=basePath%>/uploadfile?projectid="+projectid,
             duplicate:true,//是否可重复选择同一文件
             resize: false,
             formData: {
@@ -197,7 +197,7 @@
         var fileName = []; //文件名列表
         var fileSizeOneByOne =[];//每个文件大小
         var uploader ;// 实例化
-        var missionid = $("#missionid").val();
+        var projectid = $("#projectid").val();
         uploader = WebUploader.create({
             auto:false, //是否自动上传
             pick: {
@@ -207,7 +207,7 @@
             },
             swf: '../../js/Uploader.swf',
             fileVal:'multiFile',              //和name属性配合使用
-            server: "<%=basePath%>/uploadfile?missionid="+missionid,
+            server: "<%=basePath%>/uploadfile?projectid="+projectid,
             duplicate:true, //同一文件是否可重复选择
             resize: false,
             formData: {

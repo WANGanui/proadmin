@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -367,5 +368,20 @@ logger.info("=================="+result);
         day = day*24*60*60*1000; // 要加上的天数转换成毫秒数
         time+=day; // 相加得到新的毫秒数
         return new Date(time); // 将毫秒数转换成日期
+    }
+
+    @RequestMapping("/selectProjectFile")
+    public ModelAndView selectMissionFile(String dataid){
+        ModelAndView model = new ModelAndView();
+        try {
+            Project project = projectService.selectDetail(dataid);
+            List<MissionFile> files = missionService.selectProjectFile(dataid);
+            model.addObject("file",files);
+            model.addObject("project",project);
+            model.setViewName("project/project_upload");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
     }
 }

@@ -52,6 +52,7 @@
 					<th width="60">项目负责人</th>
 					<th  width="60">状态</th>
 					<th width="60">项目进度</th>
+					<th width="70">附件</th>
 					<th width="100">操作</th>
 				</tr>
 			</thead>
@@ -82,6 +83,9 @@
 
 
 					<td class="td-time">${projectAll.progress}</td>
+					<td class="td-manage">
+						<a style="text-decoration:none" class="ml-5" onClick="picture_query('附件上传','<%=basePath%>/selectProjectFile?dataid=${projectAll.dataid}')"><i class="Hui-iconfont" style="font-size: 20px">&#xe636;</i></a>
+					</td>
 					<td class="td-manage">
 						<%--<a style="text-decoration:none" class="ml-5" onClick="picture_edit('详情','getContentCaseByContentId.do','${project.dataid}')" href="javascript:;" title="详情"><i class="Hui-iconfont">&#xe6df;</i></a>
 						--%><a style="text-decoration:none" class="ml-5 add" onClick="picture_del('创建任务','${projectAll.dataid}')" href="javascript:;" title="创建任务"><i class="Hui-iconfont">&#xe61f;</i></a>
@@ -131,7 +135,15 @@ $('.table-sort').dataTable({
 	  {"orderable":false,"aTargets":[0]}// 制定列不参与排序
 	]
 });
-
+/*案例-查看*/
+function picture_query(title,url){
+    var index = layer.open({
+        type: 2,
+        title: title,
+        content: url
+    });
+    layer.full(index);
+}
 function  article_save_submit() {
 
     var  id=$("#dataId").val();

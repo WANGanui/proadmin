@@ -2,7 +2,9 @@ package com.hrg.module.upload;
 
 import com.hrg.model.Mission;
 import com.hrg.model.MissionFile;
+import com.hrg.model.MissionFileCriteria;
 import com.hrg.service.MissionService;
+import com.hrg.util.ValidUtil;
 import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.io.FileUtils;
@@ -26,6 +28,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by 82705 on 2017/7/20.
@@ -49,8 +52,7 @@ public class UploadControllor {
      * @throws IllegalStateException
      */
     @RequestMapping(method = RequestMethod.POST, path = "/uploadfile")
-    public @ResponseBody Object  upload(@RequestParam(name = "modelPath", required = false) String modelPath,
-                       @RequestBody MultipartFile multiFile, HttpServletRequest request,String missionid) {
+    public @ResponseBody Object  upload(@RequestBody MultipartFile multiFile, String missionid,String projectid) {
         MultipartFile file=multiFile;
         Map map = new HashMap();
         boolean bool;
@@ -93,7 +95,11 @@ public class UploadControllor {
                 missionFile.setNameold(oldName);
                 missionFile.setPath(FilePath.replace("\\", "/"));
                 missionFile.setNamenew(newFileName);
-                missionFile.setMissionid(missionid);
+                if (projectid!=null){
+                    missionFile.setProjectid(projectid);
+                }else if (missionid!=null){
+                    missionFile.setMissionid(missionid);
+                }
                 bool =  missionService.insert(missionFile);
                 map.put("success",bool);
             } else {
@@ -112,14 +118,15 @@ public class UploadControllor {
             throws Exception {
         String filePath = request.getServletPath().replaceFirst("/upload/", "");
         File file = new File(rootPath, filePath);
-
+        String path = rootPath +"/"+ filePath;
         if (file.exists()) {
-            List<MissionFile> list;
-            String fileName = "";
-
-            // 设置下载文件的名称,如果想直接在想查看就注释掉，因为要是文件原名才能下载，不然就只能在浏览器直接浏览无法下载
-            response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
-
+            MissionFileCriteria example = new MissionFileCriteria();
+            example.setPath(path);
+            MissionFile missionFile = missionService.selectFIle(example);
+            if (!ValidUtil.isNullOrEmpty(missionFile)){
+                // 设置下载文件的名称,如果想直接在想查看就注释掉，因为要是文件原名才能下载，不然就只能在浏览器直接浏览无法下载
+                response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(missionFile.getNameold(), "UTF-8"));
+            }
             // 把文件输出到浏览器
             OutputStream os = response.getOutputStream();
             FileInputStream fs = new FileInputStream(file);
@@ -135,7 +142,7 @@ public class UploadControllor {
         }
     }
 
-    @RequestMapping(method = {RequestMethod.POST}, value = {""})
+   /* @RequestMapping(method = {RequestMethod.POST}, value = {""})
     @ResponseBody
     public void webUploader(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
@@ -241,8 +248,8 @@ public class UploadControllor {
             if (!ServletFileUpload.isMultipartContent(request)) {
                 return null;
             }
-            /*upload.setFileSizeMax(1024 * 102);
-            upload.setSizeMax(1024 * 1024 * 10);*/
+            *//*upload.setFileSizeMax(1024 * 102);
+            upload.setSizeMax(1024 * 1024 * 10);*//*
             List<FileItem> list = upload.parseRequest(request);
             for (FileItem item : list) {
                 if (item.isFormField()) {
@@ -283,7 +290,7 @@ public class UploadControllor {
             map.put("success",false);
         }
         return map;
-    }
+    }*/
 
     /**
      * @Method: makeFileName
@@ -317,5 +324,22 @@ public class UploadControllor {
             file.mkdirs();
         }
         return dir;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @RequestMapping("/filelist")
+    public ModelAndView selectFileList(){
+        ModelAndView model = new ModelAndView();
+        try {
+            List<MissionFile> missionFiles = missionService.selectMissionFileList(new MissionFileCriteria());
+            model.addObject("file",missionFiles);
+            model.setViewName("file/file_list");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
     }
 }
