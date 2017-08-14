@@ -384,4 +384,84 @@ logger.info("=================="+result);
         }
         return model;
     }
+
+    @RequestMapping("/projectReport")
+    public ModelAndView selectProjectReport(){
+        ModelAndView model = new ModelAndView();
+        try {
+            List<Project> projectList = projectService.selectProjectReport(new ProjectCriteria());
+            model.addObject("project",projectList);
+            model.setViewName("project/project_weekreport");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
+    }
+
+    @RequestMapping("/addProjectProgress")
+    public ModelAndView projectProgressList(HttpSession session){
+        ModelAndView model = new ModelAndView();
+        Worker worker = (Worker)session.getAttribute("worker");
+        try {
+            List<ProjectWeekReport> projectWeekReportList = projectService.selectReportList(worker.getDataid());
+            model.addObject("report",projectWeekReportList);
+            model.setViewName("project/project_worker_report");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
+    }
+
+    @RequestMapping("/addprojectreport")
+    public ModelAndView toaddprojectreport(HttpSession session){
+        ModelAndView model = new ModelAndView();
+        Worker worker = (Worker)session.getAttribute("worker");
+        try {
+            List<Project> projectList = projectService.selectProjectListByworker(worker.getDataid());
+            model.addObject("project",projectList);
+            model.setViewName("project/add_project_report");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
+    }
+
+    @RequestMapping("/addreport")
+    public @ResponseBody Object addreport(@RequestBody ProjectWeekReport projectWeekReport){
+        Map map = new HashMap();
+        try {
+            boolean bool = projectService.insertReport(null,projectWeekReport);
+            map.put("success",bool);
+        } catch (Exception e) {
+            map.put("success",false);
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @RequestMapping("/toupdatereport")
+    public ModelAndView toupdatereport(String dataid){
+        ModelAndView model = new ModelAndView();
+        try {
+            ProjectWeekReport report = projectService.selectReportdetail(dataid);
+            model.setViewName("project/edit_project_report");
+            model.addObject("report",report);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
+    }
+
+    @RequestMapping("/updatereport")
+    public @ResponseBody Object updatereport(@RequestBody ProjectWeekReport projectWeekReport){
+        Map map = new HashMap();
+        try {
+            boolean bool = projectService.updateReport(projectWeekReport);
+            map.put("success",bool);
+        } catch (Exception e) {
+            map.put("success",false);
+            e.printStackTrace();
+        }
+        return map;
+    }
 }

@@ -86,6 +86,12 @@
             <input type="text" name="name" lay-verify="title" width="200" autocomplete="off" value="" placeholder="请输入项目名称" class="layui-input">
         </div>
     </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">项目金额</label>
+        <div class="layui-input-block">
+            <input type="text" name="price" lay-verify="title" width="200" autocomplete="off" value="" placeholder="以万为单位" class="layui-input">
+        </div>
+    </div>
     <div class="layui-form-item" id="department">
 
         <label class="layui-form-label" style="width: 130px;">项目负责人部门</label>
@@ -310,6 +316,7 @@
                 title: '最终的提交信息'
             })*/
             var dataJson = {
+                price:data.field.price,
                 name:data.field.name,//项目名称
                 leaderid:leaderid,//项目负责人
                 leader:leader,
