@@ -60,10 +60,10 @@
                 <th width="70">名称</th>
                 <th width="70">账户</th>
                 <th width="100">电话</th>
-                <th width="60">状态</th>
                 <th  width="60">部门</th>
                 <th  width="100">备注</th>
                 <th  width="60">创建时间</th>
+                <th width="60">状态</th>
                 <th width="100">操作</th>
             </tr>
             </thead>
@@ -74,16 +74,17 @@
                     <td>${worker.name}</td>
                     <td>${worker.account}</td>
                     <td>${worker.phone}</td>
-                    <td class="td-status"><c:if test="${worker.state==1}">
-						<span class="label label-success radius">	已启用 </span>
-					</c:if>
-						<c:if test="${worker.state==0}">
-							<span class="label label-defaunt radius">	已关闭</span>
-						</c:if></td>
-
                     <td>${worker.department}</td>
                     <td>${worker.remark}</td>
                     <td class="td-time"><fmt:formatDate value="${worker.createtime}" pattern="yyyy-MM-dd" /></td>
+                    <td class="td-status">
+                        <c:if test="${worker.state==1}">
+                            <span class="label label-success radius">	已启用 </span>
+                        </c:if>
+                        <c:if test="${worker.state==0}">
+                            <span class="label label-defaunt radius">	已关闭</span>
+                        </c:if>
+                    </td>
                     <td class="td-manage">
                         <a style="text-decoration:none" class="ml-5 update" onClick="picture_query('修改员工','<%=basePath%>worker/editWorker?dataid=${worker.dataid}')"  href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe60c;</i></a>
                         <a style="text-decoration:none" class="ml-5 delete" onClick="picture_del('${worker.dataid}')"  href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>

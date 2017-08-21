@@ -40,7 +40,7 @@
     <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
     <%--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --%>
         <a class="btn btn-primary radius" onclick="picture_add('添加项目进度','<%=basePath%>addprojectreport')" href="javascript:;">
-            <i class="Hui-iconfont">&#xe600;</i> 添加项目进度</a>
+            <i class="Hui-iconfont">&#xe600;</i> 添加项目周报</a>
        </span>
     </div>
     <c:forEach items="${roles}" var="list">

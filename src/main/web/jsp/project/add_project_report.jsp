@@ -50,7 +50,7 @@
 
 
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend>工作日志</legend>
+    <legend>项目进度</legend>
 </fieldset>
 <form class="layui-form layui-form-pane" action="">
 
@@ -149,10 +149,10 @@
                 data : JSON.stringify(dataJson),
                 success : function(data) {
                     if (data.success) {
-                        layer.msg('添加项目进度成功' ,{time: 2000, icon:6});
+                        layer.msg('添加项目周报成功' ,{time: 2000, icon:6});
                         $("#but").hide();
                     } else {
-                        layer.msg('添加项目进度失败' ,{time: 2000, icon:5});
+                        layer.msg('添加项目周报失败，本周已添加！' ,{time: 2000, icon:5});
 
                     }
                 }

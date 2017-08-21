@@ -41,6 +41,10 @@
 	<c:forEach items="${roles}" var="list">
 		<input type="hidden" id="${list}" value="${list}">
 	</c:forEach>
+	<div style="margin-left: 40%">
+		<input class="btn radius btn-secondary" type="button" onclick="_go1()" value="上周项目周报">
+		<input class="btn radius btn-secondary" type="button" onclick="_go2()" value="本周项目周报">
+	</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort">
 			<thead>
@@ -106,6 +110,13 @@ $('.table-sort').dataTable({
 	  {"orderable":false,"aTargets":[0]}// 制定列不参与排序
 	]
 });
+function _go1(){
+    window.location.href="<%=basePath%>projectReport?lastweek=1";
+
+}
+function _go2(){
+    window.location.href="<%=basePath%>projectReport";
+}
 /*案例-查看*/
 function picture_query(title,url){
     var index = layer.open({

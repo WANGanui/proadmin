@@ -99,7 +99,8 @@
             <span id="sp"></span>
         </div>
         <div class="horizontal-line"></div>
-    </div>
+        <a style="text-decoration: none" href="https://www.baidu.com/link?url=rolZCS7MmpHMMEai-G5YUwivNRVeiOj0m3hg5KrMWVJTd4UChBvz0TNixx3Dv2cSOobl8fJy-azwzsE23YRjekfLHaBgkp3bl192LKUPBVa&wd=&eqid=9e783a1500002d060000000559964521"><span style="text-align: center;">&nbsp;&nbsp;&nbsp;推荐浏览器下载地址(部分浏览器存在兼容性问题)</span></a>
+        </div>
 </div>
 <div class="login-bottom"></div>
 </body>

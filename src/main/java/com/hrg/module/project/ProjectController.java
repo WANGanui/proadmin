@@ -3,6 +3,7 @@ package com.hrg.module.project;
 import com.hrg.model.*;
 import com.hrg.service.*;
 import com.hrg.util.JsonUtil;
+import com.hrg.util.ValidUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -386,10 +387,10 @@ logger.info("=================="+result);
     }
 
     @RequestMapping("/projectReport")
-    public ModelAndView selectProjectReport(){
+    public ModelAndView selectProjectReport(String lastweek){
         ModelAndView model = new ModelAndView();
         try {
-            List<Project> projectList = projectService.selectProjectReport(new ProjectCriteria());
+            List<Project> projectList = projectService.selectProjectReport(new ProjectCriteria(),lastweek);
             model.addObject("project",projectList);
             model.setViewName("project/project_weekreport");
         } catch (Exception e) {

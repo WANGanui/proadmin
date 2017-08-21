@@ -90,7 +90,7 @@ public class MissionController {
             logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
             example.setMissionstate("0");
             example.setState("2");
-            List<Mission> missions = missionService.selectList(example);
+            List<Mission> missions = missionService.selectList1(example,worker);
             List<String> missList = permissionService.selectList("22",roleid);
             logger.info("============任务列表查询成功=============");
             model.addObject("roles",missList);
@@ -112,7 +112,7 @@ public class MissionController {
             logger.info("============开始任务列表查询=============");
             logger.info("============入参【"+ JsonUtil.encode(example)+"】=============");
             example.setMissionstate("1");
-            List<Mission> missions = missionService.selectList(example);
+            List<Mission> missions = missionService.selectList1(example,worker);
             List<String> missList = permissionService.selectList("23",roleid);
             logger.info("============任务列表查询成功=============");
             model.addObject("roles",missList);
