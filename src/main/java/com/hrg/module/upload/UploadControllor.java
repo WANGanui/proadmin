@@ -1,9 +1,8 @@
 package com.hrg.module.upload;
 
-import com.hrg.model.Mission;
-import com.hrg.model.MissionFile;
-import com.hrg.model.MissionFileCriteria;
+import com.hrg.model.*;
 import com.hrg.service.MissionService;
+import com.hrg.util.DocConverter;
 import com.hrg.util.ValidUtil;
 import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.apache.commons.fileupload.FileItemFactory;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -142,6 +142,40 @@ public class UploadControllor {
         }
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/file_view")
+    public ModelAndView viewfile(HttpServletResponse response, HttpServletRequest request,String fileid, String filePath, HttpSession session) {
+        File file = new File(filePath);
+        ModelAndView model = new ModelAndView();
+        Worker worker = (Worker)session.getAttribute("worker");
+      try {
+
+              missionService.isread(worker,fileid);
+              DocConverter docConverter = new DocConverter(filePath);
+              docConverter.conver();
+              session.setAttribute("swfFilePath",docConverter.getswfPath());
+              model.setViewName("file/file_view");
+              model.addObject("swfFilePath",docConverter.getswfPath());
+
+      }catch (Exception e){
+          e.printStackTrace();
+      }
+        return model;
+    }
+
+    @RequestMapping("/file_isread")
+    public ModelAndView fileisread(String fileid){
+        ModelAndView mode = new ModelAndView();
+        FileOptionCriteria example = new FileOptionCriteria();
+        example.setFileid(fileid);
+        try {
+            List<FileOption> optionList = missionService.selectFileoption(example);
+            mode.setViewName("file/file_isread");
+            mode.addObject("optionList",optionList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mode;
+    }
    /* @RequestMapping(method = {RequestMethod.POST}, value = {""})
     @ResponseBody
     public void webUploader(HttpServletRequest request, HttpServletResponse response) throws Exception {

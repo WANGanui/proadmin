@@ -36,7 +36,7 @@
             background:#00FFFF;
         }
     </style>
-    <title>文件列表</title>
+    <title>项目列表</title>
     <style>
         textarea{
             border:0;
@@ -53,37 +53,38 @@
     </style>
 </head>
 <body onload="_onload()">
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 文件管理 <span class="c-gray en">&gt;</span> 文件列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+
 <div class="page-container">
 
 
-<c:forEach items="${roles}" var="list">
-    <input type="hidden" id="${list}" value="${list}">
-</c:forEach>
-<div class="mt-20">
-        <table class="table table-border table-bordered table-bg table-hover table-sort" id="table1">
-            <thead>
-            <tr class="text-c">
-                <th width="40">序号</th>
-                <th width="200">文件名称</th>
-                <th width="40">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${file}" var="item" varStatus="missionIndex1">
-                <tr class="text-c" >
-                    <td>${missionIndex1.index+1}</td>
-                    <td>${item.nameold}</td>
-                    <td class="td-manage">
-                       <%-- <a style="text-decoration:none" class="ml-5" href="${item.path}" title="下载"><i class="Hui-iconfont">&#xe640;</i></a>--%>
-                        <a style="text-decoration:none" class="ml-5" onClick="picture_query('文件预览','<%=basePath%>file_view?filePath=${item.path}&fileid=${item.dataid}')" title="文件预览"><i class="Hui-iconfont">&#xe695</i></a>
-                        <a style="text-decoration:none" class="ml-5" onClick="picture_query('查阅情况','<%=basePath%>file_isread?fileid=${item.dataid}')" title="查阅情况"><i class="Hui-iconfont">&#xe681</i></a>
-                    </td>
+    <c:forEach items="${roles}" var="list">
+        <input type="hidden" id="${list}" value="${list}">
+    </c:forEach>
+    <div class="mt-20">
+        <div id="div1" >
+            <table class="table table-border table-bordered table-bg table-hover table-sort" id="table1">
+                <thead>
+                <tr class="text-c">
+                    <th width="40">序号</th>
+                    <th width="200">姓名</th>
+                    <th width="40">是否已阅</th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-</div>
+                </thead>
+
+                <tbody>
+                <c:forEach items="${optionList}" var="item" varStatus="missionIndex1">
+                    <tr class="text-c" >
+                        <td>${missionIndex1.index+1}</td>
+                        <td>${item.workername}</td>
+                        <td class="td-status"><c:if test="${item.isread==0}"><span class="label label-success radius" style="background-color: #00a0e9">	未读 </span></c:if>
+                            <c:if test="${item.isread==1}"> <span class="label label-success radius">已读</span></c:if>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </div>
 

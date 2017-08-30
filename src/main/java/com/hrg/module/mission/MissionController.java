@@ -486,4 +486,11 @@ public class MissionController {
         }
         return map;
     }
+
+    @RequestMapping("/uploadfiles")
+    public ModelAndView fileupload(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("file/file_upload");
+        return modelAndView;
+    }
 }
