@@ -61,7 +61,7 @@ window.FlexPaperViewerEmbedding = window.$f = function(id, args) {
     if(_SWFFile!=null && _SWFFile.indexOf("{" )==0 && _SWFFile.indexOf("[*," ) > 0 && _SWFFile.indexOf("]" ) > 0){_SWFFile = escape(_SWFFile);} // split file fix
 
     window[instance] = flashembed(id, {
-        src						    : _jsDirectory+"‪/FlexPaperViewer.swf",
+        src						    : _jsDirectory+"/FlexPaperViewer.swf",
         version					    : [10, 0],
         expressInstall			    : "expressinstall.swf",
         wmode					    : _WMode
@@ -91,6 +91,8 @@ window.FlexPaperViewerEmbedding = window.$f = function(id, args) {
         StartAtPage 			: config.StartAtPage,
         PrintPaperAsBitmap		: (config.PrintPaperAsBitmap!=null)?config.PrintPaperAsBitmap:false,
         AutoAdjustPrintSize		: (config.AutoAdjustPrintSize!=null)?config.AutoAdjustPrintSize:false,
+        PrintEnabled            : (config.PrintEnabled!=null)?config.PrintEnabled:false,
+        PrintVisible            : (config.PrintVisible!=null)?config.PrintVisible:false,
 
         EnableCornerDragging 	: ((config.EnableCornerDragging!=null)?config.EnableCornerDragging:true), // FlexPaper Zine parameter
         BackgroundColor 		: config.BackgroundColor, // FlexPaper Zine parameter
@@ -360,16 +362,6 @@ function translateUrlByFormat(url,format){
 
         // Default to a rendering mode if its not set
         if(!conf.RenderingOrder && conf.SwfFile !=  null){conf.RenderingOrder = "flash";}
-
-        if(conf.RenderingOrder.indexOf('html5')==0){
-            if(confirm('FlexPaper GPL version does not support HTML5 rendering. Do you want to navigate to our download page for more details?')){location.href='http://flexpaper.devaldi.com/download.jsp'}
-            return;
-        }
-
-        if(conf.RenderingOrder.indexOf('html')==0){
-            if(confirm('FlexPaper GPL version does not support HTML4 rendering. Do you want to navigate to our download page for more details?')){location.href='http://flexpaper.devaldi.com/download.jsp'}
-            return;
-        }
 
         // version is ok
         if (f.isSupported(opts.version)) {

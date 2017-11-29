@@ -173,12 +173,10 @@ public class MissionController {
     @RequestMapping(value = "/updateState")
     public @ResponseBody Object updateState(@RequestBody Map map,HttpSession session){
         Worker worker = (Worker)session.getAttribute("worker");
-       Map resultMap=new HashMap();
+        Map resultMap=new HashMap();
          try {
-
              Mission mission=new Mission();
              mission.setDataid(map.get("dataId").toString());
-
              mission.setRemark(map.get("remark").toString());
              MissionAuditCriteria missionAuditCriteria = new MissionAuditCriteria();
              missionAuditCriteria.setMissionid(mission.getDataid());
@@ -376,7 +374,6 @@ public class MissionController {
         }
         return model;
     }
-
 
     @RequestMapping("/deleteMission")
     public @ResponseBody Object deleteMission(@RequestBody  Map remap){

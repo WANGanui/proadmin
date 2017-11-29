@@ -19,7 +19,7 @@ window.FlexPaperViewer = window.$f = function() {
 	
 			src: arguments[0]+".swf",
 			version: [10, 0],
-			expressInstall: "js/expressinstall.swf"
+			expressInstall: "expressinstall.swf"
 		},{
 			SwfFile : config.SwfFile,
 			Scale : config.Scale, 
@@ -45,7 +45,8 @@ window.FlexPaperViewer = window.$f = function() {
 			NavToolsVisible : config.NavToolsVisible,
 			CursorToolsVisible : config.CursorToolsVisible,
 			SearchToolsVisible : config.SearchToolsVisible,
-			  
+			PrintEnabled       : config.PrintEnabled,
+        	PrintVisible       : config.PrintVisible,
 			RenderingOrder : config.RenderingOrder,
 			  
 			localeChain : config.localeChain,

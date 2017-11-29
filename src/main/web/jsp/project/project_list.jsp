@@ -47,6 +47,7 @@
 				<tr class="text-c">
 					<th width="40">序号</th>
 					<th width="140">项目名称</th>
+					<th width="140">项目金额（元）</th>
 					<th width="100">开始时间</th>
 					<th width="100">预计结束时间</th>
 					<th width="60">项目负责人</th>
@@ -62,6 +63,7 @@
 
 					<td>${projectIndex.index+1}</td>
 					<td onclick="queryDetaila('${projectAll.dataid}')" style="text-decoration:underline">${projectAll.name}</td>
+					<td>￥${projectAll.price}</td>
 					<td class="td-time"><fmt:formatDate value="${projectAll.starttime}" pattern="yyyy-MM-dd" /></td>
 					<td class="td-time"><fmt:formatDate value="${projectAll.endtime}" pattern="yyyy-MM-dd" /></td>
 					<td>${projectAll.leader}</td>

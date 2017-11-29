@@ -82,7 +82,18 @@
 			</div>
 		</div>
 
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">项目金额：</label>
+			<div class="formControls col-xs-8 col-sm-9">
 
+				<input type="text" style='border-left:0px;border-top:0px;border-right:0px;border-bottom:1px ' readonly class="input-text" value="￥${project.price}元" placeholder="" >
+				<%--
+				<select id="province_id" name="province_id" multiple="multiple" size="10" style="width: 150px;">
+					<option value="0" selected="">选择人员</option>
+
+				</select>--%>
+			</div>
+		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">分配人员：</label>
 			<div class="formControls col-xs-8 col-sm-9">

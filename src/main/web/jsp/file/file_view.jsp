@@ -18,8 +18,8 @@
     <meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/flexpaper.css">
     <script type="text/javascript" src="<%=basePath%>js/jquery.js"></script>
-    <script type="text/javascript" src="<%=basePath%>js/flexpaper_handlers.js"></script>
-    <script type="text/javascript" src="<%=basePath%>js/flexpaper_handlers_debug.js"></script>
+    <%--<script type="text/javascript" src="<%=basePath%>js/flexpaper_handlers.js"></script>
+    <script type="text/javascript" src="<%=basePath%>js/flexpaper_handlers_debug.js"></script>--%>
     <script type="text/javascript" src="<%=basePath%>js/flexpaper.js"></script>
     <script type="text/javascript" src="<%=basePath%>js/flexpaper_flash.js"></script>
     <script type="text/javascript" src="<%=basePath%>js/flexpaper_flash_debug.js"></script>
@@ -66,6 +66,10 @@
                 NavToolsVisible:true,
                 CursorToolsVisible:true,
                 SearchToolsVisible:true,
+                PrintToolsVisible : false,
+                PrintEnabled:false,
+                PrintVisible:true,
+                PrintPaperAsBitmap:false,
                 localeChain:'en_US'}
             });
     </script>

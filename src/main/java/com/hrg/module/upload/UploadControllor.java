@@ -148,7 +148,6 @@ public class UploadControllor {
         ModelAndView model = new ModelAndView();
         Worker worker = (Worker)session.getAttribute("worker");
       try {
-
               missionService.isread(worker,fileid);
               DocConverter docConverter = new DocConverter(filePath);
               docConverter.conver();
@@ -365,15 +364,24 @@ public class UploadControllor {
      * @return
      */
     @RequestMapping("/filelist")
-    public ModelAndView selectFileList(){
+    public ModelAndView selectFileList(HttpSession session){
         ModelAndView model = new ModelAndView();
+        Worker worker = (Worker)session.getAttribute("worker");
         try {
-            List<MissionFile> missionFiles = missionService.selectMissionFileList(new MissionFileCriteria());
+            List<MissionFile> missionFiles = missionService.selectFileList(new MissionFileCriteria(),worker);
             model.addObject("file",missionFiles);
             model.setViewName("file/file_list");
         } catch (Exception e) {
             e.printStackTrace();
         }
         return model;
+    }
+
+    @RequestMapping("/shumu")
+    public  @ResponseBody Object shumu(Object object){
+        System.out.print(object.toString());
+        Map map = new HashMap();
+        map.put("success","success");
+        return map;
     }
 }

@@ -39,8 +39,8 @@ public class NoticeController {
         try {
             logger.info("==============开始查询公告列表=============");
             Worker worker = (Worker) session.getAttribute("worker");
-           Map map=new HashMap();
-           map.put("workerid",worker.getDataid());
+            Map map=new HashMap();
+            map.put("workerid",worker.getDataid());
             List<Map> noticeList = noticeService.selectNoticeWork(map);
             List<String> missList = permissionService.selectList("13",roleid);
             logger.info("==============查询公告列表成功==============");

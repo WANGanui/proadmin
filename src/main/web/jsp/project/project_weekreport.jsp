@@ -62,7 +62,7 @@
 				<tr class="text-c">
 					<td>${projectIndex.index+1}</td>
 					<td onclick="queryDetaila('${projectAll.dataid}')" style="text-decoration:underline">${projectAll.name}</td>
-					<td>${projectAll.price}万</td>
+					<td>${projectAll.price}</td>
 					<td>${projectAll.weekcontext}</td>
 					<td>${projectAll.plan}</td>
 					<td>${projectAll.leader}</td>
