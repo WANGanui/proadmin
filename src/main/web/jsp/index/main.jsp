@@ -33,7 +33,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>HRG项目管理系统</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
-
+	<style>
+		.chan_iframe{
+			-webkit-overflow-scrolling: touch;
+			overflow-y: scroll;
+			position: fixed;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			top: 0;
+			overflow: auto;
+		}
+		.chan_iframe iframe{
+			height: 100%;
+			width: 100%;
+		}
+	</style>
 </head>
 <body>
 <header class="navbar-wrapper">
@@ -123,11 +138,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div class="Hui-tabNav-more btn-group"><a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d4;</i></a><a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d7;</i></a></div>
 	</div>
-	<div id="iframe_box" class="Hui-article" style="width: 100%">
-		<div class="show_iframe">
-			<div style="display:none" class="loading"></div>
+	<div id="iframe_box" class="Hui-article"  style="width: 100%">
+		<div class="show_iframe chan_iframe!" >
+			<div style="display: none" class="loading"></div>
 			<%--<iframe scrolling="yes" frameborder="0" src="<%=basePath%>worker/selectIndex?dataid=${worker.dataid}"></iframe>--%>
-			<iframe scrolling="yes" frameborder="0" src="<%=basePath%>worker/selectIndex?dataid=${worker.dataid}"></iframe>
+			<iframe scrolling="yes" frameborder="0"  src="<%=basePath%>worker/selectIndex?dataid=${worker.dataid}"></iframe>
 		</div>
 	</div>
 	<%--<div id="iframe_box1"  style="width: 40%;margin-left: 60%;height: 720px;" >

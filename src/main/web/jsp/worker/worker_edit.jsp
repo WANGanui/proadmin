@@ -139,7 +139,7 @@
 <script src="<%=basePath%>js/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    function  queryTwoBarand() {
+    /*function  queryTwoBarand() {
 
         var select = document.getElementsByName("ment");
         var province_ids="";
@@ -189,7 +189,7 @@
             }
         });
         return false;
-    };
+    };*/
     layui.use(['form', 'layedit', 'laydate'], function(){
         var form = layui.form()
             ,layer = layui.layer

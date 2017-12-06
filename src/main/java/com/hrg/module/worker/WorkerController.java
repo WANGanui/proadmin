@@ -277,7 +277,7 @@ public class WorkerController {
     public @ResponseBody Object updateWorker(@RequestBody Worker worker){
         Map map = new HashMap();
         try {
-            if (worker.getState().equals("on"))
+            if (worker.getState()!=null)
                 worker.setState("1");
             else {
                 worker.setState("0");
