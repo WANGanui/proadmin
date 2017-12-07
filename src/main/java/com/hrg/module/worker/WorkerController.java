@@ -153,6 +153,7 @@ public class WorkerController {
         }
         return jr;
     }
+
     @ResponseBody
     @RequestMapping("/password")
     public ModelAndView password(String userID){
@@ -199,7 +200,6 @@ public class WorkerController {
     @RequestMapping(value = "/list" ,method = RequestMethod.GET)
     public ModelAndView workerList( WorkerCriteria example,String roleid){
         ModelAndView model = new ModelAndView();
-
         try {
             logger.info("============查询员工列表入参：【"+JsonUtil.encode(example)+"】==============");
             List<Worker> workerList = workerService.selectList(example);
