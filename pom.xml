@@ -15,7 +15,7 @@
         <servlet>3.0.1</servlet>
         <jackson>2.7.3</jackson>
         <shiro>1.2.4</shiro>
-        <apache_shiro>1.2.4</apache_shiro>
+        <apache_shiro>1.6.0</apache_shiro>
         <!-- 配置属性 -->
         <project_version>1.0.0</project_version>
         <java_version>1.7</java_version>
